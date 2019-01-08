@@ -222,8 +222,11 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-
-
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>5.0.2.Final</version>
+		</dependency>
 
 	</dependencies>
 	<build>

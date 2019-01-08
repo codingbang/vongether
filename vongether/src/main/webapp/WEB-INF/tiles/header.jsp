@@ -57,8 +57,8 @@
       
     </ul>
     <form class="header-member">
-      <a href="" class="raise btn btn-small btn-line btn-approve header-btn">로그인</a>
-      <a href="" class="raise btn btn-small btn-line btn-approve header-btn">회원가입</a>
+      <a href="/user/member/login.do" class="raise btn btn-small btn-line btn-approve header-btn">로그인</a>
+      <a href="/member/join.do" class="raise btn btn-small btn-line btn-approve header-btn">회원가입</a>
     </form>
   </div>
 </nav>

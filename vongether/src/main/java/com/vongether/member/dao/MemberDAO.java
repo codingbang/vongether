@@ -1,5 +1,7 @@
 package com.vongether.member.dao;
 
-public interface MemberDAO {
+import com.vongether.member.model.MemberVO;
 
+public interface MemberDAO {
+   int insert(MemberVO memberVo);
 }
