@@ -36,7 +36,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link raise" href="#">홈</a>
+        <a class="nav-link raise" href="/">홈</a>
       </li>
       <li class="nav-item">
         <a class="nav-link raise" href="#">소개</a>
@@ -46,9 +46,7 @@
           봉사참여
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">지도목록</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">참여가능한 봉사목록</a>
+          <a class="dropdown-item" href="/volunteer/list.do">참여가능한 봉사목록</a>
         </div>
       </li>
       <li class="nav-item">
