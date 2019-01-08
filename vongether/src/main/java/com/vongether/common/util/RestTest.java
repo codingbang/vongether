@@ -50,9 +50,16 @@ public class RestTest {
         jo = (JsonObject) parser.parse(sb.toString());
         jo = jo.getAsJsonObject("response");
         jo = jo.getAsJsonObject("body");
-        jo = jo.getAsJsonObject("items");
-        ja = jo.getAsJsonArray("item");
-       // System.out.println(ja);
+
+        if(jo.get("totalCount").getAsInt() == 1) {
+        	jo = jo.getAsJsonObject("items");
+        	jo = jo.getAsJsonObject("item");
+        	ja.add(jo);
+        }else {
+        	jo = jo.getAsJsonObject("items");
+        	ja = jo.getAsJsonArray("item");
+        }
+        
         rd.close();
         conn.disconnect();
 	}
