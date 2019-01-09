@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <style>
   .nav-bg {
     background-color: #08468C;
@@ -54,9 +56,21 @@
       </li>
       
     </ul>
-    <form class="header-member">
-      <a href="/user/member/login.do" class="raise btn btn-small btn-line btn-approve header-btn">로그인</a>
-      <a href="/member/join.do" class="raise btn btn-small btn-line btn-approve header-btn">회원가입</a>
-    </form>
+    <c:choose>
+        <c:when test="${userInfo != null }">
+        <form class="header-member">
+            <a href="/member/logout.do" class="raise btn btn-small btn-line btn-approve header-btn">로그아웃</a>
+            <a href="#" class="raise btn btn-small btn-line btn-approve header-btn">마이페이지</a>
+        </form>
+        </c:when>
+        <c:otherwise>
+        <form class="header-member">
+            <a href="/member/login.do" class="raise btn btn-small btn-line btn-approve header-btn">로그인</a>
+            <a href="/member/join.do" class="raise btn btn-small btn-line btn-approve header-btn">회원가입</a>
+        </form>
+        </c:otherwise>
+    </c:choose>
+    
+    
   </div>
 </nav>
