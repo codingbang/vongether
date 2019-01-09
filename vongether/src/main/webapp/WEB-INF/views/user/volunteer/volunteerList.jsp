@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 .explanation {
 	font-size: 13px;
@@ -9,6 +10,148 @@
 </style>
 <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
 <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+<script>
+$(function(){
+    $('#progrmBgnde').datepicker({
+        uiLibrary: 'bootstrap4',
+       	format: 'yyyy-mm-dd'
+    });
+    $('#progrmEndde').datepicker({
+        uiLibrary: 'bootstrap4',
+       	format: 'yyyy-mm-dd'
+    });
+    
+    var jsonData = {
+    	progrmBgnde	: '',
+    	progrmEndde : '',
+    	pageNo	: '',
+    	keyword	: '',
+    	schCateGu	: '',
+    	schSido	: '',
+    	schSign1 : ''
+	};
+    
+    
+    getVolunteerList(jsonData);
+    
+    $(document).on("change", "#schSido", function(){
+    	var str = $("#schSido option:selected").text();
+    	var htmlStr = "";
+    	if (str == '전체') {
+    		htmlStr += '<option value="">선택</option>';
+    		$("#schSign1").empty();
+	    	$("#schSign1").append(htmlStr);
+		} else {
+	    	$.ajax({
+	    		url : "/volunteer/ajaxGugun.do",
+	    		dataType : "json",
+	    		data : {
+	        		param : str
+	        	},
+	    		contentType: "application/json; charset=UTF-8",
+	    		method : "GET",
+	    	    success : function(data) {
+	    	    	
+	    	    	htmlStr += '<option value="">선택</option>';
+	    	    	
+	    	    	for (var i = 0; i < data.length; i++) {
+	    	    		htmlStr += '<option value="' + data[i].gugunCd +'">' + data[i].gugunNm +'</option>';
+					}
+	    	    	$("#schSign1").empty();
+	    	    	$("#schSign1").append(htmlStr);
+	    	    }
+	    	});
+		}
+    	
+    	
+    });
+    
+    $(document).on("click", "#searchBtn", function(){
+    	var progrmBgnde = $("#progrmBgnde").val().replace(/-/g, "");
+    	var progrmEndde = $("#progrmEndde").val().replace(/-/g, "");
+    	var pageNo = $("#pageNo").val();
+    	var keyword = $("#keyword").val();
+    	var schCateGu = $("#schCateGu option:selected").val();
+    	var schSido = $("#schSido option:selected").val();
+    	var schSign1 = $("#schSign1 option:selected").val();
+    	
+    	//schSign1 : schSign1
+    	jsonData = {
+   			progrmBgnde	: progrmBgnde,
+   	    	progrmEndde : progrmEndde,
+   	    	pageNo : pageNo,
+   	    	keyword : keyword,
+   	    	schCateGu : schCateGu,
+   	    	schSido	: schSido,
+   	    	schSign1 : schSign1
+    	}
+    	
+    	if (progrmBgnde != '' && progrmEndde == '' || progrmBgnde == '' && progrmEndde != '') {
+    		alert("봉사기간 검색 조건을 확인 해주세요.");
+		} else if (Number(progrmBgnde) > Number(progrmEndde)) {
+    		alert("봉사종료일자 보다 봉사시작일자가 더 느립니다.");
+		} else {
+	    	getVolunteerList(jsonData);
+		}
+    	
+    });
+  
+    
+    
+    function getVolunteerList(jsonParam) {
+    	$.ajax({
+    		url : "/volunteer/ajaxlist.do",
+    		dataType : "json",
+    		data : jsonParam,
+    		contentType: "application/json; charset=UTF-8",
+    		method : "GET",
+    	    success : function(data) {
+    	    	makeVolunteerList(data);
+    	    }
+    	});
+    }
+
+	function makeVolunteerList(data) {
+		var htmlStr = "";
+
+		if (data != null) {
+			for (var i = 0; i < data.length; i++) {
+				var state = data[i].progrmSttusSe;
+				var stateString;
+				if (state == 1) {
+					stateString = '모집대기';
+				} else if(state == 2) {
+					stateString = '모집중';
+				} else {
+					stateString = '모집완료';
+				}
+	    		htmlStr += '<tr>';
+	    		htmlStr += '	<td class="nanmmby_nm">';
+	    		htmlStr += '		<span>' + data[i].nanmmbyNm + '</span>';
+	    		htmlStr += '	</td>';
+	    		htmlStr += '	<td class="volunteer_title">';
+	    		htmlStr += '		<div class="vol_tit">';
+	    		htmlStr += '			<a id="' + data[i].progrmRegistNo + '" title="' + data[i].progrmSj + '" href="#">';
+	    		htmlStr += '				<span>' + data[i].progrmSj + '</span>';
+	    		htmlStr += '			</a>';
+	    		htmlStr += '		</div>';
+	    		htmlStr += '	</td>';
+	    		htmlStr += '	<td class="company_info">';
+	    		htmlStr += '		<p>' + data[i].progrmBgnde + ' ~  ' + data[i].progrmEndde + '</p>';
+	    		htmlStr += '	</td>';
+	    		htmlStr += '	 <td class="support_info">';
+	    		htmlStr += '		<p>' + stateString + '</p>';
+	    		htmlStr += '	</td>';
+	    		htmlStr += '</tr>';
+	    	}
+		}
+    	$("#volunteerListBody").empty();
+    	$("#volunteerListBody").append(htmlStr);
+	}
+			
+});
+</script>
 
 <div class="my-container">
 	<!-- main-content-box -->
@@ -31,7 +174,7 @@
 					<div class="row"><label for="searchHopeArea1">봉사지역</label></div>
 					<div class="row">
 						<div class="col-6">
-							<select id="searchHopeArea1" name="searchHopeArea1" title="봉사지역 시/도 선택" class="custom-select">
+							<select id="schSido" title="봉사지역 시/도 선택" class="custom-select">
 								<option value="">전체</option>
 								<option value="6110000">서울특별시</option>
 								<option value="6260000">부산광역시</option>
@@ -53,11 +196,8 @@
 							</select>
 						</div>
 						<div class="col-6">
-							<select id="searchHopeArea2" name="searchHopeArea2" title="봉사지역 구/군 선택" class="custom-select">
-								<option value="0000000">선택</option>
-								<option value="0000001">가짜강남구</option>
-								<option value="0000002">가짜서초구</option>
-								<option value="0000003">가짜구로구</option>
+							<select id="schSign1" title="봉사지역 구/군 선택" class="custom-select">
+								<option value="">선택</option>
 							</select>
 						</div>
 					</div>
@@ -68,25 +208,15 @@
 					<div class="row">봉사기간</div>
 					<div class="row">
 						<div class="col-5">
-							<input id="datepicker1" width="280" />
+							<input id="progrmBgnde" width="280" />
 						</div>
 						<div class="col-1" align="center">
 							~
 						</div>
 						<div class="col-5">
-							<input id="datepicker2" width="280" />
+							<input id="progrmEndde" width="280" />
 						</div>
 					</div>
-					<script>
-				        $('#datepicker1').datepicker({
-				            uiLibrary: 'bootstrap4',
-				           	format: 'yyyy-mm-dd'
-				        });
-				        $('#datepicker2').datepicker({
-				            uiLibrary: 'bootstrap4',
-				           	format: 'yyyy-mm-dd'
-				        });
-				    </script>
 				</div>
 			</div>
 		
@@ -94,7 +224,13 @@
 				<div class="col-12 form-group">
 					<div class="row">봉사제목</div>
 					<div class="row">
-						<input type="text" class="form-control" id="query" name="query" placeholder="검색어를 입력해주세요.">
+						<select id="schCateGu" class="custom-select">
+							<option value="all">전체</option>
+							<option value="progrmCn">내용</option>
+							<option value="prormSj">제목</option>
+						</select>
+						
+						<input type="text" class="form-control" id="keyword" name="query" placeholder="검색어를 입력해주세요.">
 					</div>
 				</div>
 			</div>
@@ -104,6 +240,9 @@
 					<button class="btn btn-outline-primary btn-lg" type="button" id="searchBtn">검색</button>
 				</div>
 			</div>
+			
+			<input type="hidden" id="pageNo" value="1">
+			
 		
 		</div>
 		
@@ -147,8 +286,6 @@
     					</tr>
 					</tbody>
     			</table>
-			
-			
 			</div>
 		</div>
 		

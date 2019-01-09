@@ -14,11 +14,10 @@ import com.google.gson.JsonParser;
 public class RestCode {
 	public JsonArray ja;
 	
-	public RestCode(String schSido,String schGugun) throws IOException {
+	public RestCode(String schSido) throws IOException {
 		 StringBuilder urlBuilder = new StringBuilder("http://openapi.1365.go.kr/openapi/service/rest/CodeInquiryService/getAreaCodeInquiryList"); /*URL*/
 	        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=서비스키"); /*Service Key*/
 	        urlBuilder.append("&" + URLEncoder.encode("schSido","UTF-8") + "=" + URLEncoder.encode(schSido, "UTF-8")); /**/
-	        urlBuilder.append("&" + URLEncoder.encode("schGugun","UTF-8") + "=" + URLEncoder.encode(schGugun, "UTF-8")); /**/
 	        urlBuilder.append("&" + URLEncoder.encode("_type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /**/
 	        URL url = new URL(urlBuilder.toString());
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();

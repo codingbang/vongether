@@ -5,6 +5,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Map;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -13,21 +15,37 @@ import com.google.gson.JsonParser;
 public class RestTest {
 	
 	public JsonArray ja;
-	public RestTest() throws IOException {
-		StringBuilder urlBuilder = new StringBuilder("http://openapi.1365.go.kr/openapi/service/rest/VolunteerPartcptnService/getVltrSearchWordList"); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=서비스키"); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("progrmBgnde","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*봉사시작일자20121015*/
-        urlBuilder.append("&" + URLEncoder.encode("progrmEndde","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*봉사종료일자*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
-        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
-        urlBuilder.append("&" + URLEncoder.encode("totalCount","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*전체 결과 수 */
-        urlBuilder.append("&" + URLEncoder.encode("Keyword","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*봉사참여 제목*/
-        urlBuilder.append("&" + URLEncoder.encode("schCateGu","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*전체/내용/제목 all/progrmCn/prormSj*/
-        urlBuilder.append("&" + URLEncoder.encode("schSido","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*코드조회서비스-지역코드조회 결과값*/
-        urlBuilder.append("&" + URLEncoder.encode("schSign1","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*코드조회서비스-지역코드조회 결과값*/
-        urlBuilder.append("&" + URLEncoder.encode("_type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*프로그램등록번호*/
+	public static final String VOLUNTEERPARTCPTN_API_URL = "http://openapi.1365.go.kr/openapi/service/rest/VolunteerPartcptnService/getVltrSearchWordList";
+	
+	public RestTest(Map<String, String> param) throws IOException {
+	  
+	  StringBuilder queryUrl = new StringBuilder();
+      String progrmBgnde = param.get("progrmBgnde"); //봉사시작일자 20121015
+      String progrmEndde = param.get("progrmEndde"); //봉사종료일자
+      String numOfRows = "10"; //한 페이지 결과 수
+      String pageNo = param.get("pageNo"); //페이지 번호
+      //String totalCount = param.get("totalCount"); //전체 결과 수
+      String keyword = param.get("keyword"); //봉사 참여 제목
+      String schCateGu = param.get("schCateGu"); //키필드 전체/내용/제목 all/progrmCn/prormSj
+      String schSido = param.get("schSido"); //코드조회서비스-지역코드조회 결과값
+      String schSign1 = param.get("schSign1"); //코드조회서비스-지역코드조회 결과값
+      //String _type = param.get("json"); //결과 값 타입 지정
+      
+      queryUrl.append(VOLUNTEERPARTCPTN_API_URL);
+      queryUrl.append("?progrmBgnde=" + URLEncoder.encode(progrmBgnde.replaceAll(" ", ""), "UTF-8"));
+      queryUrl.append("&progrmEndde=" + URLEncoder.encode(progrmEndde.replaceAll(" ", ""), "UTF-8"));
+      queryUrl.append("&numOfRows=" + URLEncoder.encode(numOfRows.replaceAll(" ", ""), "UTF-8"));
+      queryUrl.append("&pageNo=" + URLEncoder.encode(pageNo.replaceAll(" ", ""), "UTF-8"));
+      //queryUrl.append("&totalCount=" + URLEncoder.encode(totalCount.replaceAll(" ", ""), "UTF-8"));
+      queryUrl.append("&keyword=" + URLEncoder.encode(keyword.replaceAll(" ", ""), "UTF-8"));
+      queryUrl.append("&schCateGu=" + URLEncoder.encode(schCateGu.replaceAll(" ", ""), "UTF-8"));
+      queryUrl.append("&schSido=" + URLEncoder.encode(schSido.replaceAll(" ", ""), "UTF-8"));
+      queryUrl.append("&schSign1=" + URLEncoder.encode(schSign1.replaceAll(" ", ""), "UTF-8"));
+      queryUrl.append("&_type=" + URLEncoder.encode("json", "UTF-8"));
 
-        URL url = new URL(urlBuilder.toString());
+      System.out.println(queryUrl);
+      
+        URL url = new URL(queryUrl.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
