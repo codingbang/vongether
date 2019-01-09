@@ -9,15 +9,22 @@ import com.vongether.member.model.MemberVO;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-  
+
   @Autowired
   private SqlSession sqlsesssion;
-  
-  
+
+
   @Override
-  public int insert(MemberVO memberVo) {
-    
-    return sqlsesssion.getMapper(MemberDAO.class).insert(memberVo);
+  public int insert(MemberVO memberVO) throws Exception {
+
+    return sqlsesssion.getMapper(MemberDAO.class).insert(memberVO);
+  }
+
+
+  @Override
+  public int loginCheck(MemberVO memberVO) throws Exception {
+  
+    return sqlsesssion.getMapper(MemberDAO.class).loginCheck(memberVO);
   }
 
 }
