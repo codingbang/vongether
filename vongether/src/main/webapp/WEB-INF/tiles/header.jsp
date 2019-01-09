@@ -28,7 +28,7 @@
 
 </style>
 <nav class="navbar navbar-expand-lg nav-bg">
-  <a class="navbar-brand" href="#">봉사어때</a>
+  <a class="navbar-brand" href="/">봉사어때</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
