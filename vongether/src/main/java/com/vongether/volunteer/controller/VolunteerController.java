@@ -1,5 +1,6 @@
 package com.vongether.volunteer.controller;
 
+import java.io.IOException;
 import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.vongether.common.util.RestCode;
+import com.vongether.common.util.RestDetail;
 import com.vongether.common.util.RestTest;
+import com.vongether.volunteer.model.VolunteerVO;
 
 @Controller
 @RequestMapping("/volunteer")
@@ -44,7 +48,24 @@ public class VolunteerController {
     return (new Gson()).toJson(rc.ja);
   }
   
-  
-  
+  @RequestMapping(value="/detail.do", method=RequestMethod.GET)
+  public String volunteerDetail(@RequestParam String num, Model model) {
+      RestDetail rd=null;
+      try {
+          rd = new RestDetail(num);
+      } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+      }
+      VolunteerVO vo = new VolunteerVO();
+      
+      Gson gson =  new Gson();
+      vo = gson.fromJson(rd.jo, VolunteerVO.class);
+      model.addAttribute("vo",vo);
+      //System.out.println("volunteerDetail :: "+vo.toString());
+      
+      
+      return "volunteer/volunteerDetail.page";
+  }
 
 }

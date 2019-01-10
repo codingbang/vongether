@@ -142,7 +142,7 @@ $(function(){
 				htmlStr += '<div class="col-md-4 text-center">';
 				htmlStr += '	<div class="blog-inner">';
 				htmlStr += '		<div class="desc">';
-				htmlStr += '			<h4><b><a id="' + data[i].progrmRegistNo + '" href="#">' + data[i].progrmSj + '</a></b></h4>';
+				htmlStr += '			<h4><b><a id="' + data[i].progrmRegistNo + '" href="./detail.do?num='+data[i].progrmRegistNo+'">' + data[i].progrmSj + '</a></b></h4>';
 				htmlStr += '			<p>' + data[i].nanmmbyNm + '</p>';
 				htmlStr += '			<p>' + data[i].progrmBgnde + ' ~  ' + data[i].progrmEndde + '</p>';
 				
@@ -177,8 +177,7 @@ $(function(){
 				} else {
 					stat.css("color","red");
 				}
-				
-				
+
 	    	}
 		}
     	$("#volunteerListDiv").empty();

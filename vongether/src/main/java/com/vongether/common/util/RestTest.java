@@ -22,7 +22,7 @@ public class RestTest {
 	  StringBuilder queryUrl = new StringBuilder();
       String progrmBgnde = param.get("progrmBgnde"); //봉사시작일자 20121015
       String progrmEndde = param.get("progrmEndde"); //봉사종료일자
-      String numOfRows = "10"; //한 페이지 결과 수
+      String numOfRows = "9"; //한 페이지 결과 수
       String pageNo = param.get("pageNo"); //페이지 번호
       //String totalCount = param.get("totalCount"); //전체 결과 수
       String keyword = param.get("keyword"); //봉사 참여 제목

@@ -1,17 +1,26 @@
 package com.vongether.member.controller;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.vongether.member.dao.MemberDAO;
+import com.google.gson.Gson;
 import com.vongether.member.model.MemberVO;
+import com.vongether.member.model.PostVO;
 import com.vongether.member.service.MemberService;
 
 @Controller
@@ -27,7 +36,7 @@ public class MemberController {
 
   }
 
-  @RequestMapping(value = "/user/member/join.do", method = RequestMethod.POST)
+  @RequestMapping(value = "/join.do", method = RequestMethod.POST)
   @ResponseBody
   public Map<String, String> join(@RequestBody MemberVO memberVO) throws Exception {
 
@@ -44,7 +53,6 @@ public class MemberController {
 
   @RequestMapping(value = "/login.do", method = RequestMethod.POST)
   public String login(MemberVO memberVO, HttpSession session, Model model) throws Exception {
-    System.out.println("여긴");
     int result = memberService.loginCheck(memberVO);
     model.addAttribute("result", result);
     model.addAttribute("memberVO", memberVO);
@@ -52,11 +60,9 @@ public class MemberController {
     if (result == 1) {
 
       session.setAttribute("userInfo", memberVO);
-      System.out.println("로그인 성공");
       return "redirect:/";
     } else {
       session.invalidate();
-      System.out.println("로그인 안됨");
       return "redirect:/login.page";
     }
 
@@ -65,8 +71,91 @@ public class MemberController {
   @RequestMapping(value = "/logout.do")
   public String logout(HttpSession session) {
     session.invalidate();
-    System.out.println("로그아웃했지");
     return "redirect:/";
   }
 
+  public static final String ZIPCODE_API_KEY = "3a167b364799b7ff01545215585606";
+  public static final String ZIPCODE_API_URL = "https://biz.epost.go.kr/KpostPortal/openapi";
+  
+  @RequestMapping(value = "postcodelist", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+  public @ResponseBody String postCodeList(@RequestParam Map<String, String> param) throws Exception {
+    
+      Map<String, Object> paramMap = new HashMap<String, Object>();
+      StringBuilder queryUrl = new StringBuilder();
+      String query = param.get("query");
+      int currentPage = Integer.parseInt(param.get("currentPage"));
+
+      queryUrl.append(ZIPCODE_API_URL);
+      queryUrl.append("?regkey=");
+      queryUrl.append(ZIPCODE_API_KEY);
+      queryUrl.append("&target=");
+      queryUrl.append("postNew");
+      queryUrl.append("&query=");
+      queryUrl.append(URLEncoder.encode(query.replaceAll(" ", ""), "EUC-KR"));
+      queryUrl.append("&countPerPage=");
+      queryUrl.append("10");
+      queryUrl.append("&currentPage=");
+      queryUrl.append(currentPage);
+      
+      Document document = Jsoup.connect(queryUrl.toString()).get();
+      String errorCode = document.select("error_code").text();
+      
+      int totalCount;
+      int totalPage;
+      int countPerPage;
+      
+      if(null == errorCode || "".equals(errorCode)) {
+          Elements pageInfoElement = document.select("pageinfo");
+          
+          totalCount = Integer.parseInt(pageInfoElement.select("totalCount"). text());
+          totalPage = Integer.parseInt(pageInfoElement.select("totalPage").text())-1;
+          countPerPage = Integer.parseInt(pageInfoElement.select("countPerPage").text());
+
+    
+          if (totalCount % countPerPage > 0) {
+              totalPage++;
+          }
+
+          if (totalPage < currentPage) {
+              currentPage = totalPage;
+          }
+
+          int startPage = ((currentPage - 1) / countPerPage) * countPerPage + 1;
+          int endPage = startPage + countPerPage - 1;
+          
+          if (endPage > totalPage) {
+              endPage = totalPage;
+          }
+          
+          
+          Elements itemElements = document.select("item");
+          List<PostVO> list = new ArrayList<PostVO>();
+          PostVO postVO = null;
+          
+          for(Element element : itemElements){
+            postVO = new PostVO();
+            postVO.setZipcode(element.select("postcd").text());
+            postVO.setAddress(element.select("address").text());
+            list.add(postVO);
+          }
+          paramMap.put("postlist", list);
+          paramMap.put("totalCount", totalCount);
+          paramMap.put("totalPage", totalPage);
+          paramMap.put("countPerPage", countPerPage);
+          paramMap.put("currentPage", currentPage);
+          paramMap.put("startPage", startPage);
+          paramMap.put("endPage", endPage);
+      }else{
+          String errorMessage = document.select("message").text();
+          paramMap.put("errorCode", errorCode);
+          paramMap.put("errorMessage", errorMessage);
+      }
+      
+      
+      // Gson형태로 paramMap 리턴
+      return (new Gson()).toJson(paramMap);
+
+  }
+  
+  
 }
