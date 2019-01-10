@@ -43,13 +43,11 @@ public class RestTest {
       queryUrl.append("&schSign1=" + URLEncoder.encode(schSign1.replaceAll(" ", ""), "UTF-8"));
       queryUrl.append("&_type=" + URLEncoder.encode("json", "UTF-8"));
 
-      System.out.println(queryUrl);
       
         URL url = new URL(queryUrl.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode());
         BufferedReader rd;
         if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
             rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));

@@ -34,12 +34,10 @@ public class VolunteerController {
   
   @RequestMapping(value="/ajaxGugun.do", method=RequestMethod.GET)
   public @ResponseBody String gugunListAjax(@RequestParam String param) {
-    System.out.println(param);
     
     RestCode rc = null;
     try {
       rc = new RestCode(param);
-      System.out.println(rc.ja);
     } catch (Exception e) {
       e.printStackTrace();
     }
