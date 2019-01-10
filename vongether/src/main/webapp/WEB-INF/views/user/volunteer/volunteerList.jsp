@@ -1,24 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <style>
-.explanation {
-	font-size: 13px;
-	font-weight: bold;
+#searchSection{
+	padding-bottom: 80px;
+}
+.line {
+	border-bottom: 3px solid black;
+}
+
+.red {
+	color: red;
+}
+
+.blue {
+	color: blue;
+}
+
+.orange {
+	color: orange;
 }
 
 </style>
-<script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
-<link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-
 <script>
 $(function(){
     $('#progrmBgnde').datepicker({
-        uiLibrary: 'bootstrap4',
+        uiLibrary: 'bootstrap3',
        	format: 'yyyy-mm-dd'
     });
     $('#progrmEndde').datepicker({
-        uiLibrary: 'bootstrap4',
+        uiLibrary: 'bootstrap3',
        	format: 'yyyy-mm-dd'
     });
     
@@ -119,62 +133,79 @@ $(function(){
 			for (var i = 0; i < data.length; i++) {
 				var state = data[i].progrmSttusSe;
 				var stateString;
+				var color;
+				
+				
+				if (i%3 == 0) {
+					htmlStr += '<div class="row">';
+				}
+				htmlStr += '<div class="col-md-4 text-center">';
+				htmlStr += '	<div class="blog-inner">';
+				htmlStr += '		<div class="desc">';
+				htmlStr += '			<h4><b><a id="' + data[i].progrmRegistNo + '" href="./detail.do?num='+data[i].progrmRegistNo+'">' + data[i].progrmSj + '</a></b></h4>';
+				htmlStr += '			<p>' + data[i].nanmmbyNm + '</p>';
+				htmlStr += '			<p>' + data[i].progrmBgnde + ' ~  ' + data[i].progrmEndde + '</p>';
+				
+				
 				if (state == 1) {
 					stateString = '모집대기';
+					color = 'orange';
 				} else if(state == 2) {
 					stateString = '모집중';
+					color = 'blue';
 				} else {
 					stateString = '모집완료';
+					color = 'red';
 				}
-	    		htmlStr += '<tr>';
-	    		htmlStr += '	<td class="nanmmby_nm">';
-	    		htmlStr += '		<span>' + data[i].nanmmbyNm + '</span>';
-	    		htmlStr += '	</td>';
-	    		htmlStr += '	<td class="volunteer_title">';
-	    		htmlStr += '		<div class="vol_tit">';
-	    		htmlStr += '			<a id="' + data[i].progrmRegistNo + '" title="' + data[i].progrmSj + '" href="#">';
-	    		htmlStr += '				<span>' + data[i].progrmSj + '</span>';
-	    		htmlStr += '			</a>';
-	    		htmlStr += '		</div>';
-	    		htmlStr += '	</td>';
-	    		htmlStr += '	<td class="company_info">';
-	    		htmlStr += '		<p>' + data[i].progrmBgnde + ' ~  ' + data[i].progrmEndde + '</p>';
-	    		htmlStr += '	</td>';
-	    		htmlStr += '	 <td class="support_info">';
-	    		htmlStr += '		<p>' + stateString + '</p>';
-	    		htmlStr += '	</td>';
-	    		htmlStr += '</tr>';
+				
+				htmlStr += '			<p class="'+ color +'">' + stateString + '</p>';
+				htmlStr += '			<p><a href="#" class="btn btn-primary btn-outline with-arrow" program-code="' + data[i].progrmRegistNo + '">Read More<i class="icon-arrow-right"></i></a></p>';
+				htmlStr += '		</div>';
+				htmlStr += '	</div>';
+				htmlStr += '</div>';
+				
+				
+				if (i%3 == 2) {
+					htmlStr += '</div>';
+				}
+				
+				var stat = $(".stat_"+data[i].progrmSttusSe);
+				if (state == 1) {
+					stat.css("color","orange");
+				} else if(state == 2) {
+					stat.css("color","green");
+				} else {
+					stat.css("color","red");
+				}
+
 	    	}
 		}
-    	$("#volunteerListBody").empty();
-    	$("#volunteerListBody").append(htmlStr);
+    	$("#volunteerListDiv").empty();
+    	$("#volunteerListDiv").append(htmlStr);
 	}
 			
 });
 </script>
 
-<div class="my-container">
-	<!-- main-content-box -->
-	<div class="main-content-box">
-	
-		<!-- 봉사조회(헤더) -->
+
+
+
+<div id="fh5co-blog-section">
+	<div class="container">
 		<div class="row">
-			<img src="/resources/user/img/tit_service.png">
-			<div>
-				<h3>봉사조회</h3>
-				<label class="explanation">원하는 조건을 선택하여 전국 자원봉사 정보를 조회 하실 수 있습니다.</label>
+			<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+				<h2>봉사참여</h2>
+				<p><span>여러분의 <i class="sl-icon-heart"></i> 따뜻한 손길을 내밀어 주세요</span></p>
 			</div>
 		</div>
-		
-		
-		<div class="row">
-		
-			<div class="row col-12">
-				<div class="col-6 form-group">
-					<div class="row"><label for="searchHopeArea1">봉사지역</label></div>
-					<div class="row">
-						<div class="col-6">
-							<select id="schSido" title="봉사지역 시/도 선택" class="custom-select">
+		<div class="row line"></div>
+		<div id="searchSection" class="col-md-12 col-sm-12 col-sm-push-0 col-xs-12 col-xs-push-0">
+			<div class="row">
+				<div class="row"><label for="searchHopeArea1">봉사지역</label></div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<select id="schSido" title="봉사지역 시/도 선택" class="form-control">
 								<option value="">전체</option>
 								<option value="6110000">서울특별시</option>
 								<option value="6260000">부산광역시</option>
@@ -195,102 +226,67 @@ $(function(){
 								<option value="6500000">제주특별자치도</option>
 							</select>
 						</div>
-						<div class="col-6">
-							<select id="schSign1" title="봉사지역 구/군 선택" class="custom-select">
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<select id="schSign1" title="봉사지역 구/군 선택" class="form-control">
 								<option value="">선택</option>
 							</select>
 						</div>
 					</div>
 				</div>
-				
-				
-				<div class="col-6 form-group">
-					<div class="row">봉사기간</div>
-					<div class="row">
-						<div class="col-5">
-							<input id="progrmBgnde" width="280" />
+			</div>
+			
+			<div class="row">
+				<div class="row"><label for="searchTermArea">봉사기간</label></div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input id="progrmBgnde" class="form-control" width="550"/>
 						</div>
-						<div class="col-1" align="center">
-							~
-						</div>
-						<div class="col-5">
-							<input id="progrmEndde" width="280" />
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<input id="progrmEndde" class="form-control" width="550"/>
 						</div>
 					</div>
 				</div>
 			</div>
-		
-			<div class="row col-12">
-				<div class="col-12 form-group">
-					<div class="row">봉사제목</div>
-					<div class="row">
-						<select id="schCateGu" class="custom-select">
-							<option value="all">전체</option>
-							<option value="progrmCn">내용</option>
-							<option value="prormSj">제목</option>
-						</select>
-						
-						<input type="text" class="form-control" id="keyword" name="query" placeholder="검색어를 입력해주세요.">
+			
+			<div class="row">
+				<div class="row"><label for="searchKeyArea">검색내용</label></div>
+				<div class="row">
+					<div class="col-md-2">
+						<div class="form-group">
+							<select id="schCateGu" class="form-control">
+								<option value="all">전체</option>
+								<option value="progrmCn">내용</option>
+								<option value="prormSj">제목</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-9">
+						<div class="form-group">
+							<input type="text" class="form-control" id="keyword" name="query" placeholder="검색어를 입력해주세요.">
+						</div>
+					</div>
+					<div class="col-md-1">
+						<div class="form-group">
+							<input id="searchBtn" value="검색" class="btn btn-primary btn-bg" type="button" width="100">
+						</div>
 					</div>
 				</div>
 			</div>
-			
-			<div class="row col-12" align="center">
-				<div class="col-12 form-group btn-container">
-					<button class="btn btn-outline-primary btn-lg" type="button" id="searchBtn">검색</button>
-				</div>
-			</div>
-			
-			<input type="hidden" id="pageNo" value="1">
-			
-		
+			<div class="row line"></div>
 		</div>
+		<div class="row">
+			<div id="volunteerListDiv">
 		
-		
-		<div class="row col-12">
-			<div class="col-12">
-			
-				<table summary="봉사 리스트">
-			        <colgroup>
-			            <col width="15%">
-			            <col width="*">
-			            <col width="10%">
-			            <col width="10%">
-			        </colgroup>
-        			<thead>
-				        <tr>
-				            <th scope="col">지역</th>
-				            <th scope="col">제목</th>
-				            <th scope="col">봉사기간</th>
-				            <th scope="col">모집상태</th>
-				        </tr>
-        			</thead>
-        			<tbody id="volunteerListBody">
-        				<tr>
-        					<td class="nanmmby_nm">
-       							<span>경기도 의정부시</span>
-    						</td>
-    						<td class="volunteer_info">
-						        <div class="vol_tit">
-						         	<a id="programcode11" title="[OO요양원] 어르신 활동보조 및 프로그램 진행보조" href="#">
-						         		<span>[OO요양원] 어르신 활동보조 및 프로그램 진행보조</span>
-						         	</a>
-						        </div>
-						    </td>
-						    <td class="company_info">
-	                            <p>2018-10-10 ~  2019-01-09</p>
-		                    </td>
-		                    <td class="support_info">
-						       	<p>모집중</p>
-						    </td>
-    					</tr>
-					</tbody>
-    			</table>
 			</div>
 		</div>
 		
-		
+		<input type="hidden" id="pageNo" value="1">
 	</div>
-	<!-- main-content-box End -->
 </div>
+
 
