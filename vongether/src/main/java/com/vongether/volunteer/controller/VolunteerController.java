@@ -61,6 +61,9 @@ public class VolunteerController {
       
       Gson gson =  new Gson();
       vo = gson.fromJson(rd.jo, VolunteerVO.class);
+      if(vo.getMnnstNm().length()==0) {
+    	  vo.setMnnstNm("정보없음");
+      }      
       model.addAttribute("vo",vo);
       //System.out.println("volunteerDetail :: "+vo.toString());
       
