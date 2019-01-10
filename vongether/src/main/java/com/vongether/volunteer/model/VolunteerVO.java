@@ -31,6 +31,8 @@ public class VolunteerVO {
 	
 	private int appTotal;//신청인원수
 	
+	private int totalCount;
+	
 	@Override
 	public String toString() {
 		return "VolunteerVO [actBeginTm=" + actBeginTm + ", actEndTm=" + actEndTm + ", progrmBgnde=" + progrmBgnde
@@ -267,5 +269,14 @@ public class VolunteerVO {
 	public void setAppTotal(int appTotal) {
 		this.appTotal = appTotal;
 	}
+
+    public int getTotalCount() {
+      return totalCount;
+    }
+  
+    public void setTotalCount(int totalCount) {
+      this.totalCount = totalCount;
+    }
+	
 		
 }
