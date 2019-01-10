@@ -33,16 +33,20 @@ public class MemberController {
   @RequestMapping(value = "/join.do", method = RequestMethod.GET)
   public String join() {
     return "member/join.page";
-
   }
 
   @RequestMapping(value = "/join.do", method = RequestMethod.POST)
   @ResponseBody
   public Map<String, String> join(@RequestBody MemberVO memberVO) throws Exception {
 
-    int cnt = memberService.insert(memberVO);
-
+    /// 가입전 유효성 체크
+    
+    
+    
+    int result = memberService.insert(memberVO);
+    
     Map<String, String> map = new HashMap<String, String>();
+    map.put("isSuccess", "true");
     return map;
   }
 
@@ -53,15 +57,16 @@ public class MemberController {
 
   @RequestMapping(value = "/login.do", method = RequestMethod.POST)
   public String login(MemberVO memberVO, HttpSession session, Model model) throws Exception {
-    int result = memberService.loginCheck(memberVO);
-    model.addAttribute("result", result);
-    model.addAttribute("memberVO", memberVO);
-
+    int result = memberService.checkId(memberVO.getmId());
+    
     if (result == 1) {
-
+      model.addAttribute("result", result);
+      model.addAttribute("memberVO", memberVO);
       session.setAttribute("userInfo", memberVO);
       return "redirect:/";
-    } else {
+    }
+    // 실패했을 경우
+    else {
       session.invalidate();
       return "redirect:/login.page";
     }
@@ -73,7 +78,14 @@ public class MemberController {
     session.invalidate();
     return "redirect:/";
   }
+  
 
+  @ResponseBody
+  @RequestMapping(value = "/idCheck", method= RequestMethod.GET)
+  public int checkId(@RequestParam("mId") String mId) throws Exception{
+    return memberService.checkId(mId);
+  }
+  
   public static final String ZIPCODE_API_KEY = "3a167b364799b7ff01545215585606";
   public static final String ZIPCODE_API_URL = "https://biz.epost.go.kr/KpostPortal/openapi";
   

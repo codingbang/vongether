@@ -15,7 +15,7 @@ CREATE TABLE `file` (
 	`f_orgname`	VARCHAR(255)	NOT NULL,
 	`f_sysname`	VARCHAR(255)	NOT NULL,
 	`f_size`	BIGINT	NOT NULL,
-	`b_no`	INTEGER	NOT NULL,
+	`b_no`	INTEGER NULL,
 	`m_id`	VARCHAR(255)	NOT NULL
 );
 
