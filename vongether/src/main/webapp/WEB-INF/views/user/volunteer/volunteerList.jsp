@@ -132,7 +132,7 @@ $(function(){
 	    		htmlStr += '	</td>';
 	    		htmlStr += '	<td class="volunteer_title">';
 	    		htmlStr += '		<div class="vol_tit">';
-	    		htmlStr += '			<a id="' + data[i].progrmRegistNo + '" title="' + data[i].progrmSj + '" href="#">';
+	    		htmlStr += '			<a id="' + data[i].progrmRegistNo + '" title="' + data[i].progrmSj + '" href=./detail.do?num='+data[i].progrmRegistNo+'>';
 	    		htmlStr += '				<span>' + data[i].progrmSj + '</span>';
 	    		htmlStr += '			</a>';
 	    		htmlStr += '		</div>';

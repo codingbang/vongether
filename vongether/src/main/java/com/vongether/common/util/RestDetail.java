@@ -20,10 +20,10 @@ public class RestDetail {
 	public JsonObject jo;
 	
 	
-	public RestDetail() throws IOException {
+	public RestDetail(String num) throws IOException {
 		 StringBuilder urlBuilder = new StringBuilder("http://openapi.1365.go.kr/openapi/service/rest/VolunteerPartcptnService/getVltrPartcptnItem"); /*URL*/
 	        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=서비스키"); /*Service Key*/
-	        urlBuilder.append("&" + URLEncoder.encode("progrmRegistNo","UTF-8") + "=" + URLEncoder.encode("2405977", "UTF-8")); /*프로그램등록번호*/
+	        urlBuilder.append("&" + URLEncoder.encode("progrmRegistNo","UTF-8") + "=" + URLEncoder.encode(num, "UTF-8")); /*프로그램등록번호*/
 	        urlBuilder.append("&" + URLEncoder.encode("_type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*프로그램등록번호*/
 	        URL url = new URL(urlBuilder.toString());
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
