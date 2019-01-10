@@ -8,6 +8,7 @@
 
 	<typeAliases>
 		<typeAlias alias="TestVO" type="com.vongether.test.model.TestVO"></typeAlias>
+		<typeAlias alias="BoardVO" type="com.vongether.board.model.BoardVO"></typeAlias>
 	</typeAliases>
 
 

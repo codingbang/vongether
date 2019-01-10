@@ -52,7 +52,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link raise" href="#">커뮤니티</a>
+        <a class="nav-link raise" href="board/list.do">커뮤니티</a>
       </li>
       
     </ul>

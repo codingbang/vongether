@@ -6,7 +6,7 @@
 <mapper namespace="com.vongether.dao.TestDao">
 
 	<select id="test">
-		SELECT * FROM TEST;
+		SELECT * FROM TEST
 	</select>
 
 </mapper>
