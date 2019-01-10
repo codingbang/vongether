@@ -55,12 +55,20 @@ $(document).ready(function() {
 					<span class="articleViewId">
 						${article.mId}
 					</span>
-					<span  class="articleViewHitcount">
-						조회수 ${article.bHitcount} 
-					</span>
-					<span class="articleViewRegdate" >
-						${article.bRegdate}
-					</span>
+					<div class="articleViewTitleRightBox" >
+						<span class="articleViewRegdate" >
+							${article.bRegdate}
+						</span>
+						<span  class="articleViewHitcount">
+							조회수 ${article.bHitcount} 
+						</span>
+						<span class="articleViewUpdateBtn" >
+							수정
+						</span>
+						<span class="articleViewRemoveBtn" >
+							삭제
+						</span>
+					</div>
 				</div>
 				
 				<div class="col-12 articleViewContentBox">
