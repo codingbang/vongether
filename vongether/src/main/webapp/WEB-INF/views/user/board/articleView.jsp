@@ -49,7 +49,7 @@ $(document).ready(function() {
 				</h2>
 			</div>
 
-			<div class="row">
+			<div class="row ">
 				<div class="col-12 articleViewTitleBox">
 					<span style="">${article.bTitle}</span>
 					<span class="articleViewId">
@@ -63,7 +63,12 @@ $(document).ready(function() {
 					</span>
 				</div>
 				
-				<div class="col-12">${article.bContent}</div>
+				<div class="col-12 articleViewContentBox">
+					<span>${article.bContent}</span>
+				</div>
+				<div class="col-12 articleViewReplyBox">
+					
+				</div>
 			</div>
 
 			<div class="row">
