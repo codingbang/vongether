@@ -22,9 +22,15 @@ public class MemberServiceImpl implements MemberService {
 
 
   @Override
-  public int loginCheck(MemberVO memberVO) throws Exception {
+  public int checkId(String mId) throws Exception {
   
-    return sqlsesssion.getMapper(MemberDAO.class).loginCheck(memberVO);
+    return sqlsesssion.getMapper(MemberDAO.class).checkId(mId);
+  }
+
+
+  @Override
+  public MemberVO selectOne(String mId) throws Exception {
+    return sqlsesssion.getMapper(MemberDAO.class).selectOne(mId);
   }
 
 }

@@ -8,12 +8,18 @@
 	<insert id="insert">
 		insert into member
 		( m_id, m_name, m_gender, m_birth, m_pwd, m_postcode, m_addr1, m_addr2, m_role )
-		values( #{mId}, #{mName}, #{mGender}, #{mBirth}, #{mPwd}, #{mPostcode}, #{mAddr1}, #{mAddr2}, #{mRole})
+		values( #{mId}, #{mName}, #{mGender}, #{mBirth}, #{mPwd}, #{mPostcode}, #{mAddr1}, #{mAddr2}, "ROLE_USER")
 	</insert>
 
-    <select id="loginCheck" resultType="int">
+    <select id="checkId" parameterType="String" resultType="int">
         select count(*) from member
-        where m_id = #{mId} and m_pwd = #{mPwd}
+        where m_id = #{mId}
     </select>
+    
+    <select id="selectOne" parameterType="String" resultType="MemberVO">
+        select * from member
+        where m_id = #{mId}
+    </select>
+    
 
 </mapper>

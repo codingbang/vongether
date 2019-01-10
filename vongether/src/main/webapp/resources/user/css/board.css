@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+
+.articleViewId {
+	border-left: 2px solid #999999; 
+	padding-left: 3px;
+}
+.articleViewRegdate{
+	color : #999999; 
+	font-size: 8px;
+	padding-right: 5px;
+	/* padding-top: 5px; */
+}
+.articleViewHitcount{
+	font-size: 12px;
+	padding-right: 5px;
+}
+.articleViewUpdateBtn{
+	font-size : 14px;
+}
+.articleViewRemoveBtn{
+	font-size : 14px;
+	margin-left : 3px;
+	padding-left : 3px;
+	border-left: 2px solid #999999; 
+}
+.articleViewTitleRightBox{
+	float : right;
+}
+.articleViewTitleBox{
+	margin-bottom : 10px;
+	padding: 5px;
+	
+	border-bottom: 2px solid #999999; 
+}
+.articleViewContentBox{
+	padding: 5px;
+	border-bottom: 2px solid #999999; 
+}
