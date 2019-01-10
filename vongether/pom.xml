@@ -222,9 +222,34 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
+        <!-- 데이터 유효성 검사 -->
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>5.0.2.Final</version>
+		</dependency>
 
+        <!-- 데이터 파싱 >> 주소검색 이용 -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.8.3</version>
+        </dependency>
+        
+        <!-- 메일 인증 -->
+        <dependency>
+	       <groupId>javax.mail</groupId>
+	       <artifactId>mail</artifactId>
+	       <version>1.4.7</version>
+		</dependency>
 
-
+        <!-- 메일 인증 연관 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>
