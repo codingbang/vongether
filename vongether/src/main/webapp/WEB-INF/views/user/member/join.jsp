@@ -112,46 +112,6 @@
 									</div>
 								</div>
 								
-								<div class="form-group">
-									<div class="row">
-										<div class="col-lg-2">
-											<label class="control-label">전화번호</label>
-										</div>
-										<div class="col-lg-2">
-											<span class='select_form first'>
-	                                            <select id="hp1" class="form-control" name="hp1" title="휴대폰번호 앞자리 선택">
-	                                                <option value="">선택</option>
-	                                                <option value="010" >010</option>
-	                                                <option value="011" >011</option>
-	                                                <option value="016" >016</option>
-	                                                <option value="017" >017</option>
-	                                                <option value="018" >018</option>
-	                                                <option value="019" >019</option>
-	                                            </select>
-	                                        </span>
-										</div>
-										<div class="col-lg-1" align="center">
-											<span class="symbol">-</span>
-										</div>
-										
-										<div class="col-lg-2">
-											<span class="input_text tel1">
-                                            	<input type="tel" id="hp2" name="hp2" class="form-control" title="휴대폰번호 중간 3자리 또는 4자리 입력" maxlength="4" value=""/>
-                                        	</span>
-										</div>
-										
-										<div class="col-lg-1" align="center">
-											<span class="symbol">-</span>
-										</div>
-										
-										<div class="col-lg-2">
-											<span class="input_text tel2">
-                                            	<input type="tel" id="hp3" name="hp3" class="form-control" title="휴대폰번호 마지막 4자리 입력" maxlength="4" value="" />
-                                        	</span>
-										</div>
-										<div class="col-lg-2"></div>
-									</div>
-								</div>
 								
 								
 								<div class="form-group">
