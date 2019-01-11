@@ -25,4 +25,15 @@ public class BoardServiceImpl implements BoardService {
 		
 		return sqlSession.getMapper(BoardDAO.class).selectBoardArticle(bNo);
 	}
+
+	@Override
+	public int writeBoardArticle(BoardVO boardVO) {
+		//int bNo = sqlSession.getMapper(BoardDAO.class).selectNextArticleNo(boardVO);
+		sqlSession.getMapper(BoardDAO.class).insertBoardArticle(boardVO);
+		return 1;
+	}
+	@Override
+	public void updateBoardArticle(BoardVO boardVO) {
+		sqlSession.getMapper(BoardDAO.class).updateBoardArticle(boardVO);
+	}
 }

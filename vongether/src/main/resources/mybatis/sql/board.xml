@@ -14,7 +14,7 @@
 	  <result property="rCount" column="r_count"/>
 	</resultMap>
 	
-	<select id="selectBoardList" parameterType="map" resultMap="boardResultMap">
+	<select id="selectBoardList" resultMap="boardResultMap">
 		SELECT b.b_no, b.b_title, b.b_hitcount, DATE_FORMAT(b.b_regdate,'%Y-%m-%d') b_regdate, b.m_id, r.r_count
 		FROM board b
 		LEFT JOIN (select r.b_no, count(r.r_no) r_count from reply r) r
@@ -44,4 +44,36 @@
 		FROM board b
 		WHERE b_no = #{bNo}
 	</select>
+	
+	<insert id="insertBoardArticle" parameterType="BoardVO">
+		INSERT INTO board (b_title, b_content, m_id)
+		VALUE(#{bTitle},#{bContent},#{mId})
+	</insert>
+	<update id="updateBoardArticle" parameterType="BoardVO">
+		UPDATE board
+		SET b_title = #{bTitle}, b_content = #{bContent}
+		WHERE b_no=#{bNo};
+	</update>
+	
+	
+	
+	<!-- <select id="selectNextArticleNo" parameterType="BoardVO" resultMap="boardResultMap">
+		SELECT MAX(b_no)+1 b_no
+		FROM board
+	</select>
+	<insert id="insertBoardArticle" parameterType="BoardVO">
+		INSERT INTO board (b_title, b_content, m_id)
+		VALUE(#{bTitle},#{bContent},#{mId})
+		
+	</insert>
+	<insert id="writeArticle" parameterType="reboardDto">
+		insert all
+		into board (seq, name, id, email, subject, content, hit, logtime, bcode)
+		values(#{seq}, #{name}, #{id}, #{email}, #{subject}, #{content}, 0,
+		sysdate, #{bcode})
+		into reboard(rseq, seq, ref, lev, step, pseq, reply)
+		values(reboard_rseq.nextval, #{seq}, #{ref}, 0, 0, 0, 0)
+		select * from dual
+
+	</insert> -->
 </mapper>

@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="/resources/user/css/index.css">
 <link rel="stylesheet" href="/resources/user/css/board.css">
 <script type="text/javascript">
-
 $(document).ready(function() {
 
 	/* $("#firstpage").click(
@@ -31,18 +30,32 @@ $(document).ready(function() {
 			$("#commonForm").attr("method", "get").attr(
 					"action", listpath).submit();
 		}); */
-/* 		$(".posting").click(
+ 		$(".writeCancelBtn").click(
 			function(){
-				$("#bNo").val($(this).attr("b-no"));
+				alert("글작성이 취소되었습니다.");
 				$("#commonForm").attr("method", "get").attr(
 						"action", "/view.bit").submit();	
-		}); */
-		$(".articleViewUpdateBtn").click(
+		}); 
+		
+		
+ 		$(".writeOKBtn").click(
 			function(){
-				var bNo = $("#bNo").val();
-				location.href="/board/update.do?bNo="+bNo;
-			}		
-		);
+				var writeTitleBox = $("#writeTitleBox").val();
+				var writeContentBox = $("#writeContentBox").val();
+				console.log(writeTitleBox);
+				if(writeTitleBox == ""){
+					alert("제목을 입력하세요");
+					return;
+				}else if(writeContentBox == ""){
+					alert("내용을 입력하세요");
+					return;
+				}else{
+					alert("글이 등록되었습니다");
+			 		document.updateForm.action = "/board/update.do"; 
+					document.updateForm.submit();
+				}
+		}); 
+		
 })
 </script>
 <div class="my-container">
@@ -55,40 +68,25 @@ $(document).ready(function() {
 				</h2>
 				<div ></div>
 			</div>
-
-			<div class="row ">
-				<div class="col-12 articleViewTitleBox">
-					<input type="hidden" id="bNo" value="${article.bNo }">
-					<span style="">${article.bTitle}</span>
-					<span class="articleViewId">
-						${article.mId}
-					</span>
-					<div class="articleViewTitleRightBox" >
-						<span class="articleViewRegdate" >
-							${article.bRegdate}
-						</span>
-						<span  class="articleViewHitcount">
-							조회수 ${article.bHitcount} 
-						</span>
-						<span class="articleViewUpdateBtn" >
-							수정
-						</span>
-						<span class="articleViewRemoveBtn" >
-							삭제
-						</span>
+			<form id="updateForm" name="updateForm" method="post" action="" style="margin: 0px">
+				<div class="row ">
+					<input type="hidden" id="bNo" name="bNo" value="${article.bNo}"/>
+					<div class="col-12">
+						<input id="writeTitleBox" name="bTitle" class="writeTitleBox" value="">
+							${article.bTitle}
+						</input>
+					</div>
+					<div class="col-12" >
+						<input id="writeContentBox" name="bContent" class="writeContentBox" value="">
+							${article.bContent}
+						</input>
 					</div>
 				</div>
-				
-				<div class="col-12 articleViewContentBox">
-					<span>${article.bContent}</span>
+				<div class="row writeBtnBox">
+					<span class="col-offset-4 col-2 viewWriteBtn writeOKBtn">수정</span>
+					<span class="col-2 viewWriteBtn writeCancelBtn">취소</span>
 				</div>
-				<div class="col-12 articleViewReplyBox">
-					
-				</div>
-			</div>
-
-			<div class="row">
-			</div>
+			</form>
 		</div>
 		<!-- row1 End -->
 	</div>

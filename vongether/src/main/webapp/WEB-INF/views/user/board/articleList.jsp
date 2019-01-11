@@ -2,17 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="/resources/user/css/index.css">
-<%-- <c:set var="pg" value="${param.pg }"/>
-<c:set var="key" value="${param.key }"/>
-<c:set var="word" value="${param.word }"/> --%>
-<%--
-  <input type="hidden" id="pg" name="pg" value="${pg}">
-  <input type="hidden" id="key" name="key" value="${key}">
-  <input type="hidden" id="word" name="word" value="${word}">
---%>
-<form id="commonForm" action="" method="get">
-	<input type="hidden" id="bNo" name="bNo" value="">
-</form> 
+
 <script type="text/javascript">
 $(document).ready(function() {
 	/* $("#firstpage").click(
@@ -47,6 +37,7 @@ $(document).ready(function() {
 		});
 	$(".writeBtn").click(
 		function(){
+			$("#bNo").val($(this).attr("b-no"));
 			$("#commonForm").attr("method", "get").attr(
 				"action", "/board/write.do").submit();
 		}		
@@ -79,37 +70,14 @@ $(document).ready(function() {
 	             <c:forEach var="list" items="${selectBoardList}">
 						<tr>
 	                     <td>${list.bNo}</td>
-	                     <td class="posting" b-no="${list.bNo}">${list.bTitle}</td>
+	                     <td><a href="/board/view.do?bNo=${list.bNo}">${list.bTitle}</a></td>
+	                     <%-- <td class="posting" b-no="${list.bNo}"><a href="/board/view.do?bNo=${list.bNo}">${list.bTitle}</a></td> --%>
 	                     <td>${list.mId}</td>
 	                     <td>${list.bRegdate}</td>
 	                     <td>${list.bHitcount}</td>
 	                     <td>${list.rCount}</td>
 	                 </tr>
 			     </c:forEach>
-	                 <tr>
-	                     <td>1</td>
-	                     <td>제목이 짧은 제목</td>
-	                     <td>OK</td>
-	                     <td>15:21</td>
-	                     <td>123</td>
-	                     <td>7</td>
-	                 </tr>
-	                 <tr>
-	                     <td>2</td>
-	                     <td>제목이 길고 긴 제목</td>
-	                     <td>admin</td>
-	                     <td>11-20</td>
-	                     <td>456</td>
-	                     <td>7</td>
-	                 </tr>
-	                 <tr>
-	                     <td>3</td>
-	                     <td>제목이 길고 길며 더 긴 제목</td>
-	                     <td>user</td>
-	                     <td>2018-12-31</td>
-	                     <td>789</td>
-	                     <td>7</td>
-	                 </tr>
 	             </tbody>
 	            
 	             
