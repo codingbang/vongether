@@ -208,10 +208,12 @@
 						</div>
 						<div class="row">
 							<div class="form-group">
-								<div class="col-lg-3 col-lg-offset-9">
+								<div class="col-lg-4 col-lg-offset-9">
 	                                <input type="hidden" class="form-control" id="m_role" name="m_role" >
-									<button class="btn btn-danger"type="reset">취소</button>
+									<button class="btn btn-danger" type="reset">초기화</button>
 									<input id="joinBtn" type="button" class="btn btn-primary" value="가입하기" disabled>
+								    <button class="btn btn-info" onclick="back();">취소</button>
+								    
 								</div>
 							</div>
 						</div>
@@ -408,6 +410,7 @@
 	    if($('#pwd1').val()!=$('#pwd2').val()){
 	        $('font[name=check2]').text('');
 	        $('font[name=check2]').html("불일치");
+	        $("#pwd2").val("");
 	        alert("불일치");
 	    }else{
 	        $('font[name=check2]').text('');
@@ -420,7 +423,8 @@
 	    var regExp = /^[가-힣]{2,4}$/;
 	    var pass = mName.value.match(regExp);
 	    if (pass == null) {
-	      alert("이름은 두글자 이상입니다. 제대로 입력해주세요");
+	      alert("이름은 한글 두글자 이상입니다. 제대로 입력해주세요");
+	      $("#mName").val("");
 	      $("#mName").focus();
 	      // 입력값ㅂ 비우기
 	    }
@@ -552,6 +556,11 @@
 	    changeYear      : true,
 	    changeMonth     : true
 	  });
+	}
+	
+	// 뒤로가기
+	function back() {
+	   history.back();
 	}
   
 </script>
