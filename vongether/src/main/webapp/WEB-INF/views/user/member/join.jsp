@@ -1,233 +1,249 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="root" value="${pagetContext.request.contextPath }" />
-<meta charset="UTF-8">
-<title>회원가입</title>
 
-</head>
-<body>
+
+<div id="fh5co-page">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-header">
-					<h2 id="container">회원 가입하기/임시로 직접입력!!</h2>
+					<h2 id="container">회원 가입하기</h2>
 				</div>
+			</div>
+		</div>
+		<div class="row">
+			<span>회원가입을 위해 아래 내용들을 작성해 주세요.</span>
+			<span class="row" style="color: red;">*표시는 필수항목입니다.</span>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<form id="joinForm" class="form-horizontal">
+					<fieldset>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-2">
+											<label class="control-label">아이디(email)</label>
+										</div>
+										<div class="col-lg-3">
+											<input type="text" class="form-control" id="mId" name="mId" placeholder="아이디" required="true">
+										</div>
+										<div class="col-lg-1" align="center">@</div>
+										<div class="col-lg-3">
+											<select class="form-control">
+												<option value="@naver.com">naver.com</option>
+												<option value="직접입력">직접입력</option>
+											</select>
+										</div>
+										<div class="col-lg-3">
+											<button id="checkId" class="btn btn-primary">아이디 체크</button>
+										</div>
+									</div>
+									<div class="row">
+										<div id="id_check" align="center"></div>
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-2">
+											<label class="control-label">비밀번호</label>
+										</div>
+										<div class="col-lg-10">
+											<input type="password" class="form-control" id="pwd1" placeholder="비밀번호" required="true">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-2"></div>
+										<div class="col-lg-10">
+											<span>최소 6자리 이상 12자 이하 // 영어 소대문자숫자, 특수기호  2가지 조합</span>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-2">
+											<label class="control-label">비밀번호 확인</label>
+										</div>
+										<div class="col-lg-10">
+											<input type="password" class="form-control" id="pwd2" name="mPwd" placeholder="비밀번호 확인" required="true">
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-2">
+											<label class="control-label">성별</label>
+										</div>
+										<div class="col-lg-10">
+											<div class="radio col-lg-12">
+												<label><input type="radio" id="optionsRadios1" value="m" name="mGender" checked>남자</label>
+												<label><input type="radio" id="optionsRadios2" value="f" name="mGender">여자</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-2">
+											<label class="control-label">이름</label>
+										</div>
+										<div class="col-lg-10">
+											<input type="text" class="form-control" id="mName" name="mName" placeholder="이름" required="true">
+										</div>
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-2">
+											<label class="control-label">생년월일</label>
+										</div>
+										<div class="col-lg-10">
+											<input type="text" class="form-control" id="mBirth" name="mBirth" placeholder="생년월일" readonly required="true">
+										</div>
+									</div>
+								</div>
+								
+								
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-2">
+											<label class="control-label">우편번호</label>
+										</div>
+										<div class="col-lg-3">
+											<input type="text" class="form-control" id="mPostcode" name="mPostcode" readonly placeholder="우편번호" required="true">
+										</div>
+										<div class="col-lg-2">
+											<input type="button" class="btn btn-primary" id="searchPostBtn" value="주소찾기">
+										</div>
+										<div class="col-lg-5"></div>
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-2">
+											<label class="control-label">기본주소</label>
+										</div>
+										<div class="col-lg-10">
+											<input type="text" class="form-control" id="mAddr1" name="mAddr1" placeholder="기본주소" readonly required="true">
+										</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-2">
+											<label class="control-label">상세주소</label>
+										</div>
+										<div class="col-lg-10">
+											<input type="text" class="form-control" id="mAddr2" name="mAddr2" placeholder="상세주소" required="true" >
+										</div>
+									</div>
+								</div>
+								
+								
+								<div class="form-group">
+									<div class="row">
+										<div class="col-lg-2">
+											<label class="control-label">사진(프로필)</label>
+										</div>
+										<div class="col-lg-10">
+											<input type="text" class="form-control"  placeholder="임시로 넣은 text Box" readonly>
+										</div>
+									</div>
+								</div>
 
-				<div class="well">
-					<p>회원가입을 위해 아래 내용들을 작성해 주세요.</p>
-					<p>*표시는 필수항목입니다</p>
-					<form id="joinForm" class="form-horizontal">
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group">
+								<div class="col-lg-4 col-lg-offset-9">
+	                                <input type="hidden" class="form-control" id="m_role" name="m_role" >
+									<button class="btn btn-danger" type="reset">초기화</button>
+									<input id="joinBtn" type="button" class="btn btn-primary" value="가입하기" disabled>
+								    <button class="btn btn-info" onclick="back();">취소</button>
+								    
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+	
+
+</div>
+
+
+
+<div id="myModal" class="modal" tabindex="-1" role="dialog" data-backdrop="">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h5 class="modal-title">주소찾기</h5>
+			</div>
+			<div class="modal-body">
+				<div>
+					<h4>우편번호 검색</h4>
+					<form action="/search" id="postSearchForm" method="GET">
 						<fieldset>
-							<div class="form-group">
-								<label class="col-lg-2 control-label">아이디(email)</label>
-								<button id="checkId">아이디 체크</button>
-								<div class="col-lg-2">
-									<input type="text" class="form-control" id="mId" name="mId" placeholder="아이디"
-										required="true">
-									<!-- <select>
-										<option value="@naver.com">@naver.com</option>
-										<option value="직접입력">직접입력</option>
-									</select> -->
-								</div>
-								<div id="id_check" align="center"></div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-lg-2 control-label">비밀번호</label>
-								<label> 최소 8자리 이상 16자 이하 // 영어 소대문자, 특수기호, 숫자 3가지 조합</label>
-                                
-								<div class="col-lg-11">
-									<input type="password" class="form-control" id="pwd1" name="mPwd"
-										placeholder="비밀번호">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-lg-2 control-label">비밀번호 확인</label>
-
-								<div class="col-lg-11">
-									<input type="password" class="form-control" id="pwd2" placeholder="비밀번호 확인">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-lg-2 control-label">성별</label>
-
-								<div class="col-lg-11">
-									<div class="radio">
-										<label> <input type="radio" id="optionsRadios1"
-											value="m" name="mGender" checked=""> 남자
-										</label>
+							<div>
+								<label>검색할 도로명/지번주소를 입력</label>
+								<div>
+									<div class="col-lg-10">
+										<input type="text" class="form-control" id="query" name="query"
+											style="width: 472px;"> <input type="hidden" id="currentPage"
+											name="currentPage" value="">
 									</div>
-									<div class="radio">
-										<label> <input type="radio" id="optionsRadios2"
-											value="f" name="mGender"> 여자
-										</label>
+									<div class="col-lg-2">
+										<button type="button" class="btn btn-success btn_search">검색</button>
 									</div>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-lg-2 control-label">이름</label>
-
-								<div class="col-lg-11">
-									<input type="text" class="form-control" id="mName" name="mName" placeholder="이름"
-										required="true">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-lg-2 control-label">생년월일</label>
-
-								<div class="col-lg-11">
-									<input type="text" class="form-control" id="mBirth" name="mBirth"
-										placeholder="생년월일" readonly="readonly" required="true">
-								</div>
-
-							</div>
-
-
-							<!-- <div>
-							<span class='select_form first'>
-                                            <select id="hp1" name="hp1" title="휴대폰번호 앞자리 선택">
-                                                <option value="">선택</option>
-                                                <option value="010" >010</option>
-                                                <option value="011" >011</option>
-                                                <option value="016" >016</option>
-                                                <option value="017" >017</option>
-                                                <option value="018" >018</option>
-                                                <option value="019" >019</option>
-                                            </select>
-                                        </span>
-                                        <span class="symbol">-</span>
-                                        <span class="input_text tel1">
-                                            <input type="tel" id="hp2" name="hp2" title="휴대폰번호 중간 3자리 또는 4자리 입력" maxlength="4" value=""/>
-                                        </span>
-                                        <span class="symbol">-</span>
-                                        <span class="input_text tel2">
-                                            <input type="tel" id="hp3" name="hp3" title="휴대폰번호 마지막 4자리 입력" maxlength="4" value="" />
-                                        </span>
-							</div> -->
-
-							<div class="form-group">
-								<label class="col-lg-2 control-label">우편번호</label>
-								<div class="col-lg-3">
-									<input type="text" class="form-control" id="mPostcode" name="mPostcode"
-										readonly="readonly" placeholder="우편번호" required="true">
-								</div>
-								<div class="col-lg-2">
-									<input type="button" class="form-control btn btn-success" id="searchPostBtn"
-										value="주소찾기">
-								</div>
-								<div class="col-lg-7"></div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-lg-2 control-label">주소</label>
-
-								<div class="col-lg-11">
-									<input type="text" class="form-control" id="mAddr1" name="mAddr1"
-										placeholder="주소" readonly="readonly" required="true">
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-lg-2 control-label">상세주소</label>
-
-								<div class="col-lg-11">
-									<input type="text" class="form-control" id="mAddr2" name="mAddr2"
-										placeholder="주소" required="true" >
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-lg-2 control-label">사진(프로필)</label>
-
-								<div class="col-lg-11">
-									<input type="text" class="form-control" id="m_address2" name="m_address2"
-										placeholder="주소">
-								</div>
-							</div>
-							
-							<!-- preUser 로 가입됨 -->
-							<div class="form-group">
-                                <input type="hidden" class="form-control" name="m_role" >
-                            </div>
-                            
-							<div class="form-group">
-								<div class="col-lg-11 col-lg-offset-1">
-									<input id="joinBtn" type="button" class="btn btn-primary" value="확인" disabled> <a
-										href="/" class="btn btn-large btn-default">취소</a>
 								</div>
 							</div>
 						</fieldset>
 					</form>
 				</div>
+
+				<div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>우편번호</th>
+								<th>주소</th>
+							</tr>
+						</thead>
+						<tbody id="postTbody">
+							<tr>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
-
-		</div>
-
-	</div>
-
-
-	<div id="myModal" class="modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h5 class="modal-title">주소찾기</h5>
-				</div>
-				<div class="modal-body">
-					<div>
-						<h4>우편번호 검색</h4>
-						<form action="/search" id="postSearchForm" method="GET">
-							<fieldset>
-								<div>
-									<label>검색할 도로명/지번주소를 입력</label>
-									<div>
-										<div class="col-lg-10">
-											<input type="text" class="form-control" id="query" name="query"
-												style="width: 472px;"> <input type="hidden" id="currentPage"
-												name="currentPage" value="">
-										</div>
-										<div class="col-lg-2">
-											<button type="button" class="btn btn-success btn_search">검색</button>
-										</div>
-									</div>
-								</div>
-							</fieldset>
-						</form>
-					</div>
-
-					<div>
-						<table class="table">
-							<thead>
-								<tr>
-									<th>우편번호</th>
-									<th>주소</th>
-								</tr>
-							</thead>
-							<tbody id="postTbody">
-								<tr>
-									<td></td>
-									<td></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary" >확인</button>
-				</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+				<button type="button" class="btn btn-primary" >확인</button>
 			</div>
 		</div>
 	</div>
+</div>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -313,37 +329,33 @@
 	  $("#checkId").click(function(){
 	   var mId = $("#mId").val();
 	   $.ajax({
-        url: '${root}/member/idCheck?mId=' + mId,
+        url: '/member/idCheck?mId=' + mId,
         type: 'get',
-        success: function(data) {
-          console.log(data);
-  
+        success: function(data) {  
           if (data == 1) {
             $("#id_check").text("사용중 아이디입니다! ");
             $("#id_check").css("color", "red");
   
           } else {
-            if (m_id = "") {
-              $("#id_check").text("아이디를 입력해주세요! ");
-              $("#id_check").css("color", "red");
-            } else {
-              $("#id_check").text("입력 가능한 아이디입니다! ");
-              $("#id_check").css("color", "blue");
+            if(m_id = "") {
+	            $("#id_check").text("아이디를 입력해주세요! ");
+	            $("#id_check").css("color", "red");
+              } else {
+                $("#id_check").text("입력 가능한 아이디입니다! ");
+                $("#id_check").css("color", "blue");
               $("#joinBtn").attr("disabled", false);
+              }
             }
-  
           }
-  
-        }
   
 	    })
 	  });
 	  
 	  //비밀번호 조합  체크
 	  $(document).on("change","#pwd1", function() {
-	    // 최소 8자리 이상 16자 이하
-	    // 영어 소대문자, 특수기호, 숫자 3가지 조합
-	    var regExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+	    // 최소 6자리 이상 12자 이하
+	    // 영어 소대문자숫자, 특수기호 2가지 조합
+	    var regExp = /^(?=.*[a-zA-Z0-9])(?=.*[!@#$%^*+=-]).{6,12}$/;
 	    var pass = pwd1.value.match(regExp);
 	    if (pass == null) {
 	      alert("제대로 입력하셈");
@@ -358,6 +370,7 @@
 	    if($('#pwd1').val()!=$('#pwd2').val()){
 	        $('font[name=check2]').text('');
 	        $('font[name=check2]').html("불일치");
+	        $("#pwd2").val("");
 	        alert("불일치");
 	    }else{
 	        $('font[name=check2]').text('');
@@ -370,7 +383,8 @@
 	    var regExp = /^[가-힣]{2,4}$/;
 	    var pass = mName.value.match(regExp);
 	    if (pass == null) {
-	      alert("이름은 두글자 이상입니다. 제대로 입력해주세요");
+	      alert("이름은 한글 두글자 이상입니다. 제대로 입력해주세요");
+	      $("#mName").val("");
 	      $("#mName").focus();
 	      // 입력값ㅂ 비우기
 	    }
@@ -398,15 +412,15 @@
 		      var parameter = JSON.stringify($("#joinForm").serializeObject());
 		      
 		      $.ajax({
-		          url : '${root}/member/join.do',
+		          url : '/member/join.do',
 		          type : 'POST',
 		          contentType : 'application/json;charset=UTF-8',
 		          dataType : 'json',
 		          data : parameter,
 		          success : function(data) {
 		              if(data.isSuccess == 'true') {
-		                alert("가입성공! 지금은 일단 로그인으로")
-		                location.href = "${root}/member/login.do";
+		                alert("가입성공! 메일함을 확인해주세요!")
+		                location.href = "/member/login.do";
 		              } else{
 		                alert("실패");
 		              }
@@ -498,13 +512,15 @@
 	  $("#mBirth").datepicker({
 	    dateFormat: "yy-mm-dd",
 	    maxDate   : 0,
-	    yearRange: "1950:2010",
+	    yearRange: "c-80:c",
 	    changeYear      : true,
 	    changeMonth     : true
 	  });
 	}
+	
+	// 뒤로가기
+	function back() {
+	   history.back();
+	}
   
 </script>
-
-</body>
-</html>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 import com.vongether.member.model.MemberVO;
 import com.vongether.member.model.PostVO;
@@ -37,19 +39,21 @@ public class MemberController {
 
   @RequestMapping(value = "/join.do", method = RequestMethod.POST)
   @ResponseBody
-  public Map<String, String> join(@RequestBody MemberVO memberVO) throws Exception {
+  public Map<String, String> join(@RequestBody MemberVO memberVO, Model model, RedirectAttributes rttr, HttpServletRequest request, HttpSession session) throws Exception {
 
     /// 가입전 유효성 체크
     
     
-    
-    int result = memberService.insert(memberVO);
+    // 유효 체크후 실행
+    memberService.insert(memberVO);
     
     Map<String, String> map = new HashMap<String, String>();
     map.put("isSuccess", "true");
+    rttr.addFlashAttribute("authmsg", "가입시 사용한 이메일로 인증");
     return map;
+    
   }
-
+  
   @RequestMapping(value = "/login.do", method = RequestMethod.GET)
   public String login() {
     return "member/login.page";
@@ -79,7 +83,14 @@ public class MemberController {
     return "redirect:/";
   }
   
-
+  @RequestMapping(value = "/emailConfirm.do")
+  public String emailConfirm(String mId, Model model) throws Exception{
+    memberService.userAuth(mId);
+    model.addAttribute("mId", mId);
+    return "member/emailConfirm.page";
+  }
+  
+  
   @ResponseBody
   @RequestMapping(value = "/idCheck", method= RequestMethod.GET)
   public int checkId(@RequestParam("mId") String mId) throws Exception{

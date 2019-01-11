@@ -12,18 +12,18 @@
 			<h1><i class="sl-icon-heart"></i><a href="/">봉사어때?</a></h1>
 			<nav role="navigation">
 				<ul>
-					<li><a class="active" href="/">Home</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="/volunteer/list.do">Volunteer</a></li>
-					<li><a href="/board/list.do">Community</a></li>
+					<li><a class="active" href="/">홈</a></li>
+					<li><a href="#">소개</a></li>
+					<li><a href="/volunteer/list.do">봉사참여</a></li>
+					<li><a href="/board/list.do">커뮤니티</a></li>
 					<c:choose>
 				        <c:when test="${userInfo != null }">
-				        	<li><a href="/member/logout.do">LOGOUT</a></li>
-							<li><a href="/member/mypage.do">MYPAGE</a></li>
+				        	<li><a href="/member/logout.do">로그아웃</a></li>
+							<li><a href="/member/mypage.do">내정보</a></li>
 				        </c:when>
 				        <c:otherwise>
-				        	<li><a href="/member/login.do">LOGIN</a></li>
-							<li><a href="/member/join.do">JOIN</a></li>
+				        	<li><a href="/member/login.do">로그인</a></li>
+							<li><a href="/member/join.do">회원가입</a></li>
 				        </c:otherwise>
 				    </c:choose>
 				</ul>
