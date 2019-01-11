@@ -14,28 +14,31 @@
 	  <result property="rCount" column="r_count"/>
 	</resultMap>
 	
-	<select id="selectBoardList" resultMap="boardResultMap">
+	<select id="selectBoardList" parameterType="map" resultMap="boardResultMap">
 		SELECT b.b_no, b.b_title, b.b_hitcount, DATE_FORMAT(b.b_regdate,'%Y-%m-%d') b_regdate, b.m_id, r.r_count
 		FROM board b
 		LEFT JOIN (select r.b_no, count(r.r_no) r_count from reply r) r
 		ON b.b_no = r.b_no
-		<!-- <if test="word != null and word != ''">
+		<if test="word != null and word != ''">
 	        <choose>
-            <when test="key == 'tc'">
-		WHERE
-		        b_title like '%'||#{word}||'%'
-		        or b_content like '%'||#{word}||'%'
+            <when test="key == 'id'">
+			WHERE b.m_id REGEXP #{word}
+            </when>
+            <when test="key == 'my'">
+			WHERE b.m_id like #{word}
             </when>
             <when test="key == 'title'">
-            		WHERE
-		        b_title like '%'||#{word}||'%'
+            WHERE b.b_title REGEXP #{word}
+            </when>
+            <when test="key == 'content'">
+            WHERE b.b_content REGEXP #{word}
             </when>
             <otherwise>
-            		WHERE
-                m_id = '%'||#{word}||'%'
-            </otherwise>
+            WHERE b.b_title REGEXP #{word}
+		    OR b.b_content REGEXP #{word}
+            </otherwise> 
             </choose>
-		</if> -->
+		</if> 
 		order by b.b_no desc
 	</select>
 	
@@ -54,6 +57,10 @@
 		SET b_title = #{bTitle}, b_content = #{bContent}
 		WHERE b_no=#{bNo};
 	</update>
+	
+	<delete id="deleteBoardArticle" parameterType="int">
+		DELETE FROM board WHERE b_no = #{bNo};
+	</delete>
 	
 	
 	

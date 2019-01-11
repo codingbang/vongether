@@ -21,14 +21,6 @@ $(document).ready(function() {
 					"action", listpath).submit();
 		}); */
 
-	/* $("#searchBtn").click(
-		function() {
-			$('#pg').val('1');
-			$('#key').val($('#skey').val());
-			$('#word').val($('#sword').val());
-			$("#commonForm").attr("method", "get").attr(
-					"action", listpath).submit();
-		}); */
 	$(".posting").click(
 			function(){
 				$("#bNo").val($(this).attr("b-no"));
@@ -37,11 +29,17 @@ $(document).ready(function() {
 		});
 	$(".writeBtn").click(
 		function(){
-			$("#bNo").val($(this).attr("b-no"));
-			$("#commonForm").attr("method", "get").attr(
-				"action", "/board/write.do").submit();
+			location.href="/board/write.do";
 		}		
 	);
+	$("#searchBtn").click(
+		function() {
+			$('#key').val($('#skey').val());
+			$('#word').val($('#sword').val());
+			$("#searchForm").attr("method", "get").attr(
+					"action", "/board/list.do").submit();
+		}
+	); 
 })
 </script>
 <div class="my-container">
@@ -113,20 +111,22 @@ $(document).ready(function() {
         <div class="col-4"></div>
         <div class="col-2">
           <div class="input-group">
+            <!-- 검색 조건 -->
             <select class="custom-select" name="key" id="skey">
-              <option>전체검색</option>
-              <option>제목</option>
-              <option>내용</option>
-              <option>제목+내용</option>
+              <option value="">제목+내용</option>
+              <option value="content">내용</option>
+              <option value="title">제목</option>
+              <option value="id">아이디</option>
             </select>
           </div>
         </div>
         <div class="col-3">
           <div class="input-group">
-            <input type="text" class="form-control" name="key" id="skey" placeholder="검색내용">
+            <input type="text" class="form-control" name="word" id="sword" placeholder="검색내용">
             <div class="input-group-append">
               <button type="button" id="searchBtn" class="btn btn-primary">검색</button>
             </div>
+            <!-- 검색 조건 끝 -->
           </div>
         </div>
       </div>

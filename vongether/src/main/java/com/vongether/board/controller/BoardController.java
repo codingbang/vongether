@@ -47,24 +47,24 @@ public class BoardController {
 	}
 	*/
 	@RequestMapping(value ="/list.do" , method = RequestMethod.GET) 
-	public ModelAndView listArticle() {
+	public ModelAndView listBoardArticle(@RequestParam Map<String, String> keyword) {
 		ModelAndView mv = new ModelAndView();
-		List<BoardVO> list = boardService.selectBoardList();
-		mv.addObject("selectBoardList", list);
+		List<BoardVO> listArticle = boardService.selectBoardList(keyword);
+		mv.addObject("selectBoardList", listArticle);
 		mv.setViewName("board/articleList.page");
 		return mv;
 	}
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
-	public String writeArticle() {
+	public String writeBoardArticle() {
+		System.out.println("안녕");
 		return "board/articleWrite.page";
 	}
 	
 	
 	
 	@RequestMapping(value="write.do", method=RequestMethod.POST)
-	public String writeArticle(BoardVO boardVO, HttpSession session, Model model) {
-		
+	public String writeBoardArticle(BoardVO boardVO, HttpSession session, Model model) {
 	    MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
 	    if (memberVO != null) {
 	      boardVO.setmId(memberVO.getmId());
@@ -76,24 +76,29 @@ public class BoardController {
 		return "redirect:/board/list.do";
 	}
 	@RequestMapping(value="/view.do", method=RequestMethod.GET)
-	public String viewArticle(@RequestParam int bNo, Model model) {
+	public String viewBoardArticle(@RequestParam int bNo, Model model) {
 		BoardVO boardVO = boardService.selectBoardArticle(bNo);
 		model.addAttribute("article", boardVO);
 		return "board/articleView.page";
 	}  
 	@RequestMapping(value="/update.do", method=RequestMethod.GET)
-	public String updateArticleForm(@RequestParam int bNo, Model model) {
+	public String updateBoardArticleForm(@RequestParam int bNo, Model model) {
 		BoardVO boardVO = boardService.selectBoardArticle(bNo);
 		model.addAttribute("article", boardVO);
 		return "board/articleUpdate.page";
 	} 
 	
 	@RequestMapping(value="/update.do", method=RequestMethod.POST)
-	public String updateArticle(@RequestParam BoardVO boardVO) {
+	public String updateBoardArticle(BoardVO boardVO) {
 		System.out.println(boardVO.getbContent());
 		boardService.updateBoardArticle(boardVO);
 		return "redirect:/board/list.do";
 	}  
+	@RequestMapping(value="/delete.do", method=RequestMethod.GET)
+	public String deleteBoardArticle(@RequestParam int bNo) {
+		boardService.deleteBoardArticle(bNo);
+		return "redirect:/board/list.do";
+	} 
 	
 	/*@RequestMapping(value="/view.do", method=RequestMethod.GET)
 	public String viewArticle(@RequestParam int bNo, Model model) {
