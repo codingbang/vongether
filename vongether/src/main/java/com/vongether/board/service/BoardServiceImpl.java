@@ -1,6 +1,7 @@
 package com.vongether.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,10 @@ public class BoardServiceImpl implements BoardService {
 	SqlSession sqlSession;
 	
 	@Override
-	public List<BoardVO> selectBoardList() {
-		return sqlSession.getMapper(BoardDAO.class).selectBoardList();
+	public List<BoardVO> selectBoardList(Map keyword) {
+		System.out.println("Map.key :"+keyword.get("key"));
+		System.out.println("Map.key :"+keyword.get("word"));
+		return sqlSession.getMapper(BoardDAO.class).selectBoardList(keyword);
 	}
 	
 	@Override
@@ -35,5 +38,8 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void updateBoardArticle(BoardVO boardVO) {
 		sqlSession.getMapper(BoardDAO.class).updateBoardArticle(boardVO);
+	}
+	public void deleteBoardArticle(int bNo) {
+		sqlSession.getMapper(BoardDAO.class).deleteBoardArticle(bNo);
 	}
 }

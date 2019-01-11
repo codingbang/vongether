@@ -6,41 +6,16 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-
-	/* $("#firstpage").click(
-		function() {
-			$('#pg').val("1");
-			$('#key').val("");
-			$('#word').val("");
-			$("#commonForm").attr("method", "get").attr(
-					"action", listpath).submit();
-		}); */
-
-	/* $(".mvpage").click(
-		function() {
-			$('#pg').val($(this).attr("move-page-no"));
-			$("#commonForm").attr("method", "get").attr(
-					"action", listpath).submit();
-		}); */
-
-	/* $("#searchBtn").click(
-		function() {
-			$('#pg').val('1');
-			$('#key').val($('#skey').val());
-			$('#word').val($('#sword').val());
-			$("#commonForm").attr("method", "get").attr(
-					"action", listpath).submit();
-		}); */
-/* 		$(".posting").click(
-			function(){
-				$("#bNo").val($(this).attr("b-no"));
-				$("#commonForm").attr("method", "get").attr(
-						"action", "/view.bit").submit();	
-		}); */
 		$(".articleViewUpdateBtn").click(
 			function(){
 				var bNo = $("#bNo").val();
 				location.href="/board/update.do?bNo="+bNo;
+			}		
+		);
+		$(".articleViewRemoveBtn").click(
+			function(){
+				var bNo = $("#bNo").val();
+				location.href="/board/delete.do?bNo="+bNo;
 			}		
 		);
 })

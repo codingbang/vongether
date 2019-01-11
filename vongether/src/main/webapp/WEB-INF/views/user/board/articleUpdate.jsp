@@ -6,30 +6,6 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-	/* $("#firstpage").click(
-		function() {
-			$('#pg').val("1");
-			$('#key').val("");
-			$('#word').val("");
-			$("#commonForm").attr("method", "get").attr(
-					"action", listpath).submit();
-		}); */
-
-	/* $(".mvpage").click(
-		function() {
-			$('#pg').val($(this).attr("move-page-no"));
-			$("#commonForm").attr("method", "get").attr(
-					"action", listpath).submit();
-		}); */
-
-	/* $("#searchBtn").click(
-		function() {
-			$('#pg').val('1');
-			$('#key').val($('#skey').val());
-			$('#word').val($('#sword').val());
-			$("#commonForm").attr("method", "get").attr(
-					"action", listpath).submit();
-		}); */
  		$(".writeCancelBtn").click(
 			function(){
 				alert("글작성이 취소되었습니다.");
@@ -40,17 +16,17 @@ $(document).ready(function() {
 		
  		$(".writeOKBtn").click(
 			function(){
-				var writeTitleBox = $("#writeTitleBox").val();
-				var writeContentBox = $("#writeContentBox").val();
-				console.log(writeTitleBox);
-				if(writeTitleBox == ""){
+				var bTitle = $("#bTitle").val();
+				var bContent = $("#bContent").val();
+				console.log(bTitle);
+				if(bTitle == ""){
 					alert("제목을 입력하세요");
 					return;
-				}else if(writeContentBox == ""){
+				}else if(bContent == ""){
 					alert("내용을 입력하세요");
 					return;
 				}else{
-					alert("글이 등록되었습니다");
+					alert("글이 수정되었습니다");
 			 		document.updateForm.action = "/board/update.do"; 
 					document.updateForm.submit();
 				}
@@ -72,14 +48,10 @@ $(document).ready(function() {
 				<div class="row ">
 					<input type="hidden" id="bNo" name="bNo" value="${article.bNo}"/>
 					<div class="col-12">
-						<input id="writeTitleBox" name="bTitle" class="writeTitleBox" value="">
-							${article.bTitle}
-						</input>
+						<input id="bTitle" name="bTitle" class="writeTitleBox" value="${article.bTitle}"/>
 					</div>
 					<div class="col-12" >
-						<input id="writeContentBox" name="bContent" class="writeContentBox" value="">
-							${article.bContent}
-						</input>
+						<input id="bContent" name="bContent" class="writeContentBox" value="${article.bContent}"/>
 					</div>
 				</div>
 				<div class="row writeBtnBox">
