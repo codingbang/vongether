@@ -13,7 +13,7 @@ public class VolunteerVO {
 	private String familyPosblAt;//봉사자유형(가족가능여부)
 	private String pbsvntPosblAt;//봉사자유형(공무원가능여부)
 	private String grpPosblAt;//봉사자유형(단체가능여부)
-	private String mnnstNm="empty";//모집기관(주관기관명)
+	private String mnnstNm;//모집기관(주관기관명)
 	private String nanmmbyNm;//등록기관(나눔주체명)
 	private String actPlace;//봉사장소
 	private String nanmmbyNmAdmn;//담당자명
