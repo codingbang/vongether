@@ -98,6 +98,19 @@
 
 	// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
 	var map = new daum.maps.Map(mapContainer, mapOption);
+	
+	// 지도 타입 변경 컨트롤을 생성한다
+	var mapTypeControl = new daum.maps.MapTypeControl();
+
+	// 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+	map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+	
+	// 지도에 확대 축소 컨트롤을 생성한다
+	var zoomControl = new daum.maps.ZoomControl();
+
+	// 지도의 우측에 확대 축소 컨트롤을 추가한다
+	map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+
 	// 주소-좌표 변환 객체를 생성합니다
 	var geocoder = new daum.maps.services.Geocoder();
 
