@@ -21,32 +21,10 @@ import com.vongether.member.model.MemberVO;
 @RequestMapping("/board")
 public class BoardController {
 
-//  @Autowired
-//  private CommonService commonService;
-  @Autowired
-  private BoardService boardService;
+	@Autowired
+	private BoardService boardService;
 
-//  @RequestMapping(value ="/list.do" , method = RequestMethod.GET) 
-//  public ModelAndView articleList(@RequestParam Map<String, String> param){
-//	ModelAndView mv = new ModelAndView();
-//	PageNavigation pageNavigation = commonService.makePageNavigation(param);
-//	pageNavigation.makeNavigator();
-//	
-//	mv.addObject("pageNavigation", pageNavigation);
-//	mv.setViewName("board/articleList.page");
-//    return mv;
-//  }
-  /*
-	@RequestMapping(value ="/list.do" , method = RequestMethod.GET) 
-	public ModelAndView listArticle(@RequestParam Map<String, String> param) {
-		ModelAndView mv = new ModelAndView();
-		List<BoardVO> list = boardService.selectBoardList();
-		mv.addObject("selectBoardList", list);
-		mv.setViewName("board/articleList.page");
-		return mv;
-	}
-	*/
-	@RequestMapping(value ="/list.do" , method = RequestMethod.GET) 
+	@RequestMapping(value ="/list.do" , method = RequestMethod.GET)
 	public ModelAndView listBoardArticle(@RequestParam Map<String, String> keyword) {
 		ModelAndView mv = new ModelAndView();
 		List<BoardVO> listArticle = boardService.selectBoardList(keyword);
@@ -61,8 +39,6 @@ public class BoardController {
 		return "board/articleWrite.page";
 	}
 	
-	
-	
 	@RequestMapping(value="write.do", method=RequestMethod.POST)
 	public String writeBoardArticle(BoardVO boardVO, HttpSession session, Model model) {
 	    MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
@@ -72,13 +48,15 @@ public class BoardController {
 	      System.out.println(boardVO.getmId());
 	      int bNo = boardService.writeBoardArticle(boardVO);
 	    }
-
 		return "redirect:/board/list.do";
 	}
 	@RequestMapping(value="/view.do", method=RequestMethod.GET)
-	public String viewBoardArticle(@RequestParam int bNo, Model model) {
+	public String viewBoardArticle(@RequestParam int bNo, HttpSession session, Model model) {
 		BoardVO boardVO = boardService.selectBoardArticle(bNo);
 		model.addAttribute("article", boardVO);
+		if(boardVO.getmId()!=session.getAttribute("userInfo")&&session.getAttribute("userInfo")!=null) {//자신이 아닐때 조회수 중가
+			boardService.increaseHitcount(boardVO.getbNo());
+		}
 		return "board/articleView.page";
 	}  
 	@RequestMapping(value="/update.do", method=RequestMethod.GET)
@@ -99,32 +77,4 @@ public class BoardController {
 		boardService.deleteBoardArticle(bNo);
 		return "redirect:/board/list.do";
 	} 
-	
-	/*@RequestMapping(value="/view.do", method=RequestMethod.GET)
-	public String viewArticle(@RequestParam int bNo, Model model) {
-		BoardVO boardVO = boardService.selectBoardArticle(bNo);
-		model.addAttribute("article", boardVO);
-		return "board/articleView.page";
-	}  
-	@RequestMapping(value="/write.do", method=RequestMethod.GET)
-	public String writeArticle() {
-		
-		return "board/articleWrite.page";
-	}
-	@RequestMapping(value="write.do", method=RequestMethod.POST)
-	public String writeArticle(BoardVO boardVO, HttpSession session, 
-			@RequestParam Map<String, String> param, Model model) {
-		
-		
-	    MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
-	    if (memberVO != null) {
-	      boardVO.setmId(memberVO.getmId());
-	      System.out.println(memberVO.getmId());
-	      System.out.println(boardVO.getmId());
-	      int bNo = boardService.writeBoardArticle(boardVO);
-	    }
-
-		return "board/articleList.page";
-	}	  */
-	
 }

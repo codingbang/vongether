@@ -12,5 +12,5 @@ public interface BoardService {
 	public int writeBoardArticle(BoardVO boardVO);
 	public void updateBoardArticle(BoardVO boardVO);
 	public void deleteBoardArticle(int bNo);
-	
+	public void increaseHitcount(int bNo);
 }

@@ -12,4 +12,5 @@ public interface BoardDAO {
 	int insertBoardArticle(BoardVO boardVO);
 	void updateBoardArticle(BoardVO boardVO);
 	void deleteBoardArticle(int bNo);
+	void increaseHitcount(int bNo);
 }

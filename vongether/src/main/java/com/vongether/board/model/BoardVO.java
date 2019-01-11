@@ -1,14 +1,14 @@
 package com.vongether.board.model;
 
 public class BoardVO {
-	private int bNo;
-	private String bTitle;
-	private String bContent;
-	private int bHitcount;
-	private String bRegdate;
-	private String mId;
-	private int rCount;//댓글수
-	
+	private int bNo;		//글번호
+	private String bTitle;	//글제목
+	private String bContent;//글내용
+	private int bHitcount;	//조회수
+	private String bRegdate;//작성일
+	private String mId;		//작성자아이디
+	private int rCount;		//댓글수
+
 	public int getbNo() {
 		return bNo;
 	}

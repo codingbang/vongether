@@ -18,14 +18,11 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public List<BoardVO> selectBoardList(Map keyword) {
-		System.out.println("Map.key :"+keyword.get("key"));
-		System.out.println("Map.key :"+keyword.get("word"));
 		return sqlSession.getMapper(BoardDAO.class).selectBoardList(keyword);
 	}
 	
 	@Override
 	public BoardVO selectBoardArticle(int bNo) {
-		
 		return sqlSession.getMapper(BoardDAO.class).selectBoardArticle(bNo);
 	}
 
@@ -41,5 +38,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 	public void deleteBoardArticle(int bNo) {
 		sqlSession.getMapper(BoardDAO.class).deleteBoardArticle(bNo);
+	}
+	public void increaseHitcount(int bNo) {
+		sqlSession.getMapper(BoardDAO.class).increaseHitcount(bNo);
 	}
 }
