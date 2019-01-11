@@ -6,7 +6,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -66,14 +65,21 @@ public class RestTest {
         jo = (JsonObject) parser.parse(sb.toString());
         jo = jo.getAsJsonObject("response");
         jo = jo.getAsJsonObject("body");
-
-        if(jo.get("totalCount").getAsInt() == 1) {
+        
+        JsonObject joTotal = new JsonObject();
+        int totalCount = jo.get("totalCount").getAsInt();
+        joTotal.addProperty("totalCount", totalCount);
+        //joTotal.addProperty("totalCount", numOfRows);
+        
+        if(totalCount == 1) {
         	jo = jo.getAsJsonObject("items");
         	jo = jo.getAsJsonObject("item");
+        	ja.add(joTotal);
         	ja.add(jo);
         }else {
         	jo = jo.getAsJsonObject("items");
-        	ja = jo.getAsJsonArray("item");
+        	ja.add(joTotal.getAsJsonObject());
+        	ja.addAll(jo.getAsJsonArray("item"));
         }
         
         rd.close();

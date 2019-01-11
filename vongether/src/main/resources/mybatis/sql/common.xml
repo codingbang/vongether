@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vongether.dao.CommonDao">
+<!-- mapper namespace="com.vongether.common.dao.CommonDao" -->
+
+	<select id="getTotalArticleCount"  parameterType="map" resultType="int">
+		SELECT COUNT(b_no)
+		FROM board
+		<!-- <if test="word != null and word != ''">
+			WHERE
+      		<choose>
+        		<when test="key == 'title'">
+          			b_title like '%'||#{word}||'%'
+        		</when>
+		        <when test="key == 'content'">
+		        	b_content like '%'||#{word}||'%'
+		        </when>
+		        <otherwise>
+					b_title like '%'||#{word}||'%'
+		        	OR b_content like '%'||#{word}||'%'
+		        </otherwise>
+   		   </choose>
+		</if> -->
+	</select>
+	
+</mapper>
