@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
+<form id="searchForm" action="" method="get">
+  <input type="hidden" id="key" name="key" value="">
+  <input type="hidden" id="word" name="word" value="">
+</form>
 <header id="fh5co-header" role="banner">
 	<div class="container">
 		<div class="header-inner">
