@@ -4,6 +4,7 @@ import java.sql.Date;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+// 실제 데이터를 담게 될 클래스에 어노테이션으로 유효성 체크
 public class MemberVO {
   
   @NotEmpty(message="아이디를 입력해주세요")

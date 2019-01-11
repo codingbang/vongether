@@ -7,12 +7,12 @@
 </head>
 <body>
 	<div class="container">
-
-		<!-- header -->
-		<div class="login-header">
-			<h2 class="form-signin-heading">BitCamp</h2>
-		</div>
-
+	
+	    <!-- header -->
+        <div class="login-header">
+            <h2 class="form-signin-heading">Vongether 로그인 </h2>
+        </div>
+        
 		<!-- form -->
 		<form class="form-signin" action="login.do" method="post">
 			<input type="text" class="form-control" name="mId" id="inputEmail" placeholder="아이디(이메일)" required="true">

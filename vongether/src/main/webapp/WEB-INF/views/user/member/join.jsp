@@ -494,7 +494,7 @@
 	  $("#mBirth").datepicker({
 	    dateFormat: "yy-mm-dd",
 	    maxDate   : 0,
-	    yearRange: "1950:2010",
+	    yearRange: "c-80:c",
 	    changeYear      : true,
 	    changeMonth     : true
 	  });
