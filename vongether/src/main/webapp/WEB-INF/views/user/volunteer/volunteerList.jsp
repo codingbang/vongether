@@ -130,7 +130,6 @@ $(function(){
    	    	schSido	: schSido,
    	    	schSign1 : schSign1
     	}
-    	console.log(jsonData);
     	
     	if (progrmBgnde != '' && progrmEndde == '' || progrmBgnde == '' && progrmEndde != '') {
     		alert("봉사기간 검색 조건을 확인 해주세요.");
@@ -214,7 +213,6 @@ $(function(){
     	$("#volunteerListDiv").empty();
     	$("#volunteerListDiv").append(htmlStr);
     	
-    	console.log(data.pagination);
     	
     	var htmlStr2 = "";
   		
