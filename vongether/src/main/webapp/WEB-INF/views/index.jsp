@@ -11,6 +11,47 @@
 			</div>
 		</div>
 	</div>
+	<div id="fh5co-featured-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6">
+					<a href="#" class="featured-grid" style="background-image: url(/resources/base/images/image_1.jpg);">
+						<div class="desc">
+							<h3>Make with love</h3>
+							<span>Mural</span>
+						</div>
+					</a>
+				</div>
+				<div class="col-md-6">
+					<a href="#" class="featured-grid featured-grid-2" style="background-image: url(/resources/base/images/image_2.jpg);">
+						<div class="desc">
+							<h3>Deliver your love</h3>
+							<span>briquettes</span>
+						</div>
+					</a>
+					<div class="row">
+						<div class="col-md-6">
+							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(/resources/base/images/image_3.jpg);">
+								<div class="desc">
+									<h3>Warm Meal</h3>
+									<span>a free lunch</span>
+								</div>
+							</a>
+						</div>
+						<div class="col-md-6">
+							<a href="#" class="featured-grid featured-grid-2" style="background-image: url(/resources/base/images/image_4.jpg);">
+								<div class="desc">
+									<h3>Warm Winter</h3>
+									<span>briquettes</span>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<div id="fh5co-blog-section" class="fh5co-grey-bg-section">
 		<div class="container">
 			<div class="row">
