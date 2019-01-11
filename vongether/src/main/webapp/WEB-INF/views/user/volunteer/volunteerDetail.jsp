@@ -23,7 +23,7 @@
 			</div>
 			<div class="col-md-12">
 				<div class="row">
-					<h3 id="subject" style="margin:5px 5px 5px 5px;text-align: center;">${vo.progrmSj }</h3>
+					<h3 id="subject" style="margin:5px 5px 5px 5px;text-align: center;"><span style="font-weight: 600;">${vo.progrmSj }</span> </h3>
 				</div>
 			</div>
 			<div class="row line" style="border-bottom: 1px solid rgba(0, 0, 0, 0.3); margin:5px 5px 5px 10px"></div>
@@ -40,23 +40,23 @@
 					<div class="row">
 						<div class="col-md-12 side" style="margin : auto;">
 							<ul>
-								<li><i class="icon-check"></i>봉사시간 : ${vo.actBeginTm }:00 ~
+								<li><i class="icon-check"></i><span style="font-weight: 600;">봉사시간</span> : ${vo.actBeginTm }:00 ~
 									${vo.actEndTm }:00</li>
-								<li><i class="icon-check"></i>봉사기간 : ${vo.progrmBgnde } ~
+								<li><i class="icon-check"></i><span style="font-weight: 600;">봉사기간</span> : ${vo.progrmBgnde } ~
 									${vo.progrmEndde }</li>
-								<li><i class="icon-check"></i>모집기간 : ${vo.noticeBgnde} ~ ${vo.noticeEndde}</li>
-								<li><i class="icon-check"></i>성인가능여부 : ${vo.adultPosblAt } </li>
-								<li><i class="icon-check"></i>청소년가능여부 : ${vo.yngbgsPosblAt }</li>
-								<li><i class="icon-check"></i>주관기관명 : ${vo.mnnstNm }</li>
-								<li><i class="icon-check"></i>나눔주체명 : ${vo.nanmmbyNm }</li>
-								<li><i class="icon-check"></i>봉사장소 : ${vo.actPlace }</li>
-								<li><i class="icon-check"></i>담당자명 : ${vo.nanmmbyNmAdmn }</li>
-								<li><i class="icon-check"></i>전화번호 : ${vo.telno }</li>
-								<li><i class="icon-check"></i>FAX번호 : ${vo.fxnum }</li>
-								<li><i class="icon-check"></i>우편번호주소 : ${vo.postAdres }</li>
-								<li><i class="icon-check"></i>이메일 : ${vo.email }</li>
-								<li><i class="icon-check"></i>모집상태 : ${vo.progrmSttusSe }</li>
-								<li><i class="icon-check"></i>모집인원(총인원) : ${vo.rcritNmpr }</li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">모집기간</span> : ${vo.noticeBgnde} ~ ${vo.noticeEndde}</li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">성인가능여부</span> : ${vo.adultPosblAt } </li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">청소년가능여부</span> : ${vo.yngbgsPosblAt }</li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">주관기관명</span> : ${vo.mnnstNm }</li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">나눔주체명</span> : ${vo.nanmmbyNm }</li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">봉사장소</span> : ${vo.actPlace }</li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">담당자명</span> : ${vo.nanmmbyNmAdmn }</li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">전화번호</span> : ${vo.telno }</li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">FAX번호</span> : ${vo.fxnum }</li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">우편번호주소</span> : ${vo.postAdres }</li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">이메일</span> : ${vo.email }</li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">모집상태</span> : ${vo.progrmSttusSe }</li>
+								<li><i class="icon-check"></i><span style="font-weight: 600;">모집인원(총인원)</span> : ${vo.rcritNmpr }</li>
 							</ul>
 						</div>
 					</div>
@@ -66,7 +66,7 @@
 				<aside class="sidebar" style="border-top: 1px solid rgba(0, 0, 0, 0.3);">
 					<div class="row">
 						<div class="col-md-12 side">
-							<i class="icon-check"></i>내용 : ${vo.progrmCn }
+							<i class="icon-check"></i><span style="font-weight: 600;">내용</span> : ${vo.progrmCn }
 
 						</div>
 					</div>
