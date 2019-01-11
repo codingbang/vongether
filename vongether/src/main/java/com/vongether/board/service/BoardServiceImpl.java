@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.vongether.board.dao.BoardDAO;
 import com.vongether.board.model.BoardVO;
+import com.vongether.common.util.BoardConstance;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -17,8 +18,10 @@ public class BoardServiceImpl implements BoardService {
 	SqlSession sqlSession;
 	
 	@Override
-	public List<BoardVO> selectBoardList(Map keyword) {
-		return sqlSession.getMapper(BoardDAO.class).selectBoardList(keyword);
+	public List<BoardVO> selectBoardList(Map<String, Object> param, int pageNo) {
+		int pagePerList = ((pageNo-1)*10);
+		param.put("pagePerList", pagePerList);
+		return sqlSession.getMapper(BoardDAO.class).selectBoardList(param);
 	}
 	
 	@Override
@@ -36,10 +39,16 @@ public class BoardServiceImpl implements BoardService {
 	public void updateBoardArticle(BoardVO boardVO) {
 		sqlSession.getMapper(BoardDAO.class).updateBoardArticle(boardVO);
 	}
+	@Override
 	public void deleteBoardArticle(int bNo) {
 		sqlSession.getMapper(BoardDAO.class).deleteBoardArticle(bNo);
 	}
+	@Override
 	public void increaseHitcount(int bNo) {
 		sqlSession.getMapper(BoardDAO.class).increaseHitcount(bNo);
+	}
+	@Override
+	public int totalBoardArticleCount() {
+		return sqlSession.getMapper(BoardDAO.class).totalBoardArticleCount();
 	}
 }

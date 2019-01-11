@@ -1,58 +1,27 @@
 package com.vongether.common.util;
 
 public class Pagination {
-  /** 한 페이지당 게시글 수 **/
-  private int pageSize;
-  
-  /** 한 블럭(range)당 페이지 수 **/
-  private int rangeSize = 10;
-  
-  /** 현재 페이지 **/
-  private int curPage;
-  
-  /** 현재 블럭(range) **/
-  private int curRange;
-  
-  /** 총 게시글 수 **/
-  private int listCnt;
-  
-  /** 총 페이지 수 **/
-  private int totalPage;
-  
-  /** 총 블럭(range) 수 **/
-  private int rangeCnt;
-  
-  /** 시작 페이지 **/
-  private int startPage;
-  
-  /** 끝 페이지 **/
-  private int endPage;
-  
-  /** 시작 index **/
-  private int startIndex = 0;
-  
-  /** 이전 페이지 **/
-  private int prevPage;
-  
-  /** 다음 페이지 **/
-  private int nextPage;
 
-  
-  
-  public Pagination() {
-      
-  }
-  
-  
+  private int pageSize; 	 	/** 한 페이지당 게시글 수 **/
+  private int rangeSize = 10;	/** 한 블럭(range)당 페이지 수 **/
+  private int curPage;			/** 현재 페이지 **/
+  private int curRange;  		/** 현재 블럭(range) **/
+  private int listCnt;			/** 총 게시글 수 **/
+  private int totalPage;		/** 총 페이지 수 **/
+  private int rangeCnt;			/** 총 블럭(range) 수 **/
+  private int startPage;  		/** 시작 페이지 **/
+  private int endPage;  		/** 끝 페이지 **/
+  private int startIndex = 0;	/** 시작 index **/
+  private int prevPage;  		/** 이전 페이지 **/
+  private int nextPage;  		/** 다음 페이지 **/
+  public Pagination() {}
   public Pagination(int listCnt, int curPage, int pageSzie){
-          
           /**
            * 페이징 처리 순서
            * 1. 총 페이지수
            * 2. 총 블럭(range)수
            * 3. range setting
            */
-          
           // 총 게시물 수와 현재 페이지, 한페이지당 게시글 수를 Controller로 부터 받아온다.
           /** 현재페이지 **/
           setCurPage(curPage);

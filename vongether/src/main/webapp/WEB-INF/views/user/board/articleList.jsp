@@ -5,22 +5,6 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	/* $("#firstpage").click(
-		function() {
-			$('#pg').val("1");
-			$('#key').val("");
-			$('#word').val("");
-			$("#commonForm").attr("method", "get").attr(
-					"action", listpath).submit();
-		}); */
-
-	/* $(".mvpage").click(
-		function() {
-			$('#pg').val($(this).attr("move-page-no"));
-			$("#commonForm").attr("method", "get").attr(
-					"action", listpath).submit();
-		}); */
-
 	$(".posting").click(
 			function(){
 				$("#bNo").val($(this).attr("b-no"));
@@ -40,15 +24,88 @@ $(document).ready(function() {
 					"action", "/board/list.do").submit();
 		}
 	); 
+	
+	$(".testtest").click(
+		function(){
+			/* $("#pageNo").val($(this).attr("b-no")); */
+			/* var text = $('#pageNo').val(); */
+			var test = {
+				pageNo: '2'
+			};
+			getAjaxList(test);
+		}
+	); 
+	function getAjaxList(test){
+		$.ajax({
+    		url : "/board/listAjax.do",
+    		dataType : "json",
+    		data : test,
+    		contentType: "application/json; charset=UTF-8",
+    		method : "GET",
+    	    success : function(data) {
+    	    	makeVolunteerList(data.listAjaxArticle);
+    	    	makePageList(data.pagination);
+    	    }
+    	});		
+	};
+	function makeVolunteerList(data) {
+		var htmlStr = "";
+
+		for(var i=0;i<data.length;i++){
+			htmlStr += "<tr>";
+			htmlStr += "  <td>"+data[i].bNo+"</td>";
+			htmlStr += "  <td><a href='/board/view.do?bNo="+data[i].bNo+"'>"+data[i].bTitle+"</a></td>";
+			<%-- htmlStr += "  <td class="posting" b-no="${list.bNo}"><a href="/board/view.do?bNo=${list.bNo}">${list.bTitle}</a></td>"; --%>
+			htmlStr += "  <td><span>"+data[i].mId+"</span></td>";
+			htmlStr += "  <td>"+data[i].bRegdate+"</td>";
+			htmlStr += "  <td>"+data[i].bHitcount+"</td>";
+			htmlStr += "  <td>"+data[i].rCount+"</td>";
+			htmlStr += "</tr>";
+		}
+	 	$("#boardList").empty();
+    	$("#boardList").append(htmlStr);
+	}
+	function makePageList(data) {
+		var htmlStr = "";
+		if(data.curPage!=1){
+			htmlStr += "<button type='button' class='btn' pageNo='"+1+"'>&laquo;</button>";
+			htmlStr += " <button type='button' class='btn' pageNo='"+data.prevPage+"'>&lt;</button>";
+		}else{
+			htmlStr += "<button type='button' class='btn' disabled pageNo='"+1+"'>&laquo;</button>";
+			htmlStr += " <button type='button' class='btn' disabled pageNo='"+data.prevPage+"'>&lt;</button>";
+		}
+		for(var i=data.startPage;i<data.curRange;i++){
+			if(data.curPage==i){
+				htmlStr += "<button type='button' class='btn btn-primary'>"+i+"</button>";
+			}else{
+				htmlStr += "<button type='button' class='btn btn-default'>"+i+"</button>";
+			}
+		}
+		if(data.curPage!=data.endPage){
+			htmlStr += " <button type='button' class='btn' pageNo='"+data.nextPage+"'>&gt;</button>";
+			htmlStr += "<button type='button' class='btn' pageNo='"+data.endPage+"'>&raquo;</button>";
+		}else{
+			htmlStr += " <button type='button' class='btn' disabled pageNo='"+data.nextPage+"'>&gt;</button>";
+			htmlStr += "<button type='button' class='btn' disabled pageNo='"+data.endPage+"'>&raquo;</button>";
+		}
+	 	$("#pagination").empty();
+    	$("#pagination").append(htmlStr); 
+    	
+	}
+    
+   
+    
+    
+    
+	
 })
 </script>
 <div class="my-container">
   <!-- main-content-box -->
 	<div class="main-content-box">
 		<div class="container">
-		
-		  <div class="row">
-        <h2><b>게시판</b></h2>
+		    <div class="row">
+        		<h2 class="testtest"><b>게시판</b></h2>
 			</div>
 			
 			<div class="row">
@@ -77,12 +134,9 @@ $(document).ready(function() {
 	                 </tr>
 			     </c:forEach>
 	             </tbody>
-	            
-	             
 	         </table>
 			  </div>
       </div>
-      
       <div class="row">
         <div class="col-1"></div>
         <div class="col-11">
@@ -93,15 +147,26 @@ $(document).ready(function() {
       <div class="row">
         <div class="col-3"></div>
         <div class="col-6" align="center">
-          ${navigator.navigator}
           <div id="pagination">
-            <button type="button" class="btn">&laquo;</button>
-            <button type="button" class="btn">&lt;</button>
-            <button type="button" class="btn btn-default">1</button>
-            <button type="button" class="btn btn-default">2</button>
-            <button type="button" class="btn btn-default">3</button>
-            <button type="button" class="btn">&gt;</button>
-            <button type="button" class="btn">&raquo;</button>
+          		<%-- <c:if test="curPage==1">
+	          		<button type='button' class='btn' disabled pageNo='1'>&raquo;</button>";
+    	      		<button type='button' class='btn' disabled pageNo='${data.prevPage}'>&raquo;</button>";
+          		</c:if>
+          		<c:if test="curPage!=1">
+	          		<button type='button' class='btn' pageNo='${}'>&raquo;</button>";
+    	      		<button type='button' class='btn' pageNo='${}'>&raquo;</button>";
+          		</c:if>
+          		<c:forEach  var="i" begin="${pagination.startPage}" end="${pagination.curRange}">
+	          		<button type='button' class='btn' pageNo='i'>i</button>";
+          		</c:forEach>
+          		<c:if test="curPage!=${pagination.endPage}">
+        	  		<button type='button' class='btn' pageNo='${data.endPage}'>&raquo;</button>";
+       	   			<button type='button' class='btn' pageNo='${data.endPage}'>&raquo;</button>";
+          		</c:if>
+          		<c:if test="curPage==${pagination.endPage}">
+          			<button type='button' class='btn' disabled pageNo='"+data.endPage+"'>&raquo;</button>";
+          			<button type='button' class='btn' disabled pageNo='"+data.endPage+"'>&raquo;</button>";
+          		</c:if> --%>
           </div>
         </div>
         <div class="col-3"></div>

@@ -39,7 +39,8 @@
             </otherwise> 
             </choose>
 		</if> 
-		order by b.b_no desc
+		ORDER BY b.b_no desc
+		LIMIT 10 OFFSET #{pagePerList}
 	</select>
 	
 	<select id="selectBoardArticle" parameterType="int" resultMap="boardResultMap">
@@ -67,4 +68,10 @@
 		SET b_hitcount = (b_hitcount+1)
 		WHERE b_no = #{bNo}
 	</update>
+	<select id="totalBoardArticleCount" resultType="int">
+		SELECT COUNT(b.b_no)
+		FROM board b
+	</select>
+	
+	
 </mapper>
