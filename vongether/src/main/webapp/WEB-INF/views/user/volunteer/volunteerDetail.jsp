@@ -1,12 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<script>
-	var progrmBgnde = ${vo.progrmBgnde};
-	var yyyy = progrmBgnde.toString()[0] + progrmBgnde.toString()[1]
-			+ progrmBgnde.toString()[2] + progrmBgnde.toString()[3];
-	var mm = progrmBgnde.toString()[4] + progrmBgnde.toString()[5];
-	var dd = progrmBgnde.toString()[6] + progrmBgnde.toString()[7];
-	var total = yyyy.concat("-").concat(mm).concat("-").concat(dd);
+<script type="text/javascript">
+	window.onload = function() {
+		var progrmBgnde = ${vo.progrmBgnde};
+		var progrmEndde = ${vo.progrmEndde};
+		var noticeBgnde = ${vo.noticeBgnde};
+		var noticeEndde = ${vo.noticeEndde};
+        
+		function trans(p,q) {
+			var yyyy = p.toString()[0] + p.toString()[1] + p.toString()[2]
+					+ p.toString()[3];
+			var mm = p.toString()[4] + p.toString()[5];
+			var dd = p.toString()[6] + p.toString()[7];
+			var total = yyyy.concat("-").concat(mm).concat("-").concat(dd);
+			q.innerText = total;		
+		}
+		var pb = document.getElementById("progrmBgnde");
+		trans(progrmBgnde,pb);
+		var pe = document.getElementById("progrmEndde");
+		trans(progrmEndde,pe);
+		var nb = document.getElementById("noticeBgnde");
+		trans(noticeBgnde,nb);
+		var ne = document.getElementById("noticeEndde");
+		trans(noticeEndde,ne);
+    };
+	
 </script>
 
 <div id="fh5co-page">
@@ -27,20 +45,23 @@
 						style="margin: 5px 5px 5px 5px; text-align: center;">
 						<span style="font-weight: 600;">${vo.progrmSj }</span>
 					</h3>
-					
+
 				</div>
 			</div>
 			<div class="col-md-12">
-				<div class="row" style="margin-left:0px"><a href="#" class="btn btn-primary btn-outline with-arrow">참여하기<i
+				<div class="row" style="margin-left: 0px">
+					<a href="#" class="btn btn-primary btn-outline with-arrow">참여하기<i
 						class="icon-arrow-right"></i></a> <a href="list.do"
 						class="btn btn-primary btn-outline with-arrow">목록으로<i
-						class="icon-arrow-right"></i></a></div>
+						class="icon-arrow-right"></i></a>
+				</div>
 			</div>
 			<div class="row line"
 				style="border-bottom: 1px solid rgba(0, 0, 0, 0.3); margin: 5px 5px 5px 10px"></div>
 			<div class="col-md-6">
 				<div class="row" style="margin: auto">
-					<div class="col-md-12 services-inner" style="margin-top: 20px" id="map-up">
+					<div class="col-md-12 services-inner" style="margin-top: 20px"
+						id="map-up">
 						<div id="map" style="width: 100%; overflow: auto; margin: auto;"></div>
 					</div>
 
@@ -56,11 +77,11 @@
 									style="font-weight: 600;">봉사시간</span> : ${vo.actBeginTm }:00 ~
 									${vo.actEndTm }:00</li>
 								<li><i class="icon-check"></i><span
-									style="font-weight: 600;">봉사기간</span> : ${vo.progrmBgnde } ~
-									${vo.progrmEndde }</li>
+									style="font-weight: 600;">봉사기간</span> : <span id="progrmBgnde"></span>
+									~ <span id="progrmEndde"></span></li>
 								<li><i class="icon-check"></i><span
-									style="font-weight: 600;">모집기간</span> : ${vo.noticeBgnde} ~
-									${vo.noticeEndde}</li>
+									style="font-weight: 600;">모집기간</span> : <span id="noticeBgnde"></span> ~
+									<span id="noticeEndde"></span></li>
 								<li><i class="icon-check"></i><span
 									style="font-weight: 600;">성인가능여부</span> : ${vo.adultPosblAt }</li>
 								<li><i class="icon-check"></i><span
@@ -157,7 +178,6 @@
 
 							var coords = new daum.maps.LatLng(result[0].y,
 									result[0].x);
-							
 
 							// 결과값으로 받은 위치를 마커로 표시합니다
 							var marker = new daum.maps.Marker({
@@ -174,12 +194,12 @@
 
 							// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 							map.setCenter(coords);
-						}else{
-							 var m = document.getElementById("map");
-							 m.style.visibility = 'hidden';
-							 var mu = document.getElementById("map-up");
-							 mu.innerHTML = "<h3 style='color : red; text-align : center;' >우편번호주소 정보가 잘못되어 지도 정보가 없습니다.<br>1365자원봉사포털의 담당자에게 문의하세요. </h3>";
-							 
+						} else {
+							var m = document.getElementById("map");
+							m.style.visibility = 'hidden';
+							var mu = document.getElementById("map-up");
+							mu.innerHTML = "<h3 style='color : red; text-align : center;' >우편번호주소 정보가 잘못되어 지도 정보가 없습니다.<br>1365자원봉사포털의 담당자에게 문의하세요. </h3>";
+
 						}
 					});
 </script>

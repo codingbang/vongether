@@ -53,13 +53,13 @@
 											<label class="control-label">비밀번호</label>
 										</div>
 										<div class="col-lg-10">
-											<input type="password" class="form-control" id="pwd1" placeholder="비밀번호">
+											<input type="password" class="form-control" id="pwd1" placeholder="비밀번호" required="true">
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-lg-2"></div>
 										<div class="col-lg-10">
-											<span>최소 8자리 이상 16자 이하 // 영어 소대문자, 특수기호, 숫자 3가지 조합</span>
+											<span>최소 6자리 이상 12자 이하 // 영어 소대문자숫자, 특수기호  2가지 조합</span>
 										</div>
 									</div>
 								</div>
@@ -70,7 +70,7 @@
 											<label class="control-label">비밀번호 확인</label>
 										</div>
 										<div class="col-lg-10">
-											<input type="password" class="form-control" id="pwd2" name="mPwd" placeholder="비밀번호 확인">
+											<input type="password" class="form-control" id="pwd2" name="mPwd" placeholder="비밀번호 확인" required="true">
 										</div>
 									</div>
 								</div>
@@ -393,9 +393,9 @@
 	  
 	  //비밀번호 조합  체크
 	  $(document).on("change","#pwd1", function() {
-	    // 최소 8자리 이상 16자 이하
-	    // 영어 소대문자, 특수기호, 숫자 3가지 조합
-	    var regExp = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+	    // 최소 6자리 이상 12자 이하
+	    // 영어 소대문자숫자, 특수기호 2가지 조합
+	    var regExp = /^(?=.*[a-zA-Z0-9])(?=.*[!@#$%^*+=-]).{6,12}$/;
 	    var pass = pwd1.value.match(regExp);
 	    if (pass == null) {
 	      alert("제대로 입력하셈");
