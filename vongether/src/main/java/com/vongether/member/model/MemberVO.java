@@ -33,6 +33,16 @@ public class MemberVO {
   
   @NotEmpty(message="구분을 선택해주세요")
   private String mRole;
+  
+  private String mAuthCode;
+
+  public String getmAuthCode() {
+    return mAuthCode;
+  }
+
+  public void setmAuthCode(String mAuthCode) {
+    this.mAuthCode = mAuthCode;
+  }
 
   public String getmId() {
     return mId;

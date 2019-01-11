@@ -152,7 +152,7 @@
 								</div>
 							</div>
 							
-							<!-- preUser 로 가입됨 -->
+							<!-- ROLE_GUEST 로 가입됨 -->
 							<div class="form-group">
                                 <input type="hidden" class="form-control" name="m_role" >
                             </div>
@@ -315,26 +315,22 @@
 	   $.ajax({
         url: '${root}/member/idCheck?mId=' + mId,
         type: 'get',
-        success: function(data) {
-          console.log(data);
-  
+        success: function(data) {  
           if (data == 1) {
             $("#id_check").text("사용중 아이디입니다! ");
             $("#id_check").css("color", "red");
   
           } else {
-            if (m_id = "") {
-              $("#id_check").text("아이디를 입력해주세요! ");
-              $("#id_check").css("color", "red");
-            } else {
-              $("#id_check").text("입력 가능한 아이디입니다! ");
-              $("#id_check").css("color", "blue");
+            if(m_id = "") {
+	            $("#id_check").text("아이디를 입력해주세요! ");
+	            $("#id_check").css("color", "red");
+              } else {
+                $("#id_check").text("입력 가능한 아이디입니다! ");
+                $("#id_check").css("color", "blue");
               $("#joinBtn").attr("disabled", false);
+              }
             }
-  
           }
-  
-        }
   
 	    })
 	  });
