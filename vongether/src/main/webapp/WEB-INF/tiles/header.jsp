@@ -4,6 +4,7 @@
 <form id="searchForm" action="" method="get">
   <input type="hidden" id="key" name="key" value="">
   <input type="hidden" id="word" name="word" value="">
+  <input type="hidden" id="pageNo" name="pageNo" value="1">
 </form>
 <header id="fh5co-header" role="banner">
 	<div class="container">

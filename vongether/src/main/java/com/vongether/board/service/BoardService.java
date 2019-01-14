@@ -7,10 +7,11 @@ import com.vongether.board.model.BoardVO;
 
 public interface BoardService {
 
-	public List<BoardVO> selectBoardList(Map keyword);
+	public List<BoardVO> selectBoardList(Map<String, Object> param, int pageNo);
 	public BoardVO selectBoardArticle(int bNo);
 	public int writeBoardArticle(BoardVO boardVO);
 	public void updateBoardArticle(BoardVO boardVO);
 	public void deleteBoardArticle(int bNo);
 	public void increaseHitcount(int bNo);
+	public int totalBoardArticleCount();
 }

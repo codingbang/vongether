@@ -8,7 +8,6 @@ public class BoardVO {
 	private String bRegdate;//작성일
 	private String mId;		//작성자아이디
 	private int rCount;		//댓글수
-
 	public int getbNo() {
 		return bNo;
 	}

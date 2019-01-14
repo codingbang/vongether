@@ -1,5 +1,6 @@
 package com.vongether.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,10 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vongether.board.model.BoardVO;
 import com.vongether.board.service.BoardService;
+import com.vongether.common.util.BoardConstance;
+import com.vongether.common.util.Pagination;
 import com.vongether.member.model.MemberVO;
 
 @Controller
@@ -23,14 +27,27 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
-
+	
 	@RequestMapping(value ="/list.do" , method = RequestMethod.GET)
-	public ModelAndView listBoardArticle(@RequestParam Map<String, String> keyword) {
-		ModelAndView mv = new ModelAndView();
-		List<BoardVO> listArticle = boardService.selectBoardList(keyword);
-		mv.addObject("selectBoardList", listArticle);
-		mv.setViewName("board/articleList.page");
-		return mv;
+	public String listBoardArticle(@RequestParam Map<String, Object> param,@RequestParam(defaultValue="1") int pageNo, Model model) {
+		List<BoardVO> listArticle = boardService.selectBoardList(param, pageNo);
+		model.addAttribute("selectBoardList", listArticle);
+		int totalArticleCount = listArticle.size();
+		Pagination pagination = new Pagination(totalArticleCount , pageNo, 10);
+		model.addAttribute("pagination", pagination);
+		return "board/articleList.page";
+	}
+	@RequestMapping(value ="/listAjax.do" , method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> ajaxListBoardArticle(@RequestParam Map<String, Object> param, @RequestParam int pageNo) {
+		
+		int totalArticleCount = boardService.totalBoardArticleCount();
+		Pagination pagination = new Pagination(totalArticleCount , pageNo, 10);
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<BoardVO> listAjaxArticle = boardService.selectBoardList(param, pageNo);
+		map.put("listAjaxArticle", listAjaxArticle);
+		map.put("pagination", pagination);
+		
+		return map;
 	}
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
@@ -46,7 +63,7 @@ public class BoardController {
 	      boardVO.setmId(memberVO.getmId());
 	      System.out.println(memberVO.getmId());
 	      System.out.println(boardVO.getmId());
-	      int bNo = boardService.writeBoardArticle(boardVO);
+	      boardService.writeBoardArticle(boardVO);
 	    }
 		return "redirect:/board/list.do";
 	}
@@ -54,9 +71,7 @@ public class BoardController {
 	public String viewBoardArticle(@RequestParam int bNo, HttpSession session, Model model) {
 		BoardVO boardVO = boardService.selectBoardArticle(bNo);
 		model.addAttribute("article", boardVO);
-		if(boardVO.getmId()!=session.getAttribute("userInfo")&&session.getAttribute("userInfo")!=null) {//자신이 아닐때 조회수 중가
-			boardService.increaseHitcount(boardVO.getbNo());
-		}
+		boardService.increaseHitcount(boardVO.getbNo());
 		return "board/articleView.page";
 	}  
 	@RequestMapping(value="/update.do", method=RequestMethod.GET)
