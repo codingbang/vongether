@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,76 +16,121 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
+import com.vongether.common.util.IsAdult;
 import com.vongether.common.util.Pagination;
 import com.vongether.common.util.RestCode;
 import com.vongether.common.util.RestDetail;
 import com.vongether.common.util.RestTest;
+import com.vongether.member.model.MemberVO;
+import com.vongether.member.service.MemberService;
 import com.vongether.volunteer.model.VolunteerVO;
 
 @Controller
 @RequestMapping("/volunteer")
 public class VolunteerController {
-  
-  @RequestMapping(value="/list.do", method=RequestMethod.GET)
-  public String volunteerList(Model model) {
-    return "volunteer/volunteerList.page";
-  }
-  
-  
-  @RequestMapping(value="/ajaxlist.do", method=RequestMethod.GET)
-  public @ResponseBody Map<String, Object> volunteerListAjax(@RequestParam Map<String, String> param) {
-    RestTest rt = null;
-    Map<String, Object> map = null;
-    try {
-      rt = new RestTest(param);
-      
-      Gson gson = new Gson();
-      VolunteerVO[] array = gson.fromJson(rt.ja, VolunteerVO[].class); 
-      List<VolunteerVO> volunteerList = Arrays.asList(array);
-      
-      Pagination pagination = new Pagination(volunteerList.get(0).getTotalCount() ,Integer.parseInt(param.get("pageNo")), 9);
-      
-      map = new HashMap<String, Object>();
-      map.put("volunteerList", volunteerList);
-      map.put("pagination", pagination);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return map;
-  }
-  
-  @RequestMapping(value="/ajaxGugun.do", method=RequestMethod.GET)
-  public @ResponseBody String gugunListAjax(@RequestParam String param) {
-    
-    RestCode rc = null;
-    try {
-      rc = new RestCode(param);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return (new Gson()).toJson(rc.ja);
-  }
-  
-  @RequestMapping(value="/detail.do", method=RequestMethod.GET)
-  public String volunteerDetail(@RequestParam String num, Model model) {
-      RestDetail rd=null;
-      try {
-          rd = new RestDetail(num);
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-      VolunteerVO vo = new VolunteerVO();
-      
-      Gson gson =  new Gson();
-      vo = gson.fromJson(rd.jo, VolunteerVO.class);
-      if(vo.getMnnstNm().length()==0) {
-    	  vo.setMnnstNm("정보없음");
-      }      
-      model.addAttribute("vo",vo);
-      //System.out.println("volunteerDetail :: "+vo.toString());
-      
-      
-      return "volunteer/volunteerDetail.page";
-  }
+
+	@Autowired
+	private MemberService memberService;
+
+	@RequestMapping(value="/list.do", method=RequestMethod.GET)
+	public String volunteerList(Model model) {
+		return "volunteer/volunteerList.page";
+	}
+
+
+	@RequestMapping(value="/ajaxlist.do", method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> volunteerListAjax(@RequestParam Map<String, String> param) {
+		RestTest rt = null;
+		Map<String, Object> map = null;
+		try {
+			rt = new RestTest(param);
+
+			Gson gson = new Gson();
+			VolunteerVO[] array = gson.fromJson(rt.ja, VolunteerVO[].class); 
+			List<VolunteerVO> volunteerList = Arrays.asList(array);
+
+			Pagination pagination = new Pagination(volunteerList.get(0).getTotalCount() ,Integer.parseInt(param.get("pageNo")), 9);
+
+			map = new HashMap<String, Object>();
+			map.put("volunteerList", volunteerList);
+			map.put("pagination", pagination);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+
+	@RequestMapping(value="/ajaxGugun.do", method=RequestMethod.GET)
+	public @ResponseBody String gugunListAjax(@RequestParam String param) {
+
+		RestCode rc = null;
+		try {
+			rc = new RestCode(param);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return (new Gson()).toJson(rc.ja);
+	}
+
+	@RequestMapping(value="/detail.do", method=RequestMethod.GET)
+	public String volunteerDetail(@RequestParam String num, Model model) {
+		RestDetail rd=null;
+		try {
+			rd = new RestDetail(num);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		VolunteerVO vo = new VolunteerVO();
+
+		Gson gson =  new Gson();
+		vo = gson.fromJson(rd.jo, VolunteerVO.class);
+		if(vo.getMnnstNm().length()==0) {
+			vo.setMnnstNm("정보없음");
+		}      
+		model.addAttribute("vo",vo);
+		model.addAttribute("json", rd.jo);
+		//System.out.println("volunteerDetail :: "+vo.toString());
+
+
+		return "volunteer/volunteerDetail.page";
+	}
+
+	@RequestMapping(value="/appl.do", method=RequestMethod.POST)
+	public String volunteerAppl(@RequestParam String programInfo, HttpSession session, Model model) throws Exception {
+		VolunteerVO vo = new VolunteerVO();
+		Gson gson =  new Gson();
+		vo = gson.fromJson(programInfo, VolunteerVO.class);
+
+		MemberVO memberVo = (MemberVO) session.getAttribute("userInfo");
+		String id = memberVo.getmId();		
+		memberVo = memberService.selectOneSearch(id);
+		boolean result = true;
+		if(vo.getAdultPosblAt().equals("N")) {
+			if(IsAdult.gap(memberVo.getmBirth())) {
+				System.out.println("성인 안됨");
+				result = false;
+			}
+		}
+		if(vo.getYngbgsPosblAt().equals("N")){
+			if(!(IsAdult.gap(memberVo.getmBirth()))) {
+				System.out.println("청소년 안됨");
+				result = false;
+			}
+		}
+		if(vo.getProgrmSttusSe()!=2) {
+			System.out.println("모집중");
+			result = false;			
+		}
+		System.out.println(vo.getProgrmSttusSe());
+		
+		
+		model.addAttribute("result", result);
+		
+		return "volunteer/volunteerList.page";
+		
+		//		private String adultPosblAt;//봉사자유형(성인가능여부)
+		//		private String yngbgsPosblAt;//봉사자유형(청소년가능여부)
+
+	}
 
 }
