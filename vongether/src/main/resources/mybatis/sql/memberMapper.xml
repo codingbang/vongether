@@ -40,5 +40,15 @@
         where m_id = #{mId} and m_pwd = #{mPwd}
     </select>
     
+    <select id="checkPwd" parameterType="map" resultType="int">
+        select count(*) from member
+        where m_id = #{mId} and m_pwd = #{mPwd}
+    </select>
+
+    <update id="update">
+        update member set
+        m_pwd = #{mPwd}, m_birth = #{mBirth}, m_postcode = #{mPostcode}, m_addr1 = #{mAddr1}, m_addr2 = #{mAddr2}
+        where m_id = #{mId}
+    </update>
 
 </mapper>

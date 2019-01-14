@@ -20,9 +20,9 @@
 				        <c:when test="${userInfo != null }">
 				        	<li><a href="/member/logout.do">로그아웃</a></li>
 							<li>
-							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">마이페이지</a>
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">마이페이지 <b class="caret"></b></a>
 							 <ul class="dropdown-menu">
-		                         <li><a href="/member/view.do">상세정보</a></li>
+		                         <li><a href="/member/view.do">상세정보 </a></li>
 		                         <li><a href="#">참여신청목록</a></li>
 		                         <li><a href="#">작성게시글목록</a></li>
 		                     </ul>

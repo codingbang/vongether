@@ -11,5 +11,9 @@ public interface MemberService {
 
   MemberVO selectOne(Map<String, Object> param) throws Exception;
   
+  int checkPwd(Map<String, Object> param) throws Exception;
+  
   void userAuth(String mId) throws Exception;
+  
+  void update(MemberVO memberVO) throws Exception;
 }

@@ -4,18 +4,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.info-header{
+    position: relative;
+    top: 50%;
+    margin-top: 130px;
+}
+</style>
 </head>
 <body>
-
 	<div class="container">
 		<div class="row">
 
 			<!-- ★★★ Contents -->
-			<div class="col-lg-12">
+			<div class="info-header">
 				<div class="page-header2">
 					<h3>회원정보</h3>
 				</div>
-
 
 				<div class="table-responsive">
 					<table class="table table-bordered">
@@ -48,12 +53,9 @@
 					</table>
 				</div>
 
-
 				<div class="pull-right">
-					<!--button class="btn btn-success">수정</button-->
-					<a href="./modify.html" class="btn btn-success btn-default">수정</a> <a href="#"
-						class="btn btn-large btn-default">삭제</a> <a href="./list.html"
-						class="btn btn-large btn-default">목록</a>
+					<a href="/member/editCheck.do" class="btn btn-success btn-default">수정</a>
+					<a href="/member/delete.do" class="btn btn-large btn-default">탈퇴</a> 
 				</div>
 
 			</div>

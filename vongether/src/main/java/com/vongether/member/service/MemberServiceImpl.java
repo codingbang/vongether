@@ -62,4 +62,16 @@ public class MemberServiceImpl implements MemberService {
     sqlsesssion.getMapper(MemberDAO.class).userAuth(mId);
   }
 
+
+  @Override
+  public int checkPwd(Map<String, Object> param) throws Exception {
+    return sqlsesssion.getMapper(MemberDAO.class).checkPwd(param);
+  }
+
+
+  @Override
+  public void update(MemberVO memberVO) throws Exception {
+    sqlsesssion.getMapper(MemberDAO.class).update(memberVO);
+  }
+
 }

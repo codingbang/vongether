@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,6 +12,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,9 +37,9 @@ public class MemberController {
     return "member/join.page";
   }
 
-  @RequestMapping(value = "/join.do", method = RequestMethod.POST)
   @ResponseBody
-  public Map<String, String> join(@RequestBody MemberVO memberVO, Model model, RedirectAttributes rttr, HttpServletRequest request, HttpSession session) throws Exception {
+  @RequestMapping(value = "/join.do", method = RequestMethod.POST)
+  public Map<String, String> join(@RequestBody MemberVO memberVO, RedirectAttributes rttr, HttpSession session) throws Exception {
 
     /// 가입전 유효성 체크
     
@@ -49,7 +49,6 @@ public class MemberController {
     
     Map<String, String> map = new HashMap<String, String>();
     map.put("isSuccess", "true");
-    rttr.addFlashAttribute("authmsg", "가입시 사용한 이메일로 인증");
     return map;
     
   }
@@ -101,18 +100,44 @@ public class MemberController {
   }
   
   @RequestMapping(value = "/editCheck.do", method= RequestMethod.GET)
-  public String editBefore() throws Exception{
+  public String editCheck() throws Exception{
     return "member/editCheck.page";
   }
   
   @RequestMapping(value = "/editCheck.do", method= RequestMethod.POST)
-  public String editBefore(RedirectAttributes rttr) throws Exception{
-    return "member/edit.page";
+  public String editCheck(RedirectAttributes rttr, String mId, String mPwd, HttpSession session) throws Exception{
+    
+    Map<String, Object> param = new HashMap<String, Object>();
+    param.put("mId", mId);
+    param.put("mPwd", mPwd);
+    int result = memberService.checkPwd(param);
+    
+    if(result == 1 ) {
+      return "member/edit.page";
+    }
+    return "redirect:/member/editCheck.do";
   }
   
   @RequestMapping(value = "/view.do", method= RequestMethod.GET)
   public String view() throws Exception{
     return "member/view.page";
+  }
+  
+  @RequestMapping(value = "/edit.do", method= RequestMethod.GET)
+  public String edit() throws Exception{
+    return "member/edit.page";
+  }
+  
+  @Transactional
+  @ResponseBody
+  @RequestMapping(value = "/edit.do", method= RequestMethod.POST)
+  public Map<String, String> edit(RedirectAttributes rttr, @RequestBody MemberVO memberVO) throws Exception{
+    
+    // 유효성 체크후 실행
+    memberService.update(memberVO);
+    Map<String, String> map = new HashMap<String, String>();
+    map.put("isSuccess", "true");
+    return map;
   }
   
   public static final String ZIPCODE_API_KEY = "3a167b364799b7ff01545215585606";
@@ -151,7 +176,6 @@ public class MemberController {
           totalCount = Integer.parseInt(pageInfoElement.select("totalCount"). text());
           totalPage = Integer.parseInt(pageInfoElement.select("totalPage").text())-1;
           countPerPage = Integer.parseInt(pageInfoElement.select("countPerPage").text());
-
     
           if (totalCount % countPerPage > 0) {
               totalPage++;
@@ -167,7 +191,6 @@ public class MemberController {
           if (endPage > totalPage) {
               endPage = totalPage;
           }
-          
           
           Elements itemElements = document.select("item");
           List<PostVO> list = new ArrayList<PostVO>();
@@ -191,12 +214,9 @@ public class MemberController {
           paramMap.put("errorCode", errorCode);
           paramMap.put("errorMessage", errorMessage);
       }
-      
-      
       // Gson형태로 paramMap 리턴
       return (new Gson()).toJson(paramMap);
 
   }
-  
   
 }
