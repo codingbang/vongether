@@ -11,5 +11,7 @@ public interface MemberService {
 
   MemberVO selectOne(Map<String, Object> param) throws Exception;
   
+  MemberVO selectOneSearch(String param) throws Exception;
+  
   void userAuth(String mId) throws Exception;
 }

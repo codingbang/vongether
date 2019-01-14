@@ -24,6 +24,8 @@
 		var ne = document.getElementById("noticeEndde");
 		trans(noticeEndde,ne);
     };
+    
+    
 	
 </script>
 
@@ -50,8 +52,14 @@
 			</div>
 			<div class="col-md-12">
 				<div class="row" style="margin-left: 0px">
-					<a href="#" class="btn btn-primary btn-outline with-arrow">참여하기<i
-						class="icon-arrow-right"></i></a> <a href="list.do"
+
+				<form action="appl.do" method="post" >
+					<input value="참여하기" class="btn btn-primary" type="submit">
+					<input type="hidden" value='${json }' name="programInfo"  >
+				</form>
+
+
+					 <a href="list.do"
 						class="btn btn-primary btn-outline with-arrow">목록으로<i
 						class="icon-arrow-right"></i></a>
 				</div>
