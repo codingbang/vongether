@@ -1,5 +1,6 @@
 package com.vongether.member.service;
 
+import java.util.Map;
 import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +52,8 @@ public class MemberServiceImpl implements MemberService {
 
 
   @Override
-  public MemberVO selectOne(String mId) throws Exception {
-    return sqlsesssion.getMapper(MemberDAO.class).selectOne(mId);
+  public MemberVO selectOne(Map<String, Object> param) throws Exception {
+    return sqlsesssion.getMapper(MemberDAO.class).selectOne(param);
   }
 
 

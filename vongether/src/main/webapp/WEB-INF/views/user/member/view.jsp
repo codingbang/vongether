@@ -28,21 +28,21 @@
 						<tbody>
 							<tr>
 								<th class="text-center">ID</th>
-								<td class="text-left">gglim</td>
+								<td class="text-left">${userInfo.mId}</td>
 								<th class="text-center">회원명</th>
-								<td class="text-left">임경균</td>
+								<td class="text-left">${userInfo.mName}</td>
 							</tr>
 							<tr>
 								<th class="text-center">생년월일</th>
-								<td class="text-left">2014.02.19</td>
+								<td class="text-left">${userInfo.mBirth}</td>
 								<th class="text-center">성별</th>
-								<td class="text-left">남</td>
+								<td class="text-left">${userInfo.mGender}</td>
 							</tr>
 							<tr>
-								<th class="text-center">전화번호</th>
-								<td class="text-left">010-0000-0000</td>
+							    <th class="text-center">우편번호</th>
+                                <td class="text-left">${userInfo.mPostcode}</td>
 								<th class="text-center">주소</th>
-								<td class="text-left">서울시 금천구 가산동</td>
+								<td class="text-left">${userInfo.mAddr1} ${userInfo.mAddr2}</td>
 							</tr>
 						</tbody>
 					</table>

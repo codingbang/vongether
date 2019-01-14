@@ -36,7 +36,7 @@
                             
                         </ul>
                             <div class="row">
-                                <span>아이디 : "${userInfo.mId}"</span>
+                                <span>아이디 : ${userInfo.mId}</span>
                                 <span>  </span>
                             </div>
                         

@@ -60,11 +60,15 @@ public class MemberController {
   }
 
   @RequestMapping(value = "/login.do", method = RequestMethod.POST)
-  public String login(MemberVO memberVO, HttpSession session, Model model) throws Exception {
-    int result = memberService.checkId(memberVO.getmId());
+  public String login(String mId, String mPwd, HttpSession session, Model model) throws Exception {
+    Map<String, Object> param = new HashMap<String, Object>();
+    param.put("mId", mId);
+    param.put("mPwd", mPwd);
+    MemberVO memberVO = memberService.selectOne(param);
     
-    if (result == 1) {
-      model.addAttribute("result", result);
+    if (memberVO != null ) {
+      
+      //rttr.addFlashAttribute("memberVO", memberVO);
       model.addAttribute("memberVO", memberVO);
       session.setAttribute("userInfo", memberVO);
       return "redirect:/";
@@ -72,7 +76,7 @@ public class MemberController {
     // 실패했을 경우
     else {
       session.invalidate();
-      return "redirect:/login.page";
+      return "redirect:/member/login.do";
     }
 
   }
