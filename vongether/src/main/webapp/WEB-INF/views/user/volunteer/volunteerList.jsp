@@ -85,8 +85,6 @@ $(function(){
 	    	    }
 	    	});
 		}
-    	
-    	
     });
     
     $(document).on("click", ".mvpage", function(){

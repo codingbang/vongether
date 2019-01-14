@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.vongether.board.model.BoardVO;
 import com.vongether.board.service.BoardService;
-import com.vongether.common.util.BoardConstance;
 import com.vongether.common.util.Pagination;
 import com.vongether.member.model.MemberVO;
 
@@ -29,22 +27,23 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping(value ="/list.do" , method = RequestMethod.GET)
-	public String listBoardArticle(@RequestParam Map<String, Object> param,@RequestParam(defaultValue="1") int pageNo, Model model) {
+	public String listBoardArticle(@RequestParam Map<String, Object> param, @RequestParam(defaultValue="1") int pageNo, Model model) {
 		List<BoardVO> listArticle = boardService.selectBoardList(param, pageNo);
 		model.addAttribute("selectBoardList", listArticle);
-		int totalArticleCount = listArticle.size();
+
+		int totalArticleCount = boardService.totalBoardArticleCount(param);
 		Pagination pagination = new Pagination(totalArticleCount , pageNo, 10);
 		model.addAttribute("pagination", pagination);
 		return "board/articleList.page";
 	}
 	@RequestMapping(value ="/listAjax.do" , method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> ajaxListBoardArticle(@RequestParam Map<String, Object> param, @RequestParam int pageNo) {
-		
-		int totalArticleCount = boardService.totalBoardArticleCount();
-		Pagination pagination = new Pagination(totalArticleCount , pageNo, 10);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<BoardVO> listAjaxArticle = boardService.selectBoardList(param, pageNo);
 		map.put("listAjaxArticle", listAjaxArticle);
+		
+		int totalArticleCount = boardService.totalBoardArticleCount(param);
+		Pagination pagination = new Pagination(totalArticleCount , pageNo, 10);
 		map.put("pagination", pagination);
 		
 		return map;

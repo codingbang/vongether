@@ -25,17 +25,17 @@ $(document).ready(function() {
 		}
 	); 
 	
-	$(".testtest").click(
+	$(document).on("click",".navigation-btn",
 		function(){
-			/* $("#pageNo").val($(this).attr("b-no")); */
-			/* var text = $('#pageNo').val(); */
+			$('#pageNo').val($(this).attr("pageNo"));
+			alert($('#pageNo').val());
 			var test = {
-				pageNo: '2'
+				pageNo: $('#pageNo').val()
 			};
 			getAjaxList(test);
 		}
 	); 
-	function getAjaxList(test){
+   function getAjaxList(test){
 		$.ajax({
     		url : "/board/listAjax.do",
     		dataType : "json",
@@ -68,22 +68,22 @@ $(document).ready(function() {
 	function makePageList(data) {
 		var htmlStr = "";
 		if(data.curPage!=1){
-			htmlStr += "<button type='button' class='btn' pageNo='"+1+"'>&laquo;</button>";
-			htmlStr += " <button type='button' class='btn' pageNo='"+data.prevPage+"'>&lt;</button>";
+			htmlStr += "<button type='button' class='btn navigation-btn' pageNo='"+1+"'>&laquo;</button>";
+			htmlStr += " <button type='button' class='btn navigation-btn' pageNo='"+data.prevPage+"'>&lt;</button>";
 		}else{
 			htmlStr += "<button type='button' class='btn' disabled pageNo='"+1+"'>&laquo;</button>";
 			htmlStr += " <button type='button' class='btn' disabled pageNo='"+data.prevPage+"'>&lt;</button>";
 		}
-		for(var i=data.startPage;i<data.curRange;i++){
+		for(var i=data.startPage;i<data.endPage+1;i++){
 			if(data.curPage==i){
-				htmlStr += "<button type='button' class='btn btn-primary'>"+i+"</button>";
+				htmlStr += "<button type='button' class='btn btn-primary' pageNo='"+i+"'>"+i+"</button>";
 			}else{
-				htmlStr += "<button type='button' class='btn btn-default'>"+i+"</button>";
+				htmlStr += "<button type='button' class='btn btn-default navigation-btn' pageNo='"+i+"'>"+i+"</button>";
 			}
 		}
 		if(data.curPage!=data.endPage){
-			htmlStr += " <button type='button' class='btn' pageNo='"+data.nextPage+"'>&gt;</button>";
-			htmlStr += "<button type='button' class='btn' pageNo='"+data.endPage+"'>&raquo;</button>";
+			htmlStr += " <button type='button' class='btn navigation-btn' pageNo='"+data.nextPage+"'>&gt;</button>";
+			htmlStr += "<button type='button' class='btn navigation-btn' pageNo='"+data.endPage+"'>&raquo;</button>";
 		}else{
 			htmlStr += " <button type='button' class='btn' disabled pageNo='"+data.nextPage+"'>&gt;</button>";
 			htmlStr += "<button type='button' class='btn' disabled pageNo='"+data.endPage+"'>&raquo;</button>";
@@ -92,11 +92,6 @@ $(document).ready(function() {
     	$("#pagination").append(htmlStr); 
     	
 	}
-    
-   
-    
-    
-    
 	
 })
 </script>
@@ -148,25 +143,33 @@ $(document).ready(function() {
         <div class="col-3"></div>
         <div class="col-6" align="center">
           <div id="pagination">
-          		<%-- <c:if test="curPage==1">
-	          		<button type='button' class='btn' disabled pageNo='1'>&raquo;</button>";
-    	      		<button type='button' class='btn' disabled pageNo='${data.prevPage}'>&raquo;</button>";
+          	<%-- <c:forEach var="pagination" items="${pagination}"> --%>
+          		<c:if test="${pagination.curPage==1}">
+	          		<button type='button' class='btn' disabled pageNo='1'>&laquo;</button>
+					<button type='button' class='btn' disabled pageNo='${pagination.prevPage}'>&lt;</button>
           		</c:if>
-          		<c:if test="curPage!=1">
-	          		<button type='button' class='btn' pageNo='${}'>&raquo;</button>";
-    	      		<button type='button' class='btn' pageNo='${}'>&raquo;</button>";
+          		<c:if test="${pagination.curPage!=1}">
+	          		<button type='button' class='btn navigation-btn' pageNo='1'>&laquo;</button>"
+					<button type='button' class='btn navigation-btn' pageNo='${pagination.prevPage}'>&lt;</button>"
           		</c:if>
-          		<c:forEach  var="i" begin="${pagination.startPage}" end="${pagination.curRange}">
-	          		<button type='button' class='btn' pageNo='i'>i</button>";
+          		<c:forEach  var="i" begin="${pagination.startPage}" end="${pagination.endPage}">
+					          			
+	          		<c:if test="${pagination.curPage==i}">
+	          			<button type='button' class='btn btn-primary navigation-btn' pageNo='${i}'>${i}</button>
+          			</c:if>
+	          		<c:if test="${pagination.curPage!=i}">
+	          			<button type='button' class='btn btn-default navigation-btn' pageNo='${i}'>${i}</button>
+          			</c:if>
           		</c:forEach>
-          		<c:if test="curPage!=${pagination.endPage}">
-        	  		<button type='button' class='btn' pageNo='${data.endPage}'>&raquo;</button>";
-       	   			<button type='button' class='btn' pageNo='${data.endPage}'>&raquo;</button>";
+          		<c:if test="${pagination.curPage!=pagination.endPage}">
+        	  		<button type='button' class='btn navigation-btn' pageNo='${pagination.nextPage}'>&gt;</button>
+					<button type='button' class='btn navigation-btn' pageNo='${pagination.endPage}'>&raquo;</button>
           		</c:if>
-          		<c:if test="curPage==${pagination.endPage}">
-          			<button type='button' class='btn' disabled pageNo='"+data.endPage+"'>&raquo;</button>";
-          			<button type='button' class='btn' disabled pageNo='"+data.endPage+"'>&raquo;</button>";
-          		</c:if> --%>
+          		<c:if test="${pagination.curPage==pagination.endPage}">
+          			<button type='button' class='btn' disabled pageNo='${pagination.nextPage}'>&gt;</button>
+					<button type='button' class='btn' disabled pageNo='${pagination.endPage}'>&raquo;</button>
+          		</c:if> 
+			<%-- </c:forEach> --%>
           </div>
         </div>
         <div class="col-3"></div>

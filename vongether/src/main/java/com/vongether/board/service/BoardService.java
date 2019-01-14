@@ -13,5 +13,5 @@ public interface BoardService {
 	public void updateBoardArticle(BoardVO boardVO);
 	public void deleteBoardArticle(int bNo);
 	public void increaseHitcount(int bNo);
-	public int totalBoardArticleCount();
+	public int totalBoardArticleCount(Map<String, Object> param);
 }

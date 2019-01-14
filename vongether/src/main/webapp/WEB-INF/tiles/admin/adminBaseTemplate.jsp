@@ -32,7 +32,6 @@
     <!-- plugins -->
     <script src="/resources/admin/js/plugins/moment.min.js"></script>
     <script src="/resources/admin/js/plugins/jquery.nicescroll.js"></script>
-    <script src="/resources/admin/js/plugins/maps/jquery.vmap.world.js"></script>
     <script src="/resources/admin/js/plugins/jquery.vmap.sampledata.js"></script>
 
 </head>
