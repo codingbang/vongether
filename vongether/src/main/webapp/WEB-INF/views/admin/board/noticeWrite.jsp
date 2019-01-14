@@ -5,7 +5,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#summernote').summernote({
-        height:400
+		minHeight: 400,
+		maxHeight: 400
     });
 });
 </script>

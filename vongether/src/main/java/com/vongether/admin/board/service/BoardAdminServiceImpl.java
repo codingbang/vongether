@@ -1,6 +1,7 @@
 package com.vongether.admin.board.service;
 
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,18 @@ public class BoardAdminServiceImpl implements BoardAdminService {
   }
 
   @Override
-  public List<BoardVO> selectNoticeList() {
-    return sqlSession.getMapper(BoardAdminDAO.class).selectNoticeList();
+  public List<BoardVO> selectNoticeList(Map<String, Object> map) {
+    return sqlSession.getMapper(BoardAdminDAO.class).selectNoticeList(map);
+  }
+
+  @Override
+  public int selectBoardCnt() {
+    return sqlSession.getMapper(BoardAdminDAO.class).selectBoardCnt();
+  }
+
+  @Override
+  public int selectNoticeCnt() {
+    return sqlSession.getMapper(BoardAdminDAO.class).selectNoticeCnt();
   }
 
 }

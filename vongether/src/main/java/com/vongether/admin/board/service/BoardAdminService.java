@@ -1,6 +1,7 @@
 package com.vongether.admin.board.service;
 
 import java.util.List;
+import java.util.Map;
 import com.vongether.board.model.BoardVO;
 
 public interface BoardAdminService {
@@ -11,5 +12,9 @@ public interface BoardAdminService {
   
   public void insertNotice(BoardVO boardVO);
   
-  public List<BoardVO> selectNoticeList();
+  public List<BoardVO> selectNoticeList(Map<String, Object> map);
+  
+  public int selectBoardCnt();
+  
+  public int selectNoticeCnt();
 }
