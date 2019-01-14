@@ -117,5 +117,12 @@ public class MemberVO {
     this.mRole = mRole;
   }
 
+@Override
+public String toString() {
+	return "MemberVO [mId=" + mId + ", mName=" + mName + ", mGender=" + mGender + ", mBirth=" + mBirth + ", mPwd="
+			+ mPwd + ", mPostcode=" + mPostcode + ", mAddr1=" + mAddr1 + ", mAddr2=" + mAddr2 + ", mRole=" + mRole
+			+ ", mAuthCode=" + mAuthCode + "]";
+}
+
 
 }

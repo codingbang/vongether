@@ -13,6 +13,8 @@ public interface MemberDAO {
   MemberVO selectOne(Map<String, Object> param) throws Exception;
   
   int checkPwd(Map<String, Object> param) throws Exception;
+
+  MemberVO selectOneSearch(String param) throws Exception;
   
   void createAuthKey(@Param("mId")String mId, @Param("mAuthCode")String mAuthCode) throws Exception;
   

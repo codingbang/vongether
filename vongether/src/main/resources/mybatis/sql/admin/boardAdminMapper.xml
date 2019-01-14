@@ -17,7 +17,7 @@
 	<select id="selectBoardList" resultMap="boardResultMap">
 		SELECT b_no, b_title, b_hitcount, DATE_FORMAT(b_regdate,'%Y-%m-%d') b_regdate, m_id
 		FROM board
-		WHERE b_noticeYN = 0;
+		WHERE b_noticeYN = 0
 	</select>
 	
 	<select id="selectBoard" parameterType="int" resultMap="boardResultMap">
@@ -28,14 +28,35 @@
 	
 	<insert id="insertNotice" parameterType="BoardVO">
 		INSERT INTO BOARD (b_title, b_content, b_hitcount, b_regdate, b_noticeYN, m_id)
-		VALUES(#{bTitle}, #{bContent}, 0, now(), 1, #{mId});
+		VALUES(#{bTitle}, #{bContent}, 0, now(), 1, #{mId})
 	</insert>
 	
-	<select id="selectNoticeList" resultMap="boardResultMap">
+	<select id="selectNoticeList" resultMap="boardResultMap" parameterType="map">
 		SELECT b_no, b_title, b_hitcount, DATE_FORMAT(b_regdate,'%Y-%m-%d') b_regdate, m_id
 		FROM board
-		WHERE b_noticeYN = 1;
+		WHERE b_noticeYN = 1
+		<if test="keyword != null and keyword != ''">
+			AND (
+	  			b_title like CONCAT('%',#{keyword},'%')
+	  			OR b_content like CONCAT('%',#{keyword},'%')
+	  		)
+  		</if>
+		ORDER BY b_no DESC
+		LIMIT #{pagination.startIndex},#{pagination.pageSize}
 	</select>
 	
+	<select id="selectBoardCnt" resultType="int">
+		SELECT COUNT(b_no)
+		FROM board
+		WHERE b_noticeYN = 0
+	</select>
+	
+	<select id="selectNoticeCnt" resultType="int">
+		SELECT COUNT(b_no)
+		FROM board
+		WHERE b_noticeYN = 1
+	</select>
+	
+
 
 </mapper>

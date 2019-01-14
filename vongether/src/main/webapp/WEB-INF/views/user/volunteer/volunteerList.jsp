@@ -256,7 +256,7 @@ $(function(){
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
-				<h2>봉사참여</h2>
+				<h2>봉사참여</h2>${result }
 				<p><span>여러분의 <i class="sl-icon-heart"></i> 따뜻한 손길을 내밀어 주세요</span></p>
 			</div>
 		</div>
