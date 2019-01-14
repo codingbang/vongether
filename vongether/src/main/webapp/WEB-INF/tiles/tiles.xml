@@ -27,4 +27,35 @@
     </definition>
     
     
+    
+    
+    <!-- 관리자 타일즈 -->
+    <definition name="adminBase" template="/WEB-INF/tiles/admin/adminBaseTemplate.jsp">
+        <put-attribute name="adminLeft"   value="/WEB-INF/tiles/admin/left.jsp" />
+        <put-attribute name="adminHeader" value="/WEB-INF/tiles/admin/header.jsp" />
+    </definition>
+    
+ 
+    <definition name="*.admin" extends="adminBase">
+        <put-attribute name="adminBody" value="/WEB-INF/views/admin/{1}.jsp" />
+    </definition>
+ 
+     <definition name="*/*.admin" extends="adminBase">
+         <put-attribute name="adminBody" value="/WEB-INF/views/admin/{1}/{2}.jsp" />
+     </definition>
+    
+    <definition name="*/*/*.admin" extends="adminBase">
+        <put-attribute name="adminBody" value="/WEB-INF/views/admin/{1}/{2}/{3}.jsp" />
+    </definition>
+    
+    
+    
+    <!-- 관리자 인증(로그인) 타일즈 -->
+    <definition name="adminAuth" template="/WEB-INF/tiles/admin/adminAuthTemplate.jsp"/>
+ 
+    <definition name="login.adminAuth" extends="adminAuth">
+        <put-attribute name="adminAuthBody" value="/WEB-INF/views/admin/login.jsp" />
+    </definition>
+    
+    
 </tiles-definitions>
