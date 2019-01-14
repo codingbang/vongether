@@ -14,6 +14,31 @@
 	  <result property="rCount" column="r_count"/>
 	</resultMap>
 	
+	<select id="totalBoardArticleCount" parameterType="map" resultType="int">
+		SELECT COUNT(b.b_no)
+		FROM board b
+		<if test="word != null and word != ''">
+	        <choose>
+            <when test="key == 'id'">
+			WHERE b.m_id REGEXP #{word}
+            </when>
+            <when test="key == 'my'">
+			WHERE b.m_id like #{word}
+            </when>
+            <when test="key == 'title'">
+            WHERE b.b_title REGEXP #{word}
+            </when>
+            <when test="key == 'content'">
+            WHERE b.b_content REGEXP #{word}
+            </when>
+            <otherwise>
+            WHERE b.b_title REGEXP #{word}
+		    OR b.b_content REGEXP #{word}
+            </otherwise> 
+            </choose> 
+		</if> 
+            
+	</select>
 	<select id="selectBoardList" parameterType="map" resultMap="boardResultMap">
 		SELECT b.b_no, b.b_title, b.b_hitcount, DATE_FORMAT(b.b_regdate,'%Y-%m-%d') b_regdate, b.m_id, r.r_count
 		FROM board b
@@ -68,10 +93,6 @@
 		SET b_hitcount = (b_hitcount+1)
 		WHERE b_no = #{bNo}
 	</update>
-	<select id="totalBoardArticleCount" resultType="int">
-		SELECT COUNT(b.b_no)
-		FROM board b
-	</select>
 	
 	
 </mapper>

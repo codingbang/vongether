@@ -13,5 +13,5 @@ public interface BoardDAO {
 	void updateBoardArticle(BoardVO boardVO);
 	void deleteBoardArticle(int bNo);
 	void increaseHitcount(int bNo);
-	int totalBoardArticleCount();
+	int totalBoardArticleCount(Map<String, Object> sparam);
 }
