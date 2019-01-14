@@ -23,4 +23,14 @@ public class BoardAdminServiceImpl implements BoardAdminService {
     return sqlSession.getMapper(BoardAdminDAO.class).selectBoard(bNo);
   }
 
+  @Override
+  public void insertNotice(BoardVO boardVO) {
+    sqlSession.getMapper(BoardAdminDAO.class).insertNotice(boardVO);
+  }
+
+  @Override
+  public List<BoardVO> selectNoticeList() {
+    return sqlSession.getMapper(BoardAdminDAO.class).selectNoticeList();
+  }
+
 }

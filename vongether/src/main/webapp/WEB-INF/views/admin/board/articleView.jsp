@@ -1,54 +1,58 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
- <div class="panel box-shadow-none content-header">
-    <div class="panel-body">
-      <div class="col-md-12">
-          <h3 class="animated fadeInLeft">일반 게시글 관리</h3>
-          <p class="animated fadeInDown">
-            일반 게시글 상세
-          </p>
-      </div>
-    </div>
-</div>
-<div class="col-md-12">
+	
+	
+<!-- start: Content -->
+<div class="article-v1">
+	<div class="panel box-shadow-none content-header">
+		<div class="panel-body">
+			<div class="col-md-12">
+				<h3 class="animated fadeInLeft">일반 게시글 관리</h3>
+				<p class="animated fadeInDown">
+					일반 게시글 상세
+				</p>
+			</div>
+		</div>
+	</div>
 	<div class="col-md-12">
 		<div class="panel">
-			<div class="panel-heading">
-			   <h3><b>${article.bTitle }</b></h3>
-         <h5 class="pull-right">${article.mId }</h5>
+			<div class="pull-right article-v1-time">
+				<em> ${article.bRegdate }</em>
 			</div>
-				<div class="panel-body">
-					<div class="col-md-12">
-					 <div class="col-md-12 col-sm-12 col-xs-12">
-					</div>
-					<div class="col-md-12 col-sm-12 col-xs-12 mail-right-content padding-0">
-					  <div class="col-md-12 col-sm-12 col-xs-12 mail-right-text">
-					    <p>${article.bContent }</p>
-					  </div>
-             <div class="col-md-12 col-sm-12 col-xs-12">
-                 <span class="pull-right">${article.bRegdate }</span>
-            </div>
-					  <div class="col-md-12 col-sm-12 col-xs-12">
-					    <hr />
-					  </div>
-					  
-					  <div class="col-md-12 col-sm-12 col-xs-12">
-              <button type="button" class="btn btn-danger pull-right">삭제</button>
-            </div>
-					</div>
-					
-					
-					<div class="col-md-12 col-sm-12 col-xs-12">
-            <hr />
-          </div>
-					<div class="col-md-12 col-sm-12 col-xs-12">
-					
-					댓글?
-					</div>
-					
+			<div class="panel-body">
+				<div class="col-md-12 text-center article-v1-title"><h2>${article.bTitle }</h2></div>
+				<div class="col-md-12  article-v1-body">
+					<span class="pull-right">
+						${article.mId }
+					</span>
+					<p>${article.bContent }</p>
+				</div>
+				<div class="col-md-offset-10 col-md-2  colpull-right">
+					<button class="btn btn-danger">삭제</button>
+				</div>
+				<div><hr></div>
+				<div class="col-md-12 article-v1-footer">
+					<div class="col-md-12 article-v1-comment">
+ 						<h3><b>Comment:</b></h3>
+						<div class="media">
+							<div class="media-left">
+								<a href="#">
+									<img src="/resources/admin/img/avatar2.png" class="media-object card-v10-avatar"/>
+								</a>
+							</div>
+							<div class="media-body">
+								<h4 class="media-heading">작성자</h4>
+								<p>댓글내용이지롱</p>
+								<p>2019-01-14</p>
+								<span><button class="btn btn-info">수정</button><button class="btn btn-danger">삭제</button></span>
+							</div>
+						</div>
 					</div>
 				</div>
+			</div>
 		</div>
 	</div>
 </div>
+<!-- end: content -->	
+	

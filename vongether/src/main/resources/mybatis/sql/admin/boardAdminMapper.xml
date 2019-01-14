@@ -17,12 +17,24 @@
 	<select id="selectBoardList" resultMap="boardResultMap">
 		SELECT b_no, b_title, b_hitcount, DATE_FORMAT(b_regdate,'%Y-%m-%d') b_regdate, m_id
 		FROM board
+		WHERE b_noticeYN = 0;
 	</select>
 	
 	<select id="selectBoard" parameterType="int" resultMap="boardResultMap">
 	   SELECT b_no, b_title, b_content, b_hitcount, DATE_FORMAT(b_regdate,'%Y-%m-%d') b_regdate, m_id
      FROM board
      WHERE b_no = #{bNo}
+	</select>
+	
+	<insert id="insertNotice" parameterType="BoardVO">
+		INSERT INTO BOARD (b_title, b_content, b_hitcount, b_regdate, b_noticeYN, m_id)
+		VALUES(#{bTitle}, #{bContent}, 0, now(), 1, #{mId});
+	</insert>
+	
+	<select id="selectNoticeList" resultMap="boardResultMap">
+		SELECT b_no, b_title, b_hitcount, DATE_FORMAT(b_regdate,'%Y-%m-%d') b_regdate, m_id
+		FROM board
+		WHERE b_noticeYN = 1;
 	</select>
 	
 
