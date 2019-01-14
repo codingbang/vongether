@@ -14,10 +14,10 @@ import com.vongether.member.model.MemberVO;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-
   @Autowired
   private SqlSession sqlsesssion;
 
+  // @Autowired
   @Inject
   private JavaMailSender mailSender;
 
@@ -27,12 +27,10 @@ public class MemberServiceImpl implements MemberService {
       
       // 회원가입 DAO
       sqlsesssion.getMapper(MemberDAO.class).insert(memberVO);
-      
       String key = new TempKey().getKey(50, false); // 인증키 생성
       
       // 키 저장 DAO
       sqlsesssion.getMapper(MemberDAO.class).createAuthKey(memberVO.getmId(), key);
-      
       MailHandler sendMail = new MailHandler(mailSender);
       sendMail.setSubject("[Vongether 서비스 이메일 인증]");
       sendMail.setText(
@@ -43,7 +41,6 @@ public class MemberServiceImpl implements MemberService {
       sendMail.setFrom("bongsa019@gmail.com", "봉사관리자");
       sendMail.setTo(memberVO.getmId());
       sendMail.send();
-      
   }
 
 

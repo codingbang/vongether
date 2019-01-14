@@ -90,11 +90,25 @@ public class MemberController {
     return "member/emailConfirm.page";
   }
   
-  
   @ResponseBody
   @RequestMapping(value = "/idCheck", method= RequestMethod.GET)
   public int checkId(@RequestParam("mId") String mId) throws Exception{
     return memberService.checkId(mId);
+  }
+  
+  @RequestMapping(value = "/editCheck.do", method= RequestMethod.GET)
+  public String editBefore() throws Exception{
+    return "member/editCheck.page";
+  }
+  
+  @RequestMapping(value = "/editCheck.do", method= RequestMethod.POST)
+  public String editBefore(RedirectAttributes rttr) throws Exception{
+    return "member/edit.page";
+  }
+  
+  @RequestMapping(value = "/view.do", method= RequestMethod.GET)
+  public String view() throws Exception{
+    return "member/view.page";
   }
   
   public static final String ZIPCODE_API_KEY = "3a167b364799b7ff01545215585606";
