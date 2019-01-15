@@ -7,7 +7,8 @@
 
 
 	<typeAliases>
-		<typeAlias alias="BoardVO" type="com.vongether.board.model.BoardVO"></typeAlias>
+		<typeAlias alias="BoardVO" type="com.vongether.board.model.BoardVO"/>
+		<typeAlias alias="ReplyVO" type="com.vongether.board.model.ReplyVO" />
 		<typeAlias alias="MemberVO" type="com.vongether.member.model.MemberVO" />
 	</typeAliases>
 
