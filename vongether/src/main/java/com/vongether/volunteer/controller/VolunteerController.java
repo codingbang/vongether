@@ -23,7 +23,9 @@ import com.vongether.common.util.RestDetail;
 import com.vongether.common.util.RestTest;
 import com.vongether.member.model.MemberVO;
 import com.vongether.member.service.MemberService;
+import com.vongether.volunteer.model.VolunteerAppVo;
 import com.vongether.volunteer.model.VolunteerVO;
+import com.vongether.volunteer.service.VolunteerService;
 
 @Controller
 @RequestMapping("/volunteer")
@@ -31,9 +33,14 @@ public class VolunteerController {
 
 	@Autowired
 	private MemberService memberService;
-
+	
+	
+	@Autowired
+	private VolunteerService volunteerService;
+	
 	@RequestMapping(value="/list.do", method=RequestMethod.GET)
 	public String volunteerList(Model model) {
+		model.addAttribute("result", "0");
 		return "volunteer/volunteerList.page";
 	}
 
@@ -100,37 +107,40 @@ public class VolunteerController {
 		VolunteerVO vo = new VolunteerVO();
 		Gson gson =  new Gson();
 		vo = gson.fromJson(programInfo, VolunteerVO.class);
-
+		VolunteerAppVo volunteerAppVo = new VolunteerAppVo();
+		
 		MemberVO memberVo = (MemberVO) session.getAttribute("userInfo");
 		String id = memberVo.getmId();		
 		memberVo = memberService.selectOneSearch(id);
-		boolean result = true;
+		
+		String result = "0";
+		
 		if(vo.getAdultPosblAt().equals("N")) {
 			if(IsAdult.gap(memberVo.getmBirth())) {
 				System.out.println("성인 안됨");
-				result = false;
+				result = "성인은 참여할 수 없습니다.";
 			}
 		}
 		if(vo.getYngbgsPosblAt().equals("N")){
 			if(!(IsAdult.gap(memberVo.getmBirth()))) {
 				System.out.println("청소년 안됨");
-				result = false;
+				result = "청소년은 참여할 수 없습니다.";
 			}
 		}
 		if(vo.getProgrmSttusSe()!=2) {
 			System.out.println("모집중");
-			result = false;			
+			result = "모집중이 아닙니다.";			
 		}
-		System.out.println(vo.getProgrmSttusSe());
-		
+		if(result.equals("0")){
+			result = "1";
+//			volunteerAppVo.setAppBegintm();
+//			volunteerAppVo.setAppEndtm();
+			volunteerService.insert(volunteerAppVo);
+		}
 		
 		model.addAttribute("result", result);
 		
 		return "volunteer/volunteerList.page";
-		
-		//		private String adultPosblAt;//봉사자유형(성인가능여부)
-		//		private String yngbgsPosblAt;//봉사자유형(청소년가능여부)
-
 	}
 
 }

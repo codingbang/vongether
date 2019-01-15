@@ -9,6 +9,7 @@
 	<typeAliases>
 		<typeAlias alias="BoardVO" type="com.vongether.board.model.BoardVO"></typeAlias>
 		<typeAlias alias="MemberVO" type="com.vongether.member.model.MemberVO" />
+		<typeAlias alias="VolunteerVO" type="com.vongether.volunteer.model.VolunteerVO" />
 	</typeAliases>
 
 
