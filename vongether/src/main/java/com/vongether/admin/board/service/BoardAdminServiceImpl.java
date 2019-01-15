@@ -15,8 +15,8 @@ public class BoardAdminServiceImpl implements BoardAdminService {
   SqlSession sqlSession;
 
   @Override
-  public List<BoardVO> selectBoardList() {
-    return sqlSession.getMapper(BoardAdminDAO.class).selectBoardList();
+  public List<BoardVO> selectBoardList(Map<String, Object> map) {
+    return sqlSession.getMapper(BoardAdminDAO.class).selectBoardList(map);
   }
 
   @Override
@@ -35,13 +35,13 @@ public class BoardAdminServiceImpl implements BoardAdminService {
   }
 
   @Override
-  public int selectBoardCnt() {
-    return sqlSession.getMapper(BoardAdminDAO.class).selectBoardCnt();
+  public int selectBoardCnt(Map<String, Object> map) {
+    return sqlSession.getMapper(BoardAdminDAO.class).selectBoardCnt(map);
   }
 
   @Override
-  public int selectNoticeCnt() {
-    return sqlSession.getMapper(BoardAdminDAO.class).selectNoticeCnt();
+  public int selectNoticeCnt(Map<String, Object> map) {
+    return sqlSession.getMapper(BoardAdminDAO.class).selectNoticeCnt(map);
   }
 
 }

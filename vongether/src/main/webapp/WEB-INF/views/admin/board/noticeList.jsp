@@ -6,10 +6,13 @@ $(function(){
 	
 	
 	$(document).on("click", "#searchBtn", function(){
-		console.log($("#keyword").val());
+		var keyword = $("#keyword").val();
+		var searchType = $("#searchType option:selected").val();
+		
 		var jsonData = {
 			pageNo : 1,
-			keyword : $("#keyword").val()
+			keyword : keyword,
+			searchType : searchType
 		};
 		getNoticeList(jsonData);
 	});
@@ -17,8 +20,9 @@ $(function(){
 	
 	$(document).on("click", ".mvpage", function(){
 		var jsonData = {
-			pageNo : $(this).attr("move-page-no"),
-			keyword : $("#keyword").val()
+				pageNo : $(this).attr("move-page-no"),
+				keyword : $("#keyword").val(),
+				searchType : $("#searchType option:selected").val()
 		};
 		
 		getNoticeList(jsonData);
@@ -119,14 +123,24 @@ $(function(){
                         <input class="btn btn-danger pull-left" type="button" value="삭제">
                     </div>
                     <div class="col-md-6">
-                         <div class="col-lg-12">
-                            <div class="input-group">
-                              <input type="text" class="form-control" id="keyword" aria-label="...">
-                              <div class="input-group-btn">
-                                <button id="searchBtn" type="button" class="btn btn-info">검색</button>
-                              </div><!-- /btn-group -->
-                            </div><!-- /input-group -->
-                          </div><!-- /.col-lg-6 -->
+                         <div class="form-group">
+	                    	<div class="col-lg-4">
+                         		<select id="searchType" class="select2-A form-control">
+	                        		<option value="">선택</option>
+	                        		<option value="all">전체</option>
+	                        		<option value="title">제목</option>
+	                        		<option value="content">내용</option>
+	                        		<option value="writer">작성자</option>
+	                        		<option value="tnc">제목+내용</option>
+                    			</select>
+	                    	</div>
+	                    	<div class="col-lg-6">
+								<input id="keyword" type="text" class="form-control" aria-label="...">
+	                    	</div>
+	                    	<div class="col-lg-2">
+	                            <button id="searchBtn" type="button" class="btn btn-info form-control">검색</button>
+	                    	</div>
+                       	</div>
                     </div>
                  </div>
                   <div class="responsive-table">

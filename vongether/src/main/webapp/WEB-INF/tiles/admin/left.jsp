@@ -22,9 +22,9 @@
 					class="fa fa-table"></span> 게시판 <span
 					class="fa-angle-right fa right-arrow text-right"></span> </a>
 				<ul class="nav nav-list tree">
-					<li><a href="/admin/board/list.do">일반 게시글 관리</a></li>
+					<li><a href="/admin/board/articlelist.do">일반 게시글 관리</a></li>
 					<li><a href="/admin/board/noticelist.do">공지사항 관리</a></li>
-					<li><a href="/admin/board/write.do">공지사항 작성</a></li>
+					<li><a href="/admin/board/noticewrite.do">공지사항 작성</a></li>
 				</ul></li>
 
 
