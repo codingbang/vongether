@@ -11,7 +11,7 @@
 		<div class="header-inner">
 			<h1><i class="sl-icon-heart"></i><a href="/">봉사어때?</a></h1>
 			<nav role="navigation">
-				<ul>
+				<ul class="nav navbar-nav">
 					<li><a class="active" href="/">홈</a></li>
 					<li><a href="#">소개</a></li>
 					<li><a href="/volunteer/list.do">봉사참여</a></li>
@@ -19,7 +19,14 @@
 					<c:choose>
 				        <c:when test="${userInfo != null }">
 				        	<li><a href="/member/logout.do">로그아웃</a></li>
-							<li><a href="/member/mypage.do">내정보</a></li>
+							<li>
+							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">마이페이지 <b class="caret"></b></a>
+							 <ul class="dropdown-menu">
+		                         <li><a href="/member/view.do">상세정보 </a></li>
+		                         <li><a href="#">참여신청목록</a></li>
+		                         <li><a href="#">작성게시글목록</a></li>
+		                     </ul>
+							</li>
 				        </c:when>
 				        <c:otherwise>
 				        	<li><a href="/member/login.do">로그인</a></li>

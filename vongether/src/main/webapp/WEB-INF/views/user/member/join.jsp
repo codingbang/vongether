@@ -310,7 +310,7 @@
 	  });
 	
 	  // 아이디(이메일) 유효성 체크
-	  $(document).on("change", "#mId", function() {
+	  $("#mId").change(function() {
 	    var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	    var pass = mId.value.match(regExp);
 	    if (pass == null) {
@@ -352,7 +352,7 @@
 	  });
 	  
 	  //비밀번호 조합  체크
-	  $(document).on("change","#pwd1", function() {
+	  $("#pwd1").change(function() {
 	    // 최소 6자리 이상 12자 이하
 	    // 영어 소대문자숫자, 특수기호 2가지 조합
 	    var regExp = /^(?=.*[a-zA-Z0-9])(?=.*[!@#$%^*+=-]).{6,12}$/;
@@ -366,7 +366,7 @@
 	  });
 	  
 	  // 비밀번호 확인값 일치체크 
-	  $(document).on("change", "#pwd2", function(){
+	  $("#pwd2").change(function(){
 	    if($('#pwd1').val()!=$('#pwd2').val()){
 	        $('font[name=check2]').text('');
 	        $('font[name=check2]').html("불일치");
@@ -379,7 +379,7 @@
 	  });
 	    
 	  // 이름 유효성체크
-	  $(document).on("change", "#mName", function() {
+	  $("#mName").change(function() {
 	    var regExp = /^[가-힣]{2,4}$/;
 	    var pass = mName.value.match(regExp);
 	    if (pass == null) {
