@@ -8,6 +8,8 @@ public class BoardVO {
 	private String bRegdate;//작성일
 	private String mId;		//작성자아이디
 	private int rCount;		//댓글수
+	private int bNoticeYN;  //공지사항여부
+	
 	public int getbNo() {
 		return bNo;
 	}
@@ -50,6 +52,12 @@ public class BoardVO {
 	public void setrCount(int rCount) {
 		this.rCount = rCount;
 	}
+    public int getbNoticeYN() {
+      return bNoticeYN;
+    }
+    public void setbNoticeYN(int bNoticeYN) {
+      this.bNoticeYN = bNoticeYN;
+    }
 	
 	
 }

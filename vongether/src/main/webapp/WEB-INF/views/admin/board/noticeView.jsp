@@ -21,12 +21,12 @@
 				<em> ${article.bRegdate }</em>
 			</div>
 			<div class="panel-body">
-				<div class="col-md-12 text-center article-v1-title"><h2>${article.bTitle }</h2></div>
+				<div class="col-md-12 text-center article-v1-title"><h2>${notice.bTitle }</h2></div>
 				<div class="col-md-12  article-v1-body">
 					<span class="pull-right">
-						${article.mId }
+						${notice.mId }
 					</span>
-					<p>${article.bContent }</p>
+					<p>${notice.bContent }</p>
 				</div>
 				<div class="col-md-offset-10 col-md-2  colpull-right">
 					<button class="btn btn-danger">삭제</button>
