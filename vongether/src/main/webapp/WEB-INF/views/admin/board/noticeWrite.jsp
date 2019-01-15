@@ -25,7 +25,7 @@ $(document).ready(function() {
 <div class="col-md-12">
 	<div class="panel">
 		<div class="panel-body">
-			<form action="/admin/board/write.do" method="post">
+			<form action="/admin/board/noticewrite.do" method="post">
 				<div class="row">
 					<div class="form-group">
 						<h4 class="col-sm-1 control-label text-left"><b>제목 : </b></h4>
