@@ -12,11 +12,13 @@
 	  <result property="bRegdate" column="b_regdate"/>
 	  <result property="mId" column="m_id"/>
 	  <result property="bNoticeYN" column="b_noticeYN"/>
+	  <result property="bDelYN" column="b_delYN"/>
+	  <result property="bDeldate" column="b_deldate"/>
 	  <result property="rCount" column="r_count"/>
 	</resultMap>
 	
 	<select id="selectBoardList" resultMap="boardResultMap">
-		SELECT b_no, b_title, b_hitcount, DATE_FORMAT(b_regdate,'%Y-%m-%d') b_regdate, m_id
+		SELECT b_no, b_title, b_hitcount, DATE_FORMAT(b_regdate,'%Y-%m-%d') b_regdate, m_id, DATE_FORMAT(b_deldate,'%Y-%m-%d') b_deldate, b_delYN
 		FROM board
 		WHERE b_noticeYN = 0
 		<include refid="search" />
@@ -36,7 +38,7 @@
 	</insert>
 	
 	<select id="selectNoticeList" resultMap="boardResultMap" parameterType="map">
-		SELECT b_no, b_title, b_hitcount, DATE_FORMAT(b_regdate,'%Y-%m-%d') b_regdate, m_id
+		SELECT b_no, b_title, b_hitcount, DATE_FORMAT(b_regdate,'%Y-%m-%d') b_regdate, m_id, DATE_FORMAT(b_deldate,'%Y-%m-%d') b_deldate, b_delYN
 		FROM board
 		WHERE b_noticeYN = 1
 		<include refid="search" />

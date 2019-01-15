@@ -50,6 +50,21 @@ $(function(){
 		if (data != null) {
 			
 			for (var i = 0; i < data.articleList.length; i++) {
+				var delDateHTML = "";
+				var delYNHTML = "";
+				
+				if (data.articleList[i].bDeldate == null) {
+					delDateHTML = '	 <td></td>';
+				}else {
+					delDateHTML = '	 <td>' + data.articleList[i].bDeldate + '</td>';
+				}
+				
+				if (data.articleList[i].bDelYN == null || data.articleList[i].bDelYN == 0) {
+					delYNHTML = '	 <td style="color: blue;">게시</td>';
+				} else {
+					delYNHTML = '	 <td style="color: red;">삭제</td>';
+				}
+				
 				htmlStr += '<tr>';
 				htmlStr += '	 <td><input type="checkbox" class="icheck" name="checkbox1" /></td>';
 				htmlStr += '	 <td>' + data.articleList[i].bNo + '</td>';
@@ -58,6 +73,8 @@ $(function(){
 				htmlStr += '	 <td>' + data.articleList[i].bRegdate + '</td>';
 				htmlStr += '	 <td>' + data.articleList[i].bHitcount + '</td>';
 				htmlStr += '	 <td>' + data.articleList[i].rCount + '</td>';
+				htmlStr += delYNHTML;
+				htmlStr += delDateHTML;
 				htmlStr += '<tr>';
 			}
 			
@@ -84,14 +101,24 @@ $(function(){
 				}
 	        }
 	        
-	        if (data.pagination.curRange != data.pagination.totalPage && data.pagination.totalPage > 0) {
+	        var htmlStr3 = '';
+	        var pageOfStart = (data.pagination.curPage-1) * (data.pagination.pageSize)+1;
+	        var pageOfLast = data.pagination.curPage * data.pagination.pageSize;
+	        
+	        if (data.pagination.curPage != data.pagination.totalPage && data.pagination.totalPage > 0) {
 	        	htmlStr2 += '<li><button type="button" class="btn mvpage"  move-page-no="'+ data.pagination.nextPage +'">&gt;</button></li>';
            		htmlStr2 += '<li><button type="button" class="btn mvpage"  move-page-no="'+ data.pagination.totalPage +'">&raquo;</button></li>';
+           		
 			} else {
 				htmlStr2 += '<li><button type="button" class="btn mvpage" disabled  move-page-no="'+ data.pagination.nextPage +'">&gt;</button></li>';
-           		htmlStr2 += '<li><button type="button" class="btn mvpage" disabled  move-page-no='+ data.pagination.totalPage +'">&raquo;</button></li>';
+           		htmlStr2 += '<li><button type="button" class="btn mvpage" disabled  move-page-no="'+ data.pagination.totalPage +'">&raquo;</button></li>';
+           		
+           		pageOfLast = data.pagination.listCnt;
 			}
+	        htmlStr3 = 'showing '+ pageOfStart + ' - '+ pageOfLast +' of '+ data.pagination.listCnt + ' items'  ;
 	        
+	        $('#pageItems').empty();
+	        $('#pageItems').append(htmlStr3);
 	        $('.pagination').empty();
 	        $('.pagination').append(htmlStr2);         
 		}
@@ -151,9 +178,10 @@ $(function(){
 		                  <col width="*">
 		                  <col width="15%">
 		                  <col width="10%">
-		                  <col width="6%">
-		                  <col width="6%">
-		                  <col width="15%">
+		                  <col width="5%">
+		                  <col width="5%">
+		                  <col width="7%">
+		                  <col width="10%">
 		                </colgroup>
                     <thead>
                       <tr>
@@ -164,6 +192,8 @@ $(function(){
                         <th>작성일</th>
                         <th>조회수</th>
                         <th>댓글수</th>
+                        <th>삭제여부</th>
+                        <th>삭제일</th>
                       </tr>
                     </thead>
                     <tbody id="articleListTBody">
@@ -176,13 +206,29 @@ $(function(){
                           <td>${article.bRegdate }</td>
                           <td>${article.bHitcount }</td>
                           <td>${article.rCount }</td>
+                          <c:choose>
+	                          <c:when test="${null eq article.bDelYN || article.bDelYN eq 0}">
+		                          <td style="color: blue;">게시</td>
+	                          </c:when>
+	                          <c:otherwise>
+	                          	  <td style="color: red;">삭제</td>
+	                          </c:otherwise>
+                          </c:choose>
+                          <c:choose>
+	                          <c:when test="${null eq article.bDeldate}">
+		                          <td></td>
+	                          </c:when>
+	                          <c:otherwise>
+	                          	  <td>${article.bDeldate }</td>
+	                          </c:otherwise>
+                          </c:choose>
                       </tr>
                       </c:forEach>
                     </tbody>
                   </table>
                   </div>
                   <div class="col-md-6" style="padding-top:20px;">
-                    <span>showing 0-10 of 30 items</span>
+                    <span id="pageItems">showing ${(pagination.curPage-1) * pagination.pageSize +1} - ${pagination.curPage * pagination.pageSize} of ${pagination.listCnt} items</span>
                   </div>
                   <div class="col-md-6">
                         <ul class="pagination pull-right">

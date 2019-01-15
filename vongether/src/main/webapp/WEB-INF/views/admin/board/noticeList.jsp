@@ -48,6 +48,21 @@ $(function(){
 		if (data != null) {
 			
 			for (var i = 0; i < data.noticeList.length; i++) {
+				var delDateHTML = "";
+				var delYNHTML = "";
+				
+				if (data.noticeList[i].bDeldate == null) {
+					delDateHTML = '	 <td></td>';
+				}else {
+					delDateHTML = '	 <td>' + data.noticeList[i].bDeldate + '</td>';
+				}
+				
+				if (data.noticeList[i].bDelYN == null || data.noticeList[i].bDelYN == 0) {
+					delYNHTML = '	 <td style="color: blue;">게시</td>';
+				} else {
+					delYNHTML = '	 <td style="color: red;">삭제</td>';
+				}
+				
 				htmlStr += '<tr>';
 				htmlStr += '	 <td><input type="checkbox" class="icheck" name="checkbox1" /></td>';
 				htmlStr += '	 <td>' + data.noticeList[i].bNo + '</td>';
@@ -56,6 +71,8 @@ $(function(){
 				htmlStr += '	 <td>' + data.noticeList[i].bRegdate + '</td>';
 				htmlStr += '	 <td>' + data.noticeList[i].bHitcount + '</td>';
 				htmlStr += '	 <td>' + data.noticeList[i].rCount + '</td>';
+				htmlStr += delYNHTML;
+				htmlStr += delDateHTML;
 				htmlStr += '<tr>';
 			}
 			
@@ -64,6 +81,9 @@ $(function(){
 			
 	    	
 	    	var htmlStr2 = "";
+	    	var htmlStr3 = "";
+	        var pageOfStart = (data.pagination.curPage-1) * (data.pagination.pageSize)+1;
+	        var pageOfLast = data.pagination.curPage * data.pagination.pageSize;
 	        
 	        
 	        if (data.pagination.curRange != 1 || data.pagination.curPage != 1) {
@@ -82,14 +102,18 @@ $(function(){
 				}
 	        }
 	        
-	        if (data.pagination.curRange != data.pagination.totalPage && data.pagination.totalPage > 0) {
+	        if (data.pagination.curPage != data.pagination.totalPage && data.pagination.totalPage > 0) {
 	        	htmlStr2 += '<li><button type="button" class="btn mvpage"  move-page-no="'+ data.pagination.nextPage +'">&gt;</button></li>';
            		htmlStr2 += '<li><button type="button" class="btn mvpage"  move-page-no="'+ data.pagination.totalPage +'">&raquo;</button></li>';
 			} else {
 				htmlStr2 += '<li><button type="button" class="btn mvpage" disabled  move-page-no="'+ data.pagination.nextPage +'">&gt;</button></li>';
            		htmlStr2 += '<li><button type="button" class="btn mvpage" disabled  move-page-no='+ data.pagination.totalPage +'">&raquo;</button></li>';
+           		
+           		pageOfLast = data.pagination.listCnt;
 			}
-	        
+	        htmlStr3 = 'showing '+ pageOfStart + ' - '+ pageOfLast +' of '+ data.pagination.listCnt + ' items'  ;
+	        $('#pageItems').empty();
+	        $('#pageItems').append(htmlStr3);
 	        $('.pagination').empty();
 	        $('.pagination').append(htmlStr2);         
 		}
@@ -146,44 +170,63 @@ $(function(){
                   <div class="responsive-table">
                       
                     <table class="table table-striped table-bordered" width="100%" cellspacing="0">
-                    <colgroup>
+	                   	<colgroup>
 		                  <col width="3%">
 		                  <col width="4%">
 		                  <col width="*">
 		                  <col width="15%">
 		                  <col width="10%">
-		                  <col width="6%">
-		                  <col width="6%">
-		                  <col width="15%">
+		                  <col width="5%">
+		                  <col width="5%">
+		                  <col width="7%">
+		                  <col width="10%">
 		                </colgroup>
-                    <thead>
-                      <tr>
-                        <th><input type="checkbox" class="icheck" name="checkbox1" /></th>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>작성일</th>
-                        <th>조회수</th>
-                        <th>댓글수</th>
-                      </tr>
-                    </thead>
-                    <tbody id="articleListTBody">
-                      <c:forEach var="notice" items="${noticeList }">
-                        <tr>
-                          <td><input type="checkbox" class="icheck" name="checkbox1" /></td>
-                          <td>${notice.bNo }</td>
-                          <td><a href="/admin/board/view.do?bNo=${notice.bNo }">${notice.bTitle }</a></td>
-                          <td>${notice.mId}</td>
-                          <td>${notice.bRegdate }</td>
-                          <td>${notice.bHitcount }</td>
-                          <td>${notice.rCount }</td>
-                      </tr>
-                      </c:forEach>
-                    </tbody>
+	                    <thead>
+	                      <tr>
+	                        <th><input type="checkbox" class="icheck" name="checkbox1" /></th>
+	                        <th>번호</th>
+	                        <th>제목</th>
+	                        <th>작성자</th>
+	                        <th>작성일</th>
+	                        <th>조회수</th>
+	                        <th>댓글수</th>
+	                        <th>삭제여부</th>
+	                        <th>삭제일</th>
+	                      </tr>
+	                    </thead>
+	                    <tbody id="articleListTBody">
+	                      <c:forEach var="notice" items="${noticeList }">
+	                        <tr>
+	                          <td><input type="checkbox" class="icheck" name="checkbox1" /></td>
+	                          <td>${notice.bNo }</td>
+	                          <td><a href="/admin/board/view.do?bNo=${notice.bNo }">${notice.bTitle }</a></td>
+	                          <td>${notice.mId}</td>
+	                          <td>${notice.bRegdate }</td>
+	                          <td>${notice.bHitcount }</td>
+	                          <td>${notice.rCount }</td>
+	                          <c:choose>
+		                          <c:when test="${null eq notice.bDelYN || notice.bDelYN eq 0}">
+			                          <td style="color: blue;">게시</td>
+		                          </c:when>
+		                          <c:otherwise>
+		                          	  <td style="color: red;">삭제</td>
+		                          </c:otherwise>
+	                          </c:choose>
+	                          <c:choose>
+		                          <c:when test="${null eq notice.bDeldate}">
+			                          <td></td>
+		                          </c:when>
+		                          <c:otherwise>
+		                          	  <td>${notice.bDeldate }</td>
+		                          </c:otherwise>
+	                          </c:choose>
+		                      </tr>
+		                      </c:forEach>
+	                    </tbody>
                   </table>
                   </div>
                   <div class="col-md-6" style="padding-top:20px;">
-                    <span>total ${pagination.listCnt } items</span>
+                    <span id="pageItems">showing ${(pagination.curPage-1) * pagination.pageSize +1} - ${pagination.curPage * pagination.pageSize} of ${pagination.listCnt} items</span>
                   </div>
                   <div class="col-md-6">
                         <ul class="pagination pull-right">
