@@ -17,6 +17,7 @@
 	<select id="totalBoardArticleCount" parameterType="map" resultType="int">
 		SELECT COUNT(b.b_no)
 		FROM board b
+		WHERE b_delYN = false
 		<if test="word != null and word != ''">
 	        <choose>
             <when test="key == 'id'">
@@ -42,24 +43,27 @@
 	<select id="selectBoardList" parameterType="map" resultMap="boardResultMap">
 		SELECT b.b_no, b.b_title, b.b_hitcount, DATE_FORMAT(b.b_regdate,'%Y-%m-%d') b_regdate, b.m_id, r.r_count
 		FROM board b
-		LEFT JOIN (select r.b_no, count(r.r_no) r_count from reply r) r
+		LEFT JOIN (select r.b_no, count(r.b_no) r_count
+					from reply r
+					GROUP BY b_no) r
 		ON b.b_no = r.b_no
+		WHERE b_delYN = false
 		<if test="word != null and word != ''">
 	        <choose>
             <when test="key == 'id'">
-			WHERE b.m_id REGEXP #{word}
+			AND b.m_id REGEXP #{word}
             </when>
             <when test="key == 'my'">
-			WHERE b.m_id like #{word}
+			AND b.m_id like #{word}
             </when>
             <when test="key == 'title'">
-            WHERE b.b_title REGEXP #{word}
+            AND b.b_title REGEXP #{word}
             </when>
             <when test="key == 'content'">
-            WHERE b.b_content REGEXP #{word}
+            AND b.b_content REGEXP #{word}
             </when>
             <otherwise>
-            WHERE b.b_title REGEXP #{word}
+            AND b.b_title REGEXP #{word}
 		    OR b.b_content REGEXP #{word}
             </otherwise> 
             </choose>
@@ -84,9 +88,11 @@
 		WHERE b_no=#{bNo};
 	</update>
 	
-	<delete id="deleteBoardArticle" parameterType="int">
-		DELETE FROM board WHERE b_no = #{bNo};
-	</delete>
+	<update id="deleteBoardArticle" parameterType="int">
+		UPDATE board
+		SET b_delYN = 1, b_deldate = NOW()
+		WHERE b_no = #{bNo};
+	</update>
 	
 	<update id="increaseHitcount" parameterType="int">
 		UPDATE board

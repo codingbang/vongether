@@ -6,10 +6,10 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$(".posting").click(
-			function(){
-				$("#bNo").val($(this).attr("b-no"));
-				$("#commonForm").attr("method", "get").attr(
-						"action", "/board/view.do").submit();	
+		function(){
+			$("#bNo").val($(this).attr("b-no"));
+			$("#commonForm").attr("method", "get").attr(
+					"action", "/board/view.do").submit();	
 		});
 	$(".writeBtn").click(
 		function(){
@@ -28,18 +28,17 @@ $(document).ready(function() {
 	$(document).on("click",".navigation-btn",
 		function(){
 			$('#pageNo').val($(this).attr("pageNo"));
-			alert($('#pageNo').val());
-			var test = {
+			var data = {
 				pageNo: $('#pageNo').val()
 			};
-			getAjaxList(test);
+			getAjaxList(data);
 		}
 	); 
-   function getAjaxList(test){
+   function getAjaxList(data){
 		$.ajax({
     		url : "/board/listAjax.do",
     		dataType : "json",
-    		data : test,
+    		data : data,
     		contentType: "application/json; charset=UTF-8",
     		method : "GET",
     	    success : function(data) {
@@ -69,10 +68,10 @@ $(document).ready(function() {
 		var htmlStr = "";
 		if(data.curPage!=1){
 			htmlStr += "<button type='button' class='btn navigation-btn' pageNo='"+1+"'>&laquo;</button>";
-			htmlStr += " <button type='button' class='btn navigation-btn' pageNo='"+data.prevPage+"'>&lt;</button>";
+			htmlStr += "<button type='button' class='btn navigation-btn' pageNo='"+data.prevPage+"'>&lt;</button>";
 		}else{
 			htmlStr += "<button type='button' class='btn' disabled pageNo='"+1+"'>&laquo;</button>";
-			htmlStr += " <button type='button' class='btn' disabled pageNo='"+data.prevPage+"'>&lt;</button>";
+			htmlStr += "<button type='button' class='btn' disabled pageNo='"+data.prevPage+"'>&lt;</button>";
 		}
 		for(var i=data.startPage;i<data.endPage+1;i++){
 			if(data.curPage==i){
@@ -82,10 +81,10 @@ $(document).ready(function() {
 			}
 		}
 		if(data.curPage!=data.endPage){
-			htmlStr += " <button type='button' class='btn navigation-btn' pageNo='"+data.nextPage+"'>&gt;</button>";
+			htmlStr += "<button type='button' class='btn navigation-btn' pageNo='"+data.nextPage+"'>&gt;</button>";
 			htmlStr += "<button type='button' class='btn navigation-btn' pageNo='"+data.endPage+"'>&raquo;</button>";
 		}else{
-			htmlStr += " <button type='button' class='btn' disabled pageNo='"+data.nextPage+"'>&gt;</button>";
+			htmlStr += "<button type='button' class='btn' disabled pageNo='"+data.nextPage+"'>&gt;</button>";
 			htmlStr += "<button type='button' class='btn' disabled pageNo='"+data.endPage+"'>&raquo;</button>";
 		}
 	 	$("#pagination").empty();
