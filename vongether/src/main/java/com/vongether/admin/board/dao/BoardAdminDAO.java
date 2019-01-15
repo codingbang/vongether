@@ -17,4 +17,6 @@ public interface BoardAdminDAO {
 	public int selectBoardCnt(Map<String, Object> map);
 	
 	public int selectNoticeCnt(Map<String, Object> map);
+	
+	public void deleteBoard(int bNo);
 }

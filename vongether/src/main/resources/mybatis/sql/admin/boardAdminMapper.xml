@@ -32,6 +32,12 @@
      WHERE b_no = #{bNo}
 	</select>
 	
+	<update id="deleteBoard" parameterType="int">
+		UPDATE board
+		SET b_delYN = 1, b_deldate = now()
+		WHERE b_no = #{bNo}
+	</update>
+	
 	<insert id="insertNotice" parameterType="BoardVO">
 		INSERT INTO BOARD (b_title, b_content, b_hitcount, b_regdate, b_noticeYN, m_id)
 		VALUES(#{bTitle}, #{bContent}, 0, now(), 1, #{mId})
@@ -59,7 +65,6 @@
 		WHERE b_noticeYN = 1
 		<include refid="search" />
 	</select>
-	
 	
 	
 	<sql id="search">

@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
-	
-	
+<script>
+$(function(){
+	$('#articleDelBtn').click(function(event){
+		var bNo = $('#bNo').val();
+		location.href="/admin/board/boarddelete.do?bNo="+bNo;;
+	});
+});
+
+</script>	
 <!-- start: Content -->
 <div class="article-v1">
 	<div class="panel box-shadow-none content-header">
@@ -23,13 +29,14 @@
 			<div class="panel-body">
 				<div class="col-md-12 text-center article-v1-title"><h2>${article.bTitle }</h2></div>
 				<div class="col-md-12  article-v1-body">
+					<input type="hidden" id="bNo" value="${article.bNo }">
 					<span class="pull-right">
 						${article.mId }
 					</span>
 					<p>${article.bContent }</p>
 				</div>
 				<div class="col-md-offset-10 col-md-2  colpull-right">
-					<button class="btn btn-danger">삭제</button>
+					<button id="articleDelBtn" class="btn btn-danger">삭제</button>
 				</div>
 				<div><hr></div>
 				<div class="col-md-12 article-v1-footer">

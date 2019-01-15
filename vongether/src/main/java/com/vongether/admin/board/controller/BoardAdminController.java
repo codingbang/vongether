@@ -107,5 +107,18 @@ public class BoardAdminController {
     return params;
   }
   
+  @Auth
+  @RequestMapping(value="/boarddelete.do", method=RequestMethod.GET)
+  public String deleteBoardAdminArticle(@RequestParam int bNo) {
+    boardAdminService.deleteBoard(bNo);
+    BoardVO boardVO = boardAdminService.selectBoard(bNo);
+    if (boardVO.getbNoticeYN() == 0) {
+      return "redirect:/admin/board/articlelist.do";
+    } else {
+      return "redirect:/admin/board/noticelist.do";
+    }
+   
+  }
+  
 
 }

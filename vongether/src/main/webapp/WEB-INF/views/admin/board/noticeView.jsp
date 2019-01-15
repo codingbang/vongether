@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+<script>
+$(function(){
+	$('#noticeDelBtn').click(function(event){
+		var bNo = $('#bNo').val();
+		location.href="/admin/board/boarddelete.do?bNo="+bNo;;
+	});
+});
+
+</script>
 	
 	
 <!-- start: Content -->
@@ -23,6 +31,7 @@
 			<div class="panel-body">
 				<div class="col-md-12 text-center article-v1-title"><h2>${notice.bTitle }</h2></div>
 				<div class="col-md-12  article-v1-body">
+					<input type="hidden" id="bNo" value="${notice.bNo }">
 					<span class="pull-right">
 						${notice.mId }
 					</span>
@@ -30,7 +39,7 @@
 				</div>
 				<div class="col-md-offset-10 col-md-2  colpull-right">
 					<button class="btn btn-info">수정</button>
-					<button class="btn btn-danger">삭제</button>
+					<button id="noticeDelBtn" class="btn btn-danger">삭제</button>
 				</div>
 				<div><hr></div>
 				<div class="col-md-12 article-v1-footer">
