@@ -1,6 +1,7 @@
 package com.vongether.volunteer.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -133,9 +134,22 @@ public class VolunteerController {
 		}
 		if(result.equals("0")){
 			result = "1";
-//			volunteerAppVo.setAppBegintm();
-//			volunteerAppVo.setAppEndtm();
-			volunteerService.insert(volunteerAppVo);
+			String b = Integer.toString(vo.getNoticeBgnde());
+			String e = Integer.toString(vo.getNoticeEndde());
+			b = new StringBuilder(b).insert(4, "-").toString();
+			b = new StringBuilder(b).insert(7, "-").toString();
+			e = new StringBuilder(e).insert(4, "-").toString();
+			e = new StringBuilder(e).insert(7, "-").toString();
+			
+			
+			volunteerAppVo.setAppBegintm(b);
+			volunteerAppVo.setAppEndtm(e);
+			volunteerAppVo.setAppName(vo.getProgrmSj());
+			volunteerAppVo.setAppNo(vo.getProgrmRegistNo());
+			volunteerAppVo.setAppPlace(vo.getPostAdres());
+			volunteerAppVo.setmId(id);
+			int test = volunteerService.insert(volunteerAppVo);
+			System.out.println("test result::"+test);
 		}
 		
 		model.addAttribute("result", result);
