@@ -174,30 +174,34 @@ $(document).ready(function() {
         <div class="col-3"></div>
       </div>
       
-      <div class="row">
-        <div class="col-4"></div>
-        <div class="col-2">
-          <div class="input-group">
-            <!-- 검색 조건 -->
-            <select class="custom-select" name="key" id="skey">
-              <option value="">제목+내용</option>
-              <option value="content">내용</option>
-              <option value="title">제목</option>
-              <option value="id">아이디</option>
-            </select>
-          </div>
+      
+      
+      
+      <div class="row" style="padding-top: 20px;">
+        <div class="col-md-2"></div>
+        <!-- 검색 조건 -->
+        <div class="col-md-8">
+        	<div class="col-md-3">
+        		<div class="input-group">
+		            <select class="form-control" name="key" id="skey">
+						<option value="">제목+내용</option>
+						<option value="content">내용</option>
+						<option value="title">제목</option>
+						<option value="id">아이디</option>
+					</select>
+        		</div>
+			</div>
+			<div class="col-md-8">
+	            <input type="text" class="form-control" name="word" id="sword" placeholder="검색내용">
+			</div>
+			<div class="col-md-1">
+        		<button type="button" id="searchBtn" class="btn btn-primary">검색</button>
+			</div>
         </div>
-        <div class="col-3">
-          <div class="input-group">
-            <input type="text" class="form-control" name="word" id="sword" placeholder="검색내용">
-            <div class="input-group-append">
-              <button type="button" id="searchBtn" class="btn btn-primary">검색</button>
-            </div>
-            <!-- 검색 조건 끝 -->
-          </div>
-        </div>
+        <div class="col-md-2"></div>
       </div>
-      <div class="col-4"></div>
+
+      <div class="col-md-4"></div>
 		</div><!-- row1 End -->
 	</div><!-- main-content-box End -->
 
