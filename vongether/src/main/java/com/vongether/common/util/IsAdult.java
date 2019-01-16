@@ -10,7 +10,7 @@ public class IsAdult {
 		Calendar c1 = Calendar.getInstance();
 		c1.setTime(d);
 		int result = c.get(Calendar.YEAR)-c1.get(Calendar.YEAR);
-		System.out.println(result);
+		//System.out.println(result);
 		return result > 18 ? true : false; 
 	}
 }
