@@ -6,6 +6,12 @@ $(function(){
 		var bNo = $('#bNo').val();
 		location.href="/admin/board/boarddelete.do?bNo="+bNo;;
 	});
+	
+	$('#noticeModBtn').click(function(event){
+		var bNo = $('#bNo').val();
+		location.href="/admin/board/noticemodify.do?bNo="+bNo;;
+	});
+	
 });
 
 </script>
@@ -38,7 +44,7 @@ $(function(){
 					<p>${notice.bContent }</p>
 				</div>
 				<div class="col-md-offset-10 col-md-2  colpull-right">
-					<button class="btn btn-info">수정</button>
+					<button id="noticeModBtn" class="btn btn-info">수정</button>
 					<button id="noticeDelBtn" class="btn btn-danger">삭제</button>
 				</div>
 				<div><hr></div>

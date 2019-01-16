@@ -22,4 +22,5 @@ public interface BoardAdminDAO {
 	
 	public void deleteBoardCancle(int bNo);
 	
+	public void updateNotice(BoardVO boardVO);
 }

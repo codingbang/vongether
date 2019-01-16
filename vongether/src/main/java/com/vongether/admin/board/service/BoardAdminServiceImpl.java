@@ -47,12 +47,17 @@ public class BoardAdminServiceImpl implements BoardAdminService {
   @Override
   public void deleteBoard(int bNo) {
     sqlSession.getMapper(BoardAdminDAO.class).deleteBoard(bNo);
-    
   }
+  
   @Override
   public void deleteBoardCancle(int bNo) {
     sqlSession.getMapper(BoardAdminDAO.class).deleteBoardCancle(bNo);
     
+  }
+  
+  @Override
+  public void updateNotice(BoardVO boardVO) {
+    sqlSession.getMapper(BoardAdminDAO.class).updateNotice(boardVO);
   }
 
 }

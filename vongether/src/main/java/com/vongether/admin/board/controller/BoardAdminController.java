@@ -66,6 +66,21 @@ public class BoardAdminController {
       return "board/noticeView.admin";
     }
   }
+  
+  @Auth
+  @RequestMapping(value="/noticemodify.do", method=RequestMethod.GET)
+  public String modifyBoardAdminForm(int bNo, Model model) {
+    BoardVO boardVO = boardAdminService.selectBoard(bNo);
+    model.addAttribute("notice", boardVO);
+    return "board/noticeModify.admin";
+  }
+  
+  @Auth
+  @RequestMapping(value="/noticemodify.do", method=RequestMethod.POST)
+  public String modifyBoardAdminForm(BoardVO boardVO) {
+    boardAdminService.updateNotice(boardVO);
+    return "redirect: /admin/board/noticelist.do";
+  }
 
   @Auth
   @RequestMapping(value="/noticewrite.do", method=RequestMethod.GET)

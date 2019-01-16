@@ -27,7 +27,6 @@ $(function(){
 			alert("삭제할 대상을 선택하세요.");
 			return false;
 		}
-		console.log("### checkRow => {}"+checkRow);
 		var checkData = { "checkRow" : checkRow };
 		
 		//true : 삭제 비동기 처리 후 목록 다시 불러오기
@@ -73,7 +72,6 @@ $(function(){
 			alert("취소할 대상을 선택하세요.");
 			return false;
 		}
-		console.log("### checkRow => {}"+checkRow);
 		var checkData = { "checkRow" : checkRow };
 		
 		//true : 삭제취소 비동기 처리 후 목록 다시 불러오기
