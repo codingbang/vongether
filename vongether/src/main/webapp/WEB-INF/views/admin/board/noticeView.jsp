@@ -1,21 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<script>
-$(function(){
-	$('#noticeDelBtn').click(function(event){
-		var bNo = $('#bNo').val();
-		location.href="/admin/board/boarddelete.do?bNo="+bNo;;
-	});
-	
-	$('#noticeModBtn').click(function(event){
-		var bNo = $('#bNo').val();
-		location.href="/admin/board/noticemodify.do?bNo="+bNo;;
-	});
-	
-});
-
-</script>
-	
+<script src="/resources/admin/js/board/noticeView.js"></script>
 	
 <!-- start: Content -->
 <div class="article-v1">

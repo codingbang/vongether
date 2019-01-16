@@ -2,14 +2,7 @@
     pageEncoding="UTF-8"%>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	$('#summernote').summernote({
-		minHeight: 400,
-		maxHeight: 400
-    });
-});
-</script>
+<script src="/resources/admin/js/board/noticeModify.js"></script>
 
 <div class="panel box-shadow-none content-header">
 	<div class="panel-body">
