@@ -32,6 +32,18 @@
      WHERE b_no = #{bNo}
 	</select>
 	
+	<update id="deleteBoard" parameterType="int">
+		UPDATE board
+		SET b_delYN = 1, b_deldate = now()
+		WHERE b_no = #{bNo}
+	</update>
+	
+	<update id="deleteBoardCancle" parameterType="int">
+		UPDATE board
+		SET b_delYN = 0
+		WHERE b_no = #{bNo}
+	</update>
+	
 	<insert id="insertNotice" parameterType="BoardVO">
 		INSERT INTO BOARD (b_title, b_content, b_hitcount, b_regdate, b_noticeYN, m_id)
 		VALUES(#{bTitle}, #{bContent}, 0, now(), 1, #{mId})
@@ -60,7 +72,11 @@
 		<include refid="search" />
 	</select>
 	
-	
+	<update id="updateNotice" parameterType="BoardVO">
+		UPDATE board
+		SET b_title=#{bTitle}, b_content=#{bContent}
+		WHERE b_no = #{bNo}
+	</update>
 	
 	<sql id="search">
 		<if test="keyword != null and keyword != ''">

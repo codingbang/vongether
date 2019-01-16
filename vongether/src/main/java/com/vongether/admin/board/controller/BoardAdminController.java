@@ -1,11 +1,14 @@
 package com.vongether.admin.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,6 +66,21 @@ public class BoardAdminController {
       return "board/noticeView.admin";
     }
   }
+  
+  @Auth
+  @RequestMapping(value="/noticemodify.do", method=RequestMethod.GET)
+  public String modifyBoardAdminForm(int bNo, Model model) {
+    BoardVO boardVO = boardAdminService.selectBoard(bNo);
+    model.addAttribute("notice", boardVO);
+    return "board/noticeModify.admin";
+  }
+  
+  @Auth
+  @RequestMapping(value="/noticemodify.do", method=RequestMethod.POST)
+  public String modifyBoardAdminForm(BoardVO boardVO) {
+    boardAdminService.updateNotice(boardVO);
+    return "redirect: /admin/board/noticelist.do";
+  }
 
   @Auth
   @RequestMapping(value="/noticewrite.do", method=RequestMethod.GET)
@@ -106,6 +124,47 @@ public class BoardAdminController {
     params.put("noticeList", noticeList);
     return params;
   }
-  
+
+  @Auth
+  @RequestMapping(value="/boarddelete.do", method=RequestMethod.GET)
+  public String deleteBoardAdminArticle(@RequestParam int bNo) {
+    boardAdminService.deleteBoard(bNo);
+    BoardVO boardVO = boardAdminService.selectBoard(bNo);
+    if (boardVO.getbNoticeYN() == 0) {
+      return "redirect:/admin/board/articlelist.do";
+    } else {
+      return "redirect:/admin/board/noticelist.do";
+    }
+
+  }
+  @Auth
+  @Transactional
+  @RequestMapping(value="/boarddelete.do", method=RequestMethod.POST)
+  public @ResponseBody Map<String, Object> deleteBoardAdminArticleAjax(@RequestBody Map<String, String> param) {
+    String[] arrIdx = param.get("checkRow").toString().split(",");
+    for (int i=0; i<arrIdx.length; i++) {
+      boardAdminService.deleteBoard(Integer.parseInt(arrIdx[i]));
+    }
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("isSuccess", true);
+    map.put("msg", "삭제가 완료 되었습니다.");
+    return map;
+  }
+
+
+
+  @Auth
+  @RequestMapping(value="/deletecancel.do", method=RequestMethod.POST)
+  public @ResponseBody Map<String, Object> deleteCancelBoardAdminArticle(@RequestBody Map<String, String> param) {
+    String[] arrIdx = param.get("checkRow").toString().split(",");
+    for (int i=0; i<arrIdx.length; i++) {
+      boardAdminService.deleteBoardCancle(Integer.parseInt(arrIdx[i]));
+    }
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("isSuccess", true);
+    map.put("msg", "삭제 취소가 완료 되었습니다.");
+    return map;
+  }
+
 
 }

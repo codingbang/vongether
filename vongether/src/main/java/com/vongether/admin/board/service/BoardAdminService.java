@@ -18,4 +18,10 @@ public interface BoardAdminService {
   
   public int selectNoticeCnt(Map<String, Object> map);
   
+  public void deleteBoard(int bNo);
+  
+  public void deleteBoardCancle(int bNo);
+  
+  public void updateNotice(BoardVO boardVO);
+  
 }
