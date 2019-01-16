@@ -27,14 +27,21 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping(value ="/list.do" , method = RequestMethod.GET)
-	public String listBoardArticle(@RequestParam Map<String, Object> param, @RequestParam(defaultValue="1") int pageNo, Model model) {
+	public String listBoardArticle(@RequestParam Map<String, Object> param, @RequestParam(defaultValue="1") int pageNo, Model model, HttpSession session) {
 		List<BoardVO> listArticle = boardService.selectBoardList(param, pageNo);
 		model.addAttribute("selectBoardList", listArticle);
 
 		int totalArticleCount = boardService.totalBoardArticleCount(param);
 		Pagination pagination = new Pagination(totalArticleCount , pageNo, 10);
 		model.addAttribute("pagination", pagination);
-		return "board/articleList.page";
+		session.getAttribute("userInfo");
+		if(!(session.getAttribute("userInfo")==null || session.getAttribute("userInfo").equals(""))) {
+			model.addAttribute("session", true);
+			return "board/articleList.page";
+		}else {
+			model.addAttribute("session", false);
+			return "board/articleList.page";
+		}
 	}
 	@RequestMapping(value ="/listAjax.do" , method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> ajaxListBoardArticle(@RequestParam Map<String, Object> param, @RequestParam int pageNo) {
@@ -50,18 +57,19 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
-	public String writeBoardArticle() {
-		System.out.println("안녕");
-		return "board/articleWrite.page";
+	public String writeBoardArticle(HttpSession session, Model model) {
+		if(session.getAttribute("userInfo") == null || session.getAttribute("userInfo").equals("")) {
+			return "redirect:/board/list.do";
+		}else {
+			return "board/articleWrite.page";
+		}
 	}
 	
-	@RequestMapping(value="write.do", method=RequestMethod.POST)
-	public String writeBoardArticle(BoardVO boardVO, HttpSession session, Model model) {
+	@RequestMapping(value="/write.do", method=RequestMethod.POST)
+	public String writeBoardArticle(BoardVO boardVO, HttpSession session) {
 	    MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
 	    if (memberVO != null) {
 	      boardVO.setmId(memberVO.getmId());
-	      System.out.println(memberVO.getmId());
-	      System.out.println(boardVO.getmId());
 	      boardService.writeBoardArticle(boardVO);
 	    }
 		return "redirect:/board/list.do";
@@ -82,7 +90,6 @@ public class BoardController {
 	
 	@RequestMapping(value="/update.do", method=RequestMethod.POST)
 	public String updateBoardArticle(BoardVO boardVO) {
-		System.out.println(boardVO.getbContent());
 		boardService.updateBoardArticle(boardVO);
 		return "redirect:/board/list.do";
 	}  

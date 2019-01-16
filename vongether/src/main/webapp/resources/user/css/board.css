@@ -82,8 +82,17 @@
 .replyContent{
 	padding : 15px;
 }
-.insertReplyBox{
-	
+.articleViewTitleRightBox2{
 }
-.insertReplyBtn{
+.replyViewCancleBtn{
+	border-left : 2px solid #d9d9d9;
+	padding-left : 3px;
+}
+.replyContentUpdate{
+	margin : 5px;
+}
+.replyViewRemoveBtn{
+	border-left : 2px solid #d9d9d9;
+	padding-left : 3px;
+	width : 100%;
 }

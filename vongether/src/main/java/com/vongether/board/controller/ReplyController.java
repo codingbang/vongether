@@ -43,6 +43,7 @@ public class ReplyController {
 		Map<String,Object> map = new HashMap<String, Object>();
 		MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
 		ReplyVO reply = new ReplyVO();
+		map.put("bNo", param.get("bNo"));
 		if((memberVO == null || memberVO.equals(""))){
 			return map;
 		}else {
@@ -50,10 +51,28 @@ public class ReplyController {
 			reply.setbNo(Integer.parseInt(""+param.get("bNo")));
 			reply.setrContent(""+param.get("rContent"));
 			replyService.writeReply(reply);
-			map.put("bNo", reply.getbNo());
 			return map;
 		}
 	}
+	@RequestMapping(value="/update.do", method=RequestMethod.PUT, headers={"Content-type=application/json"})
+	public @ResponseBody Map<String,Object> updateReplyArticleForm(@RequestBody Map<String, Object> map) {
+		replyService.updateReply(map);
+		return map;
+	} 
+	  /*
+	  @RequestMapping(value="memo", method=RequestMethod.PUT, headers= {"Content-type=application/json"} )
+	  public @ResponseBody String modify(@RequestBody MemoDto memoDto, HttpSession session) {
+	    MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
+	    if (memberDto != null) {
+	      memoDto.setMcode(memberDto.getM_code());
+	      memoDto.setId(memberDto.getM_id());
+	      memoDto.setName(memberDto.getM_name());
+	      int cnt = memoService.modifyMemo(memoDto);
+	    }
+	    String memolist = memoService.listMemo(memoDto.getSeq());
+	    return memolist;
+	  }
+	  */
 	@RequestMapping(value="/delete.do/{bNo}/{rNo}", method=RequestMethod.DELETE)
 	public @ResponseBody Map<String,Object> deleteReplyArticle(@PathVariable(value="bNo") int bNo, 
 												@PathVariable(value="rNo") int rNo){
@@ -62,26 +81,4 @@ public class ReplyController {
 		map.put("bNo", bNo);
 	    return map;
 	}
-	/*
-	@RequestMapping(value="/view.do", method=RequestMethod.GET)
-	public String viewBoardArticle(@RequestParam int bNo, HttpSession session, Model model) {
-		BoardVO boardVO = boardService.selectBoardArticle(bNo);
-		model.addAttribute("article", boardVO);
-		boardService.increaseHitcount(boardVO.getbNo());
-		return "board/articleView.page";
-	}  
-	@RequestMapping(value="/update.do", method=RequestMethod.GET)
-	public String updateBoardArticleForm(@RequestParam int bNo, Model model) {
-		BoardVO boardVO = boardService.selectBoardArticle(bNo);
-		model.addAttribute("article", boardVO);
-		return "board/articleUpdate.page";
-	} 
-	
-	@RequestMapping(value="/update.do", method=RequestMethod.POST)
-	public String updateBoardArticle(BoardVO boardVO) {
-		System.out.println(boardVO.getbContent());
-		boardService.updateBoardArticle(boardVO);
-		return "redirect:/board/list.do";
-	}  
-	 */
 }

@@ -1,14 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<script>
-$(function(){
-	$('#articleDelBtn').click(function(event){
-		var bNo = $('#bNo').val();
-		location.href="/admin/board/boarddelete.do?bNo="+bNo;;
-	});
-});
+	
+<script src="/resources/admin/js/board/articleView.js"></script>
 
-</script>	
 <!-- start: Content -->
 <div class="article-v1">
 	<div class="panel box-shadow-none content-header">

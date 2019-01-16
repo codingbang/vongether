@@ -26,19 +26,12 @@
 		INSERT INTO reply (m_id, r_content, b_no)
 		VALUE(#{mId},#{rContent},#{bNo})
 	</insert>
-	<!-- 
-	
-	<select id="selectBoardArticle" parameterType="int" resultMap="boardResultMap">
-		SELECT b.b_no, b.b_title, b.b_content, b.b_hitcount, DATE_FORMAT(b.b_regdate,'%Y-%m-%d') b_regdate, b.m_id
-		FROM board b
-		WHERE b_no = #{bNo}
-	</select>
-	
-	<update id="updateBoardArticle" parameterType="BoardVO">
-		UPDATE board
-		SET b_title = #{bTitle}, b_content = #{bContent}
-		WHERE b_no=#{bNo};
+	<update id="updateReply" parameterType="map">
+		UPDATE reply
+		SET r_content = #{rContent}
+		WHERE r_no=#{rNo}
 	</update>
+	<!-- 
 	
 	
 	<update id="increaseHitcount" parameterType="int">

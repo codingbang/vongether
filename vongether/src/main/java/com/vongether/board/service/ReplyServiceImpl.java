@@ -1,6 +1,7 @@
 package com.vongether.board.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +29,11 @@ public class ReplyServiceImpl implements ReplyService {
 		sqlSession.getMapper(ReplyDAO.class).writeReply(replyVO);
 	}
 	@Override
-	public void deleteReply(int rNo) {
+	public void updateReply(Map<String, Object> map){
+		sqlSession.getMapper(ReplyDAO.class).updateReply(map);
+	}
+	@Override
+	public void deleteReply(int rNo){
 		sqlSession.getMapper(ReplyDAO.class).deleteReply(rNo);
 	}
-	/*
-	@Override
-	public void updateBoardArticle(BoardVO boardVO) {
-		sqlSession.getMapper(BoardDAO.class).updateBoardArticle(boardVO);
-	}
-	@Override
-	public void increaseHitcount(int bNo) {
-		sqlSession.getMapper(BoardDAO.class).increaseHitcount(bNo);
-	}
-	 */
 }
