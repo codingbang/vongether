@@ -6,8 +6,8 @@
 	top: 50%;
 	margin-top: 130px;
 }
-
 </style>
+
 <div id="fh5co-page">
 	<div class="container">
 		<div class="row">
@@ -31,9 +31,9 @@
 								<input type="password" class="form-control" name="mPwd" id="inputPassword" placeholder="비밀번호" required="true">
 							</div>
 							<div class="row col-lg-offset-7 col-lg-6">
-								<span><a href="#">아이디 찾기</a></span>
+								<span><a href="/member/findId.do">아이디 찾기</a></span>
 								<span>/</span>
-								<span><a href="#">비밀번호 찾기</a></span>
+								<span><a href="/member/findPwd.do">비밀번호 찾기</a></span>
 							</div>
 						
 							<div class="row form-group">
@@ -49,9 +49,6 @@
 			</div>
 		</div>
 		
-		
 	</div>
 </div>
-	
 
-  

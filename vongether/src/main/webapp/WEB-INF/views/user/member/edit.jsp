@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <div id="fh5co-page">
     <div class="container">
         <div class="row">
@@ -69,8 +68,16 @@
                                         </div>
                                         <div class="col-lg-10">
                                             <div class="radio col-lg-12">
-                                                <label><input type="radio" id="optionsRadios1" value="m" name="mGender" checked>남자</label>
-                                                <label><input type="radio" id="optionsRadios2" value="f" name="mGender">여자</label>
+	                                             <c:choose>
+				                                    <c:when test="${userInfo.mGender == m}">
+				                                        <label><input type="radio" checked disabled>남자</label>
+	                                                    <label><input type="radio" disabled>여자</label>
+				                                    </c:when>
+				                                    <c:otherwise>
+				                                       <label><input type="radio" disabled>남자</label>
+	                                                    <label><input type="radio" checked disabled>여자</label>
+				                                    </c:otherwise>
+				                                </c:choose>
                                             </div>
                                         </div>
                                     </div>
@@ -82,7 +89,7 @@
                                             <label class="control-label">이름</label>
                                         </div>
                                         <div class="col-lg-10">
-                                            <input type="text" class="form-control" value="${userInfo.mName}" placeholder="이름" required="true" readonly="readonly">
+                                            <input type="text" class="form-control" value="${userInfo.mName}" name="mName" placeholder="이름" required="true" readonly="readonly">
                                         </div>
                                     </div>
                                 </div>
@@ -395,7 +402,6 @@
                   data : parameter,
                   success : function(data) {
                       if(data.isSuccess == 'true') {
-                        alert(data);
                         alert("성공");
                         location.href = "/member/view.do";
                       } else{
