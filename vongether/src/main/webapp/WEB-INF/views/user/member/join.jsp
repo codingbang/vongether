@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
+<style>
+.red{
+    color: red;
+}
+</style>
 <div id="fh5co-page">
 	<div class="container">
 		<div class="row">
@@ -13,7 +17,7 @@
 		</div>
 		<div class="row">
 			<span>회원가입을 위해 아래 내용들을 작성해 주세요.</span>
-			<span class="row" style="color: red;">*표시는 필수항목입니다.</span>
+			<span class="row"><label class="red">*</label>표시는 필수항목입니다.</span>
 		</div>
 		
 		<div class="row">
@@ -25,7 +29,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-lg-2">
-											<label class="control-label">아이디(email)</label>
+											<label class="control-label"><span class="red">*</span>아이디(email)</label>
 										</div>
 										<div class="col-lg-3">
 											<input type="text" class="form-control" id="mId" name="mId" placeholder="아이디" required="true">
@@ -46,11 +50,10 @@
 									</div>
 								</div>
 								
-								
 								<div class="form-group">
 									<div class="row">
 										<div class="col-lg-2">
-											<label class="control-label">비밀번호</label>
+											<label class="control-label"><span class="red">*</span>비밀번호</label>
 										</div>
 										<div class="col-lg-10">
 											<input type="password" class="form-control" id="pwd1" placeholder="비밀번호" required="true">
@@ -67,7 +70,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-lg-2">
-											<label class="control-label">비밀번호 확인</label>
+											<label class="control-label"><span class="red">*</span>비밀번호 확인</label>
 										</div>
 										<div class="col-lg-10">
 											<input type="password" class="form-control" id="pwd2" name="mPwd" placeholder="비밀번호 확인" required="true">
@@ -78,7 +81,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-lg-2">
-											<label class="control-label">성별</label>
+											<label class="control-label"><span class="red">*</span>성별</label>
 										</div>
 										<div class="col-lg-10">
 											<div class="radio col-lg-12">
@@ -92,7 +95,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-lg-2">
-											<label class="control-label">이름</label>
+											<label class="control-label"><span class="red">*</span>이름</label>
 										</div>
 										<div class="col-lg-10">
 											<input type="text" class="form-control" id="mName" name="mName" placeholder="이름" required="true">
@@ -100,11 +103,10 @@
 									</div>
 								</div>
 								
-								
 								<div class="form-group">
 									<div class="row">
 										<div class="col-lg-2">
-											<label class="control-label">생년월일</label>
+											<label class="control-label"><span class="red">*</span>생년월일</label>
 										</div>
 										<div class="col-lg-10">
 											<input type="text" class="form-control" id="mBirth" name="mBirth" placeholder="생년월일" readonly required="true">
@@ -112,12 +114,10 @@
 									</div>
 								</div>
 								
-								
-								
 								<div class="form-group">
 									<div class="row">
 										<div class="col-lg-2">
-											<label class="control-label">우편번호</label>
+											<label class="control-label"><span class="red">*</span>우편번호</label>
 										</div>
 										<div class="col-lg-3">
 											<input type="text" class="form-control" id="mPostcode" name="mPostcode" readonly placeholder="우편번호" required="true">
@@ -129,11 +129,10 @@
 									</div>
 								</div>
 								
-								
 								<div class="form-group">
 									<div class="row">
 										<div class="col-lg-2">
-											<label class="control-label">기본주소</label>
+											<label class="control-label"><span class="red">*</span>기본주소</label>
 										</div>
 										<div class="col-lg-10">
 											<input type="text" class="form-control" id="mAddr1" name="mAddr1" placeholder="기본주소" readonly required="true">
@@ -144,14 +143,13 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-lg-2">
-											<label class="control-label">상세주소</label>
+											<label class="control-label"><span class="red">*</span>상세주소</label>
 										</div>
 										<div class="col-lg-10">
 											<input type="text" class="form-control" id="mAddr2" name="mAddr2" placeholder="상세주소" required="true" >
 										</div>
 									</div>
 								</div>
-								
 								
 								<div class="form-group">
 									<div class="row">
@@ -166,6 +164,7 @@
 
 							</div>
 						</div>
+						
 						<div class="row">
 							<div class="form-group">
 								<div class="col-lg-4 col-lg-offset-9">
@@ -173,20 +172,17 @@
 									<button class="btn btn-danger" type="reset">초기화</button>
 									<input id="joinBtn" type="button" class="btn btn-primary" value="가입하기" disabled>
 								    <button class="btn btn-info" onclick="back();">취소</button>
-								    
 								</div>
 							</div>
 						</div>
 					</fieldset>
 				</form>
+				<!-- form -->
 			</div>
 		</div>
-		
 	</div>
-	
-
+	<!-- container -->
 </div>
-
 
 
 <div id="myModal" class="modal" tabindex="-1" role="dialog" data-backdrop="">
@@ -196,11 +192,10 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h5 class="modal-title">주소찾기</h5>
+				<h4 class="modal-title">우편번호검색</h4>
 			</div>
 			<div class="modal-body">
 				<div>
-					<h4>우편번호 검색</h4>
 					<form action="/search" id="postSearchForm" method="GET">
 						<fieldset>
 							<div>
@@ -208,8 +203,8 @@
 								<div>
 									<div class="col-lg-10">
 										<input type="text" class="form-control" id="query" name="query"
-											style="width: 472px;"> <input type="hidden" id="currentPage"
-											name="currentPage" value="">
+											style="width: 472px;" required="true"> <input type="hidden" id="currentPage"
+											name="currentPage" value="" >
 									</div>
 									<div class="col-lg-2">
 										<button type="button" class="btn btn-success btn_search">검색</button>
@@ -294,7 +289,6 @@
 	    });
 	  });
 	
-	  
 	  $(document).on("click", ".mvpage", function() {
 	    $('#currentPage').val($(this).attr("move-page-no"));
 	    $.ajax({
@@ -306,49 +300,51 @@
 	        makePostList(data);
 	      }
 	    });
-	
 	  });
 	
+	  // input 태그에서 엔터를 누를경우 의도치 않은 submit 방지
+	  $('input[type="text"]').keydown(function(e){
+	    if (e.keyCode === 13){
+	      e.preventDefault();
+	      }
+	    });
+	  
 	  // 아이디(이메일) 유효성 체크
 	  $("#mId").change(function() {
 	    var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	    var pass = mId.value.match(regExp);
-	    if (pass == null) {
-	      alert("제대로 입력하셈");
+	    if (pass === null) {
+	      alert("잘못된 형식입니다. 다시 입력해주세요");
 	      $("#mId").val("");
 	      $("#mId").focus();
-	      // 입력값ㅂ 비우기
 	    } else{
 	      $("#id_check").text("아이디 중복 체크를 해주세요 ");
 	      $("#id_check").css("color", "blue");
 	    }
-	    
 	   });
 	
-	// 아이디(이메일) 중복 체크
-	  $("#checkId").click(function(){
+	  // 아이디(이메일) 중복 체크
+	  $("#checkId").click(function() {
 	   var mId = $("#mId").val();
 	   $.ajax({
         url: '/member/idCheck?mId=' + mId,
         type: 'get',
         success: function(data) {  
-          if (data == 1) {
-            $("#id_check").text("사용중 아이디입니다! ");
+          if (data === 1) {
+            $("#id_check").text("사용중인 아이디입니다! ");
             $("#id_check").css("color", "red");
-  
           } else {
-            if(m_id = "") {
-	            $("#id_check").text("아이디를 입력해주세요! ");
+            if (mId === "") {
+	            $("#id_check").text("아이디를 제대로 입력해주세요! ");
 	            $("#id_check").css("color", "red");
               } else {
                 $("#id_check").text("입력 가능한 아이디입니다! ");
                 $("#id_check").css("color", "blue");
-              $("#joinBtn").attr("disabled", false);
+                $("#joinBtn").attr("disabled", false);
               }
             }
           }
-  
-	    })
+	    });
 	  });
 	  
 	  //비밀번호 조합  체크
@@ -357,24 +353,18 @@
 	    // 영어 소대문자숫자, 특수기호 2가지 조합
 	    var regExp = /^(?=.*[a-zA-Z0-9])(?=.*[!@#$%^*+=-]).{6,12}$/;
 	    var pass = pwd1.value.match(regExp);
-	    if (pass == null) {
-	      alert("제대로 입력하셈");
+	    if (pass === null) {
+	      alert("유효한 형식으로 입력해주세요");
 	      $("#pwd1").val("");
 	      $("#pwd1").focus();
-	      
 	    }
 	  });
 	  
 	  // 비밀번호 확인값 일치체크 
 	  $("#pwd2").change(function(){
-	    if($('#pwd1').val()!=$('#pwd2').val()){
-	        $('font[name=check2]').text('');
-	        $('font[name=check2]').html("불일치");
+	    if($('#pwd1').val() != $('#pwd2').val()){
 	        $("#pwd2").val("");
-	        alert("불일치");
-	    }else{
-	        $('font[name=check2]').text('');
-	        $('font[name=check2]').html("일치");
+	        alert("값이 일치하지 않습니다");
 	    }
 	  });
 	    
@@ -383,51 +373,86 @@
 	    var regExp = /^[가-힣]{2,4}$/;
 	    var pass = mName.value.match(regExp);
 	    if (pass == null) {
-	      alert("이름은 한글 두글자 이상입니다. 제대로 입력해주세요");
+	      alert("한글이름은 두글자 이상입니다. 제대로 입력해주세요");
 	      $("#mName").val("");
 	      $("#mName").focus();
-	      // 입력값ㅂ 비우기
 	    }
 	  });
 	
 		//가입하기 버튼
-		$("#joinBtn").click(function() {
-		      $.fn.serializeObject = function()
-		      {
-		         var o = {};
-		         var a = this.serializeArray();
-		         $.each(a, function() {
-		             if (o[this.name]) {
-		                 if (!o[this.name].push) {
-		                     o[this.name] = [o[this.name]];
-		                 }
-		                 o[this.name].push(this.value || '');
-		             } else {
-		                 o[this.name] = this.value || '';
-		             }
-		         });
-		         return o;
-		      };
-		      // json 문자열로 form 내부의 값들을 추출
-		      var parameter = JSON.stringify($("#joinForm").serializeObject());
-		      
-		      $.ajax({
-		          url : '/member/join.do',
-		          type : 'POST',
-		          contentType : 'application/json;charset=UTF-8',
-		          dataType : 'json',
-		          data : parameter,
-		          success : function(data) {
-		              if(data.isSuccess == 'true') {
-		                alert("가입성공! 메일함을 확인해주세요!")
-		                location.href = "/member/login.do";
-		              } else{
-		                alert("실패");
-		              }
-		          }
-		      });
+		$("#joinBtn").click(function(e) {
+		  
+		  if($("#mId").val() == ""){
+		    alert("아이디 입력을 해주세요");
+		    return;
+		  }
+		  
+		  if($("#mName").val() == ""){
+	        alert("이름 입력을 해주세요");
+	        return;
+	      }
+		  
+		  if($("#mBirth").val() == ""){
+	        alert("생년월일을 입력해주세요");
+	        return;
+	      }
+		  
+		  if($("#mPwd").val() == ""){
+	        alert("비밀번호를 입력해주세요");
+	        return;
+	      }
+		  
+		  if($("#mPostcode").val() == ""){
+	        alert("우편번호를 입력해주세요");
+	        return;
+	      }
+		  
+		  if($("#mAddr1").val() == ""){
+	        alert("주소를 입력해주세요");
+	        return;
+	      }
+		  
+		  if($("#mAddr2").val() == ""){
+	        alert("상세주소를 입력해주세요");
+	        return;
+	      }
+		  
+	      $.fn.serializeObject = function()
+	      {
+	         var o = {};
+	         var a = this.serializeArray();
+	         $.each(a, function() {
+	             if (o[this.name]) {
+	                 if (!o[this.name].push) {
+	                     o[this.name] = [o[this.name]];
+	                 }
+	                 o[this.name].push(this.value || '');
+	             } else {
+	                 o[this.name] = this.value || '';
+	             }
+	         });
+	         return o;
+	      };
+	      
+	      // json 문자열로 form 내부의 값들을 추출
+	      var parameter = JSON.stringify($("#joinForm").serializeObject());
+	      
+	      $.ajax({
+	          url : '/member/join.do',
+	          type : 'POST',
+	          contentType : 'application/json;charset=UTF-8',
+	          dataType : 'json',
+	          data : parameter,
+	          success : function(data) {
+	              if(data.isSuccess == 'true') {
+	                alert("가입성공! 메일함을 확인해주세요!")
+	                location.href = "/member/login.do";
+	              } else{
+	                alert("가입 실패");
+	              }
+	          }
+	      });
 	  });
-	  
 	}
 	
 	//파싱한 우편목록 html생성
