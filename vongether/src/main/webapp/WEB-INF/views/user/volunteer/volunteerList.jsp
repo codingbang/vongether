@@ -26,6 +26,17 @@
 
 </style>
 <script>
+window.onload = function() {
+	var result = "${result}";
+	if(result=="1"){
+		alert("정상적으로 신청되었습니다.");
+	}else if(result=="0"){
+		alert("처음");		
+	}else{
+		alert(result);
+	}
+}
+
 $(function(){
     $('#progrmBgnde').datepicker({
         uiLibrary: 'bootstrap3',
@@ -256,7 +267,7 @@ $(function(){
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
-				<h2>봉사참여</h2>${result }
+				<h2>봉사참여</h2>
 				<p><span>여러분의 <i class="sl-icon-heart"></i> 따뜻한 손길을 내밀어 주세요</span></p>
 			</div>
 		</div>

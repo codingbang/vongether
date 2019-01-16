@@ -6,7 +6,9 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,65 +25,145 @@ public class BoardAdminController {
 
   @Autowired
   private BoardAdminService boardAdminService;
-  
+
   @Auth
-  @RequestMapping(value = "/list.do", method = RequestMethod.GET)
-  public String listBoardAdminArticle(Model model) {
-    
-    List<BoardVO> articleList = boardAdminService.selectBoardList();
+  @RequestMapping(value = "/articlelist.do", method = RequestMethod.GET)
+  public String listBoardAdminArticle(@RequestParam Map<String, Object> params, Model model) {
+    int listCount = boardAdminService.selectBoardCnt(params);
+    Pagination pagination = new Pagination(listCount, 1, 10);
+    params.put("pagination", pagination);
+    List<BoardVO> articleList = boardAdminService.selectBoardList(params);
     model.addAttribute("articleList", articleList);
-    return "board/articleList.admin";
+    model.addAttribute("pagination", pagination);
+    return "board/articleList.admin";    
   }
-  
+
+  @Auth
+  @RequestMapping(value="/ajaxarticlelist.do", method=RequestMethod.GET)
+  public @ResponseBody Map<String, Object> ajaxListArticleAdminArticle(@RequestParam Map<String, Object> params) {
+    int pageNo = 1;
+    if(params.get("pageNo") != null) {
+      pageNo =Integer.parseInt((params.get("pageNo").toString()));
+    }
+
+    int listCount = boardAdminService.selectBoardCnt(params);
+    Pagination pagination = new Pagination(listCount, pageNo, 10);
+    params.put("pagination", pagination);
+    List<BoardVO> articleList = boardAdminService.selectBoardList(params);
+    params.put("articleList", articleList);
+    return params;
+  }
+
   @Auth
   @RequestMapping(value="/view.do", method=RequestMethod.GET)
-  public String viewBoardAdminArticle(int bNo, Model model) {
-      BoardVO boardVO = boardAdminService.selectBoard(bNo);
+  public String viewBoardAdmin(int bNo, Model model) {
+    BoardVO boardVO = boardAdminService.selectBoard(bNo);
+    if (boardVO.getbNoticeYN() == 0) {
       model.addAttribute("article", boardVO);
       return "board/articleView.admin";
+    } else {
+      model.addAttribute("notice", boardVO);
+      return "board/noticeView.admin";
+    }
   }
   
   @Auth
-  @RequestMapping(value="/write.do", method=RequestMethod.GET)
+  @RequestMapping(value="/noticemodify.do", method=RequestMethod.GET)
+  public String modifyBoardAdminForm(int bNo, Model model) {
+    BoardVO boardVO = boardAdminService.selectBoard(bNo);
+    model.addAttribute("notice", boardVO);
+    return "board/noticeModify.admin";
+  }
+  
+  @Auth
+  @RequestMapping(value="/noticemodify.do", method=RequestMethod.POST)
+  public String modifyBoardAdminForm(BoardVO boardVO) {
+    boardAdminService.updateNotice(boardVO);
+    return "redirect: /admin/board/noticelist.do";
+  }
+
+  @Auth
+  @RequestMapping(value="/noticewrite.do", method=RequestMethod.GET)
   public String writeBoardAdminArticleForm() {
-      return "board/noticeWrite.admin";
+    return "board/noticeWrite.admin";
   }
-  
+
   @Auth
-  @RequestMapping(value="/write.do", method=RequestMethod.POST)
+  @RequestMapping(value="/noticewrite.do", method=RequestMethod.POST)
   public String writeBoardAdminArticle(BoardVO boardVO, HttpSession session) {
-      MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
-      boardVO.setmId(memberVO.getmId());
-      boardAdminService.insertNotice(boardVO);
-      return "redirect: /admin/board/noticelist.do";
+    MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
+    boardVO.setmId(memberVO.getmId());
+    boardAdminService.insertNotice(boardVO);
+    return "redirect: /admin/board/noticelist.do";
   }
-  
+
   @Auth
   @RequestMapping(value="/noticelist.do", method=RequestMethod.GET)
-  public String listNoticeAdminArticle(@RequestParam(defaultValue="1")int pageNo, @RequestParam(defaultValue="") String keyword, Model model) {
-      Map<String, Object> map = new HashMap<String, Object>();
-      int listCount = boardAdminService.selectNoticeCnt();
-      Pagination pagination = new Pagination(listCount, pageNo, 10);
-      map.put("pagination", pagination);
-      map.put("keyword", keyword);
-      List<BoardVO> noticeList = boardAdminService.selectNoticeList(map);
-      model.addAttribute("noticeList", noticeList);
-      model.addAttribute("pagination", pagination);
-      return "board/noticeList.admin";
+  public String listNoticeAdminArticle(@RequestParam Map<String, Object> params, Model model) {
+    int listCount = boardAdminService.selectNoticeCnt(params);
+    Pagination pagination = new Pagination(listCount, 1, 10);
+    params.put("pagination", pagination);
+    List<BoardVO> noticeList = boardAdminService.selectNoticeList(params);
+    model.addAttribute("noticeList", noticeList);
+    model.addAttribute("pagination", pagination);
+    return "board/noticeList.admin";
   }
-  
+
   @Auth
   @RequestMapping(value="/ajaxnoticelist.do", method=RequestMethod.GET)
-  public @ResponseBody Map<String, Object> ajaxListNoticeAdminArticle(@RequestParam(defaultValue="1")int pageNo, @RequestParam(defaultValue="") String keyword) {
-      System.out.println(keyword);
-      Map<String, Object> map = new HashMap<String, Object>();
-      int listCount = boardAdminService.selectNoticeCnt();
-      Pagination pagination = new Pagination(listCount, pageNo, 10);
-      map.put("pagination", pagination);
-      map.put("keyword", keyword);
-      List<BoardVO> noticeList = boardAdminService.selectNoticeList(map);
-      map.put("noticeList", noticeList);
-      return map;
+  public @ResponseBody Map<String, Object> ajaxListNoticeAdminArticle(@RequestParam Map<String, Object> params) {
+    int pageNo = 1;
+    if(params.get("pageNo") != null) {
+      pageNo =Integer.parseInt((params.get("pageNo").toString()));
+    }
+
+    int listCount = boardAdminService.selectNoticeCnt(params);
+    Pagination pagination = new Pagination(listCount, pageNo, 10);
+    params.put("pagination", pagination);
+    List<BoardVO> noticeList = boardAdminService.selectNoticeList(params);
+    params.put("noticeList", noticeList);
+    return params;
+  }
+
+  @Auth
+  @RequestMapping(value="/boarddelete.do", method=RequestMethod.GET)
+  public String deleteBoardAdminArticle(@RequestParam int bNo) {
+    boardAdminService.deleteBoard(bNo);
+    BoardVO boardVO = boardAdminService.selectBoard(bNo);
+    if (boardVO.getbNoticeYN() == 0) {
+      return "redirect:/admin/board/articlelist.do";
+    } else {
+      return "redirect:/admin/board/noticelist.do";
+    }
+
+  }
+  @Auth
+  @Transactional
+  @RequestMapping(value="/boarddelete.do", method=RequestMethod.POST)
+  public @ResponseBody Map<String, Object> deleteBoardAdminArticleAjax(@RequestBody Map<String, String> param) {
+    String[] arrIdx = param.get("checkRow").toString().split(",");
+    for (int i=0; i<arrIdx.length; i++) {
+      boardAdminService.deleteBoard(Integer.parseInt(arrIdx[i]));
+    }
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("isSuccess", true);
+    map.put("msg", "삭제가 완료 되었습니다.");
+    return map;
+  }
+
+
+
+  @Auth
+  @RequestMapping(value="/deletecancel.do", method=RequestMethod.POST)
+  public @ResponseBody Map<String, Object> deleteCancelBoardAdminArticle(@RequestBody Map<String, String> param) {
+    String[] arrIdx = param.get("checkRow").toString().split(",");
+    for (int i=0; i<arrIdx.length; i++) {
+      boardAdminService.deleteBoardCancle(Integer.parseInt(arrIdx[i]));
+    }
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("isSuccess", true);
+    map.put("msg", "삭제 취소가 완료 되었습니다.");
+    return map;
   }
 
 

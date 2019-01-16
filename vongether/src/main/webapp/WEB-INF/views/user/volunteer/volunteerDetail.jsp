@@ -23,6 +23,9 @@
 		trans(noticeBgnde,nb);
 		var ne = document.getElementById("noticeEndde");
 		trans(noticeEndde,ne);
+		
+		//document.getElementById("programInfo").value=${json};
+
     };
     
     
@@ -51,18 +54,17 @@
 				</div>
 			</div>
 			<div class="col-md-12">
+				<form action="appl.do" method="post" >
 				<div class="row" style="margin-left: 0px">
 
-				<form action="appl.do" method="post" >
 					<input value="참여하기" class="btn btn-primary" type="submit">
-					<input type="hidden" value='${json }' name="programInfo"  >
-				</form>
-
-
+ 					<!-- <input type="hidden"  name="programInfo" id="programInfo">  -->
+ 					<input type="hidden" value='${json }' name="programInfo" >  
 					 <a href="list.do"
 						class="btn btn-primary btn-outline with-arrow">목록으로<i
 						class="icon-arrow-right"></i></a>
 				</div>
+				</form>
 			</div>
 			<div class="row line"
 				style="border-bottom: 1px solid rgba(0, 0, 0, 0.3); margin: 5px 5px 5px 10px"></div>

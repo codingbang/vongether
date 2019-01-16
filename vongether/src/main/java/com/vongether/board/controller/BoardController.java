@@ -51,7 +51,6 @@ public class BoardController {
 	
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
 	public String writeBoardArticle() {
-		System.out.println("안녕");
 		return "board/articleWrite.page";
 	}
 	
@@ -60,8 +59,6 @@ public class BoardController {
 	    MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
 	    if (memberVO != null) {
 	      boardVO.setmId(memberVO.getmId());
-	      System.out.println(memberVO.getmId());
-	      System.out.println(boardVO.getmId());
 	      boardService.writeBoardArticle(boardVO);
 	    }
 		return "redirect:/board/list.do";
@@ -82,7 +79,6 @@ public class BoardController {
 	
 	@RequestMapping(value="/update.do", method=RequestMethod.POST)
 	public String updateBoardArticle(BoardVO boardVO) {
-		System.out.println(boardVO.getbContent());
 		boardService.updateBoardArticle(boardVO);
 		return "redirect:/board/list.do";
 	}  

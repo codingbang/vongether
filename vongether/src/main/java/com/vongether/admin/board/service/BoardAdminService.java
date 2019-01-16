@@ -6,7 +6,7 @@ import com.vongether.board.model.BoardVO;
 
 public interface BoardAdminService {
   
-  public List<BoardVO> selectBoardList();
+  public List<BoardVO> selectBoardList(Map<String, Object> map);
   
   public BoardVO selectBoard(int bNo);
   
@@ -14,7 +14,14 @@ public interface BoardAdminService {
   
   public List<BoardVO> selectNoticeList(Map<String, Object> map);
   
-  public int selectBoardCnt();
+  public int selectBoardCnt(Map<String, Object> map);
   
-  public int selectNoticeCnt();
+  public int selectNoticeCnt(Map<String, Object> map);
+  
+  public void deleteBoard(int bNo);
+  
+  public void deleteBoardCancle(int bNo);
+  
+  public void updateNotice(BoardVO boardVO);
+  
 }
