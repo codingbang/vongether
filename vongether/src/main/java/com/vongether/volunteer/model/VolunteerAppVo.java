@@ -6,9 +6,23 @@ public class VolunteerAppVo {
 	private int appNo;
 	private String appName;
 	private String appPlace;
-	private Date appBegintm;
-	private Date appEndtm;
+	private String appBegintm;	
+	private String appEndtm;
 	private String mId;
+	
+
+	public String getAppBegintm() {
+		return appBegintm;
+	}
+	public void setAppBegintm(String appBegintm) {
+		this.appBegintm = appBegintm;
+	}
+	public String getAppEndtm() {
+		return appEndtm;
+	}
+	public void setAppEndtm(String appEndtm) {
+		this.appEndtm = appEndtm;
+	}
 	public int getAppNo() {
 		return appNo;
 	}
@@ -27,18 +41,8 @@ public class VolunteerAppVo {
 	public void setAppPlace(String appPlace) {
 		this.appPlace = appPlace;
 	}
-	public Date getAppBegintm() {
-		return appBegintm;
-	}
-	public void setAppBegintm(Date appBegintm) {
-		this.appBegintm = appBegintm;
-	}
-	public Date getAppEndtm() {
-		return appEndtm;
-	}
-	public void setAppEndtm(Date appEndtm) {
-		this.appEndtm = appEndtm;
-	}
+
+
 	public String getmId() {
 		return mId;
 	}

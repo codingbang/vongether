@@ -16,6 +16,6 @@
 	<insert id="insert">
 		insert into volunteer_appl
 		(app_no, app_name, app_place, app_begintm, app_endtm, m_id)
-		values( #{appNo}, #{appName},#{appPlace}, #{appBegintm}, #{appEndtm}, #{mId})
+		values( #{appNo}, #{appName},#{appPlace},STR_TO_DATE(#{appBegintm}, '%Y-%m-%d %H:%i:%s'),STR_TO_DATE(#{appEndtm}, '%Y-%m-%d %H:%i:%s'), #{mId})
 	</insert>
 </mapper>
