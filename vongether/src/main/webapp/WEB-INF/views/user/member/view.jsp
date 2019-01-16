@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원정보</title>
 <style type="text/css">
 .info-header{
     position: relative;
@@ -19,7 +20,7 @@
 			<!-- ★★★ Contents -->
 			<div class="info-header">
 				<div class="page-header2">
-					<h3>회원정보</h3>
+					<h2>회원정보</h2>
 				</div>
 
 				<div class="table-responsive">
@@ -41,7 +42,14 @@
 								<th class="text-center">생년월일</th>
 								<td class="text-left">${userInfo.mBirth}</td>
 								<th class="text-center">성별</th>
-								<td class="text-left">${userInfo.mGender}</td>
+								<c:choose>
+                                    <c:when test="${userInfo.mGender == m}">
+                                        <td class="text-left">남성</td>
+                                    </c:when>
+	                                <c:otherwise>
+	                                    <td class="text-left">여성</td>
+	                                </c:otherwise>
+                                </c:choose>
 							</tr>
 							<tr>
 							    <th class="text-center">우편번호</th>
@@ -55,7 +63,7 @@
 
 				<div class="pull-right">
 					<a href="/member/editCheck.do" class="btn btn-success btn-default">수정</a>
-					<a href="/member/delete.do" class="btn btn-large btn-default">탈퇴</a> 
+					<a href="/member/signOut.do" class="btn btn-large btn-default">탈퇴</a> 
 				</div>
 
 			</div>

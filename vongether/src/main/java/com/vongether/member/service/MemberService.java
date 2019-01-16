@@ -18,4 +18,12 @@ public interface MemberService {
   void userAuth(String mId) throws Exception;
   
   void update(MemberVO memberVO) throws Exception;
+  
+  String findId(Map<String, Object> param) throws Exception;
+  
+  String findPwd(Map<String, Object> param) throws Exception;
+
+  Boolean newPwd(Map<String, Object> param) throws Exception;
+  
+  Boolean singOut(Map<String, Object> param) throws Exception;
 }

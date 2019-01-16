@@ -12,7 +12,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,11 +31,14 @@ public class MemberController {
   @Autowired
   private MemberService memberService;
 
+  // 페이지 화면 이동(GET)
   @RequestMapping(value = "/join.do", method = RequestMethod.GET)
   public String join() {
     return "member/join.page";
   }
 
+  // DB 보내기 전 유효성 체크, 체크후 매퍼 실행
+  // Map 으로 성공 여부 전달
   @ResponseBody
   @RequestMapping(value = "/join.do", method = RequestMethod.POST)
   public Map<String, String> join(@RequestBody MemberVO memberVO, RedirectAttributes rttr, HttpSession session) throws Exception {
@@ -58,6 +60,7 @@ public class MemberController {
     return "member/login.page";
   }
 
+  // 세션에 로그인 유저 정보를 담는다
   @RequestMapping(value = "/login.do", method = RequestMethod.POST)
   public String login(String mId, String mPwd, HttpSession session, Model model) throws Exception {
     Map<String, Object> param = new HashMap<String, Object>();
@@ -72,7 +75,7 @@ public class MemberController {
       session.setAttribute("userInfo", memberVO);
       return "redirect:/";
     }
-    // 실패했을 경우
+    // 실패했을 경우 세션 초기화
     else {
       session.invalidate();
       return "redirect:/member/login.do";
@@ -80,6 +83,7 @@ public class MemberController {
 
   }
 
+  // 로그아웃 시 세션 초기화
   @RequestMapping(value = "/logout.do")
   public String logout(HttpSession session) {
     session.invalidate();
@@ -93,8 +97,8 @@ public class MemberController {
     return "member/emailConfirm.page";
   }
   
-  @ResponseBody
-  @RequestMapping(value = "/idCheck", method= RequestMethod.GET)
+  //@ResponseBody
+  @RequestMapping(value = "/idCheck")
   public int checkId(@RequestParam("mId") String mId) throws Exception{
     return memberService.checkId(mId);
   }
@@ -118,7 +122,7 @@ public class MemberController {
     return "redirect:/member/editCheck.do";
   }
   
-  @RequestMapping(value = "/view.do", method= RequestMethod.GET)
+  @RequestMapping(value = "/view.do")
   public String view() throws Exception{
     return "member/view.page";
   }
@@ -128,16 +132,99 @@ public class MemberController {
     return "member/edit.page";
   }
   
-  @Transactional
   @ResponseBody
   @RequestMapping(value = "/edit.do", method= RequestMethod.POST)
-  public Map<String, String> edit(RedirectAttributes rttr, @RequestBody MemberVO memberVO) throws Exception{
+  public Map<String, String> edit(RedirectAttributes rttr, @RequestBody MemberVO memberVO, HttpSession session) throws Exception{
     
     // 유효성 체크후 실행
     memberService.update(memberVO);
+    session.setAttribute("userInfo", memberVO);
     Map<String, String> map = new HashMap<String, String>();
     map.put("isSuccess", "true");
     return map;
+  }
+  
+  @RequestMapping(value = "/findId.do", method= RequestMethod.GET)
+  public String findId() throws Exception {
+    return "member/findId.page";
+  }
+  
+  @RequestMapping(value = "/findId.do", method= RequestMethod.POST)
+  public String findId(RedirectAttributes rttr, String mName, String mBirth, HttpSession session, Model model) throws Exception{
+    Map<String, Object> param = new HashMap<String, Object>();
+    param.put("mName", mName);
+    param.put("mBirth", mBirth);
+    String result = memberService.findId(param);
+    model.addAttribute("myId", result);
+   
+    System.out.println(result);
+    return "member/findOKId.page";
+  }
+  
+  @RequestMapping(value = "/findOKId.do")
+  public String findOKId() {
+    return "member/findOKId.page";
+  }
+  
+  @RequestMapping(value = "/findPwd.do", method= RequestMethod.GET)
+  public String findPwd() {
+    return "member/findPwd.page";
+  }
+  
+  @RequestMapping(value = "/findPwd.do", method= RequestMethod.POST)
+  public String findPwd(String mId, String mName, String mBirth, Model model) throws Exception{
+    Map<String, Object> param = new HashMap<String, Object>();
+    param.put("mId", mId);
+    param.put("mName", mName);
+    param.put("mBirth", mBirth);
+
+    // 비밀번호 재생성에 필요한 아이디값 히든으로 전달
+    model.addAttribute("mId", mId);
+    String result = memberService.findPwd(param);
+
+    if(result != null) {
+      return "member/newPwd.page";
+    }
+    return "redirect:/";
+    }
+  
+  @RequestMapping(value = "/newPwd.do", method= RequestMethod.GET)
+  public String newPwd() {
+    return "member/newPwd.page";
+  }
+  
+  @RequestMapping(value = "/newPwd.do", method= RequestMethod.POST)
+  public String newPwd(String mId, String mPwd, Model model) throws Exception{
+    Map<String, Object> param = new HashMap<String, Object>();
+    param.put("mId", mId);
+    param.put("mPwd", mPwd);
+    Boolean result = memberService.newPwd(param);
+    System.out.println(result);
+    
+    if(result != null) {
+      return "member/login.page";
+    }
+    
+    return "redirect:/";
+  }
+  
+  @RequestMapping(value = "/signOut.do", method= RequestMethod.GET)
+  public String signOut() throws Exception{
+    return "member/signOut.page";
+  }
+  
+  @RequestMapping(value = "/signOut.do", method= RequestMethod.POST)
+  public String signOut(RedirectAttributes rttr, String mId, String mPwd, HttpSession session) throws Exception{
+    
+    Map<String, Object> param = new HashMap<String, Object>();
+    param.put("mId", mId);
+    param.put("mPwd", mPwd);
+    int result = memberService.checkPwd(param);
+    
+    if(result == 1 ) {
+      return "member/edit.page";
+    }
+    return "redirect:/member/editCheck.do";
   }
   
   public static final String ZIPCODE_API_KEY = "3a167b364799b7ff01545215585606";
