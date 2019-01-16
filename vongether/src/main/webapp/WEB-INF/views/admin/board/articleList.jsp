@@ -5,7 +5,108 @@
 
 $(function(){
 	
+	//체크박스 모두 체크
+	$(document).on("click", ".allCheck", function(){
+		if( $("input[name=checkbox1]").is(':checked') ){
+			$("input[name=checkbox2]").prop("checked", true);
+		}else {
+			$("input[name=checkbox2]").prop("checked", false);
+		}
+	});
 	
+	
+	//체크 박스를 이용한 다중삭제처리
+	$(document).on("click", "#articleDelBtn", function(){
+		var checkRow = "";
+		$( "input[name='checkbox2']:checked" ).each (function (){
+			checkRow = checkRow + $(this).val()+"," ;
+		});
+		checkRow = checkRow.substring(0,checkRow.lastIndexOf( ",")); //맨끝 콤마 지우기
+		
+		if(checkRow == ''){
+			alert("삭제할 대상을 선택하세요.");
+			return false;
+		}
+		console.log("### checkRow => {}"+checkRow);
+		var checkData = { "checkRow" : checkRow };
+		
+		//true : 삭제 비동기 처리 후 목록 다시 불러오기
+		if(confirm("정보를 삭제 하시겠습니까?")){
+			//삭제 ajax처리
+			$.ajax({
+				url : "/admin/board/boarddelete.do",
+				data : JSON.stringify(checkData),
+				method : "POST",
+				dataType : "json",
+				contentType: "application/json; charset=UTF-8",
+		        success : function(data) {
+		        	if(data.isSuccess == true) {
+			        	alert(data.msg);
+			        	var jsonData = {
+			    				pageNo : 1,
+			    				keyword : $("#keyword").val(),
+			    				searchType : $("#searchType option:selected").val()
+		    			};
+		    			getArticleList(jsonData);
+		    			$(".allCheck").prop("checked", false);
+		        	}
+		        },
+		        error : function(jqXHR) {
+		        	console.log("error :"+ jqXHR.status);
+		        }
+		     });
+		}
+	});
+	
+	
+	
+	
+	//체크 박스를 이용한 다중삭제 취소처리
+	$(document).on("click", "#articleDelCancelBtn", function(){
+		var checkRow = "";
+		$( "input[name='checkbox2']:checked" ).each (function (){
+			checkRow = checkRow + $(this).val()+"," ;
+		});
+		checkRow = checkRow.substring(0,checkRow.lastIndexOf( ","));
+		
+		if(checkRow == ''){
+			alert("취소할 대상을 선택하세요.");
+			return false;
+		}
+		console.log("### checkRow => {}"+checkRow);
+		var checkData = { "checkRow" : checkRow };
+		
+		//true : 삭제취소 비동기 처리 후 목록 다시 불러오기
+		if(confirm("정보를 삭제취소 하시겠습니까?")){
+			$.ajax({
+				url : "/admin/board/deletecancel.do",
+				data : JSON.stringify(checkData),
+				method : "POST",
+				dataType : "json",
+				contentType: "application/json; charset=UTF-8",
+		        success : function(data) {
+		        	if(data.isSuccess == true) {
+			        	alert(data.msg);
+			        	var jsonData = {
+			    				pageNo : 1,
+			    				keyword : $("#keyword").val(),
+			    				searchType : $("#searchType option:selected").val()
+		    			};
+		    			getArticleList(jsonData);
+		    			$(".allCheck").prop("checked", false);
+		        	}
+		        },
+		        error : function(jqXHR) {
+		        	console.log("error :"+ jqXHR.status);
+		        }
+		     });
+		}
+	});
+
+
+
+
+	//검색 처리 이벤트
 	$(document).on("click", "#searchBtn", function(){
 		var keyword = $("#keyword").val();
 		var searchType = $("#searchType option:selected").val();
@@ -20,6 +121,7 @@ $(function(){
 	});
 	
 	
+	//페이지 이동 이벤트
 	$(document).on("click", ".mvpage", function(){
 		var jsonData = {
 			pageNo : $(this).attr("move-page-no"),
@@ -31,6 +133,8 @@ $(function(){
 		
 	});
 	
+	
+	//글 목록을 가져오는 함수
 	function getArticleList(jsonParam) {
     	$.ajax({
     		url : "/admin/board/ajaxarticlelist.do",
@@ -44,6 +148,8 @@ $(function(){
     	});
     }
 	
+	//ajax를 통해 가져온 글 목록 데이터로
+	//HTML을 이용해 화면에 표시해주는 함수
 	function makeArticleList(data) {
 		var htmlStr = '';
 		
@@ -66,7 +172,7 @@ $(function(){
 				}
 				
 				htmlStr += '<tr>';
-				htmlStr += '	 <td><input type="checkbox" class="icheck" name="checkbox1" /></td>';
+				htmlStr += '	 <td><input type="checkbox" class="icheck" name="checkbox2" value="'+data.articleList[i].bNo+'"/></td>';
 				htmlStr += '	 <td>' + data.articleList[i].bNo + '</td>';
 				htmlStr += '	 <td><a href="/admin/board/view.do?bNo=' + data.articleList[i].bTitle + '">' + data.articleList[i].bTitle + '</a></td>';
 				htmlStr += '	 <td>' + data.articleList[i].mId + '</td>';
@@ -145,8 +251,9 @@ $(function(){
                   <div class="panel-body">
                   <div class="col-md-12 padding-0" style="padding-bottom:20px;">
                     <div class="col-md-6" style="padding-left:10px;">
-                        <input type="checkbox" class="icheck pull-left" name="checkbox1"/>
-                        <input class="btn btn-danger pull-left" type="button" value="삭제">
+                        <input type="checkbox" class="icheck allCheck pull-left" name="checkbox1"/>
+                        <input id="articleDelBtn" class="btn btn-danger pull-left" type="button" value="삭제">
+                        <input id="articleDelCancelBtn"class="btn btn-warning pull-left" type="button" value="삭제취소">
                     </div>
                     <div class="col-md-6">
                    		<div class="form-group">
@@ -185,7 +292,7 @@ $(function(){
 		                </colgroup>
                     <thead>
                       <tr>
-                        <th><input type="checkbox" class="icheck" name="checkbox1" /></th>
+                        <th><input type="checkbox" class="icheck allCheck" name="checkbox1" /></th>
                         <th>번호</th>
                         <th>제목</th>
                         <th>작성자</th>
@@ -199,7 +306,7 @@ $(function(){
                     <tbody id="articleListTBody">
                       <c:forEach var="article" items="${articleList }">
                         <tr>
-                          <td><input type="checkbox" class="icheck" name="checkbox1" /></td>
+                          <td><input type="checkbox" class="icheck" name="checkbox2" value="${article.bNo }"/></td>
                           <td>${article.bNo }</td>
                           <td><a href="/admin/board/view.do?bNo=${article.bNo }">${article.bTitle }</a></td>
                           <td>${article.mId}</td>

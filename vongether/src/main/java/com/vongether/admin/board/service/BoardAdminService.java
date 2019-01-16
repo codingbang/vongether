@@ -20,4 +20,6 @@ public interface BoardAdminService {
   
   public void deleteBoard(int bNo);
   
+  public void deleteBoardCancle(int bNo);
+  
 }

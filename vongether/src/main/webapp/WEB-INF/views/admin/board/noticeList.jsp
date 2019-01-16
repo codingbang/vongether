@@ -4,6 +4,105 @@
 <script>
 $(function(){
 	
+	//체크박스 모두 체크
+	$(document).on("click", ".allCheck", function(){
+		if( $("input[name=checkbox1]").is(':checked') ){
+			$("input[name=checkbox2]").prop("checked", true);
+		}else {
+			$("input[name=checkbox2]").prop("checked", false);
+		}
+	});
+	
+	
+	//체크 박스를 이용한 다중삭제처리
+	$(document).on("click", "#noticeDelBtn", function(){
+		var checkRow = "";
+		$( "input[name='checkbox2']:checked" ).each (function (){
+			checkRow = checkRow + $(this).val()+"," ;
+		});
+		checkRow = checkRow.substring(0,checkRow.lastIndexOf( ",")); //맨끝 콤마 지우기
+		
+		if(checkRow == ''){
+			alert("삭제할 대상을 선택하세요.");
+			return false;
+		}
+		console.log("### checkRow => {}"+checkRow);
+		var checkData = { "checkRow" : checkRow };
+		
+		//true : 삭제 비동기 처리 후 목록 다시 불러오기
+		if(confirm("정보를 삭제 하시겠습니까?")){
+			//삭제 ajax처리
+			$.ajax({
+				url : "/admin/board/boarddelete.do",
+				data : JSON.stringify(checkData),
+				method : "POST",
+				dataType : "json",
+				contentType: "application/json; charset=UTF-8",
+		        success : function(data) {
+		        	if(data.isSuccess == true) {
+			        	alert(data.msg);
+			        	var jsonData = {
+			    				pageNo : 1,
+			    				keyword : $("#keyword").val(),
+			    				searchType : $("#searchType option:selected").val()
+		    			};
+			        	getNoticeList(jsonData);
+			        	$(".allCheck").prop("checked", false);
+		        	}
+		        },
+		        error : function(jqXHR) {
+		        	console.log("error :"+ jqXHR.status);
+		        }
+		     });
+		}
+	});
+	
+	
+	
+	
+	//체크 박스를 이용한 다중삭제 취소처리
+	$(document).on("click", "#noticeDelCancelBtn", function(){
+		var checkRow = "";
+		$( "input[name='checkbox2']:checked" ).each (function (){
+			checkRow = checkRow + $(this).val()+"," ;
+		});
+		checkRow = checkRow.substring(0,checkRow.lastIndexOf( ","));
+		
+		if(checkRow == ''){
+			alert("취소할 대상을 선택하세요.");
+			return false;
+		}
+		console.log("### checkRow => {}"+checkRow);
+		var checkData = { "checkRow" : checkRow };
+		
+		//true : 삭제취소 비동기 처리 후 목록 다시 불러오기
+		if(confirm("정보를 삭제취소 하시겠습니까?")){
+			$.ajax({
+				url : "/admin/board/deletecancel.do",
+				data : JSON.stringify(checkData),
+				method : "POST",
+				dataType : "json",
+				contentType: "application/json; charset=UTF-8",
+		        success : function(data) {
+		        	if(data.isSuccess == true) {
+			        	alert(data.msg);
+			        	var jsonData = {
+			    				pageNo : 1,
+			    				keyword : $("#keyword").val(),
+			    				searchType : $("#searchType option:selected").val()
+		    			};
+			        	getNoticeList(jsonData);
+			        	$(".allCheck").prop("checked", false);
+		        	}
+		        },
+		        error : function(jqXHR) {
+		        	console.log("error :"+ jqXHR.status);
+		        }
+		     });
+		}
+	});
+	
+	
 	
 	$(document).on("click", "#searchBtn", function(){
 		var keyword = $("#keyword").val();
@@ -64,7 +163,7 @@ $(function(){
 				}
 				
 				htmlStr += '<tr>';
-				htmlStr += '	 <td><input type="checkbox" class="icheck" name="checkbox1" /></td>';
+				htmlStr += '	 <td><input type="checkbox" class="icheck" name="checkbox2" value="'+data.noticeList[i].bNo+'" /></td>';
 				htmlStr += '	 <td>' + data.noticeList[i].bNo + '</td>';
 				htmlStr += '	 <td><a href="/admin/board/view.do?bNo=' + data.noticeList[i].bTitle + '">' + data.noticeList[i].bTitle + '</a></td>';
 				htmlStr += '	 <td>' + data.noticeList[i].mId + '</td>';
@@ -143,8 +242,9 @@ $(function(){
                   <div class="panel-body">
                   <div class="col-md-12 padding-0" style="padding-bottom:20px;">
                     <div class="col-md-6" style="padding-left:10px;">
-                        <input type="checkbox" class="icheck pull-left" name="checkbox1"/>
-                        <input class="btn btn-danger pull-left" type="button" value="삭제">
+                        <input type="checkbox" class="icheck allCheck pull-left" name="checkbox1"/>
+                        <input id="noticeDelBtn" class="btn btn-danger pull-left" type="button" value="삭제">
+                        <input id="noticeDelCancelBtn"class="btn btn-warning pull-left" type="button" value="삭제취소">
                     </div>
                     <div class="col-md-6">
                          <div class="form-group">
@@ -183,7 +283,7 @@ $(function(){
 		                </colgroup>
 	                    <thead>
 	                      <tr>
-	                        <th><input type="checkbox" class="icheck" name="checkbox1" /></th>
+	                        <th><input type="checkbox" class="icheck allCheck" name="checkbox1" /></th>
 	                        <th>번호</th>
 	                        <th>제목</th>
 	                        <th>작성자</th>
@@ -197,7 +297,7 @@ $(function(){
 	                    <tbody id="articleListTBody">
 	                      <c:forEach var="notice" items="${noticeList }">
 	                        <tr>
-	                          <td><input type="checkbox" class="icheck" name="checkbox1" /></td>
+	                          <td><input type="checkbox" class="icheck" name="checkbox2" value="${notice.bNo }" /></td>
 	                          <td>${notice.bNo }</td>
 	                          <td><a href="/admin/board/view.do?bNo=${notice.bNo }">${notice.bTitle }</a></td>
 	                          <td>${notice.mId}</td>

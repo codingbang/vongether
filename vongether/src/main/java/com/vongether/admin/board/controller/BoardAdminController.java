@@ -1,11 +1,14 @@
 package com.vongether.admin.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,7 +109,7 @@ public class BoardAdminController {
     params.put("noticeList", noticeList);
     return params;
   }
-  
+
   @Auth
   @RequestMapping(value="/boarddelete.do", method=RequestMethod.GET)
   public String deleteBoardAdminArticle(@RequestParam int bNo) {
@@ -117,8 +120,36 @@ public class BoardAdminController {
     } else {
       return "redirect:/admin/board/noticelist.do";
     }
-   
+
   }
-  
+  @Auth
+  @Transactional
+  @RequestMapping(value="/boarddelete.do", method=RequestMethod.POST)
+  public @ResponseBody Map<String, Object> deleteBoardAdminArticleAjax(@RequestBody Map<String, String> param) {
+    String[] arrIdx = param.get("checkRow").toString().split(",");
+    for (int i=0; i<arrIdx.length; i++) {
+      boardAdminService.deleteBoard(Integer.parseInt(arrIdx[i]));
+    }
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("isSuccess", true);
+    map.put("msg", "삭제가 완료 되었습니다.");
+    return map;
+  }
+
+
+
+  @Auth
+  @RequestMapping(value="/deletecancel.do", method=RequestMethod.POST)
+  public @ResponseBody Map<String, Object> deleteCancelBoardAdminArticle(@RequestBody Map<String, String> param) {
+    String[] arrIdx = param.get("checkRow").toString().split(",");
+    for (int i=0; i<arrIdx.length; i++) {
+      boardAdminService.deleteBoardCancle(Integer.parseInt(arrIdx[i]));
+    }
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("isSuccess", true);
+    map.put("msg", "삭제 취소가 완료 되었습니다.");
+    return map;
+  }
+
 
 }

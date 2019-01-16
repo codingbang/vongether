@@ -49,5 +49,10 @@ public class BoardAdminServiceImpl implements BoardAdminService {
     sqlSession.getMapper(BoardAdminDAO.class).deleteBoard(bNo);
     
   }
+  @Override
+  public void deleteBoardCancle(int bNo) {
+    sqlSession.getMapper(BoardAdminDAO.class).deleteBoardCancle(bNo);
+    
+  }
 
 }
