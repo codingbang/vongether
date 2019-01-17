@@ -17,9 +17,11 @@ import com.vongether.admin.board.service.BoardAdminService;
 import com.vongether.board.model.BoardVO;
 import com.vongether.common.util.Pagination;
 import com.vongether.common.util.interceptor.Auth;
+import com.vongether.common.util.interceptor.Auth.Role;
 import com.vongether.member.model.MemberVO;
 
 @Controller
+@Auth(role=Role.ADMIN)
 @RequestMapping("/admin/board")
 public class BoardAdminController {
 

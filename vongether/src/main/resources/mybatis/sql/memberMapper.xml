@@ -14,7 +14,22 @@
       <result property="mAddr1" column="m_addr1"/>
       <result property="mAddr2" column="m_addr2"/>
     </resultMap>
-
+    
+    <resultMap id="VolunteerAppResultMap" type="com.vongether.volunteer.model.VolunteerAppVo">
+      <id property="appNo" column="app_no" />
+      <result property="appName" column="app_name"/>
+      <result property="appPlace" column="app_place"/>
+      <result property="appBegintm" column="app_begintm"/>
+      <result property="appEndtm" column="app_endtm"/>
+      <result property="mId" column="m_id"/>
+    </resultMap>
+	
+	<select id="selectOneVList" parameterType="String" resultMap="VolunteerAppResultMap">
+        select app_no, app_name, app_place, app_begintm, app_endtm
+        from volunteer_appl
+        where m_id = #{mId}
+    </select>
+	
 	<insert id="insert">
 		insert into member
 		( m_id, m_name, m_gender, m_birth, m_pwd, m_postcode, m_addr1, m_addr2, m_role )
@@ -72,7 +87,7 @@
     </update>
     
     <delete id="singOut">
-        delete from member where m_Pwd = #{mPwd} and m_id = #{mId} 
+        delete m_id from member where mPwd = #{mPwd}    
     </delete>
 
 </mapper>

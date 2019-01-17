@@ -26,7 +26,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
     Auth auth = handlerMethod.getMethodAnnotation(Auth.class);
     Auth adminRole = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Auth.class);
      
-     
     
 
     // 4. method에 @Auth가 없는 경우, 즉 인증이 필요 없는 요청
@@ -48,15 +47,21 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
       response.sendRedirect(request.getContextPath() + "/admin/login.do");
       return false;
     }
-    
     // 7. admin일 경우
     if( adminRole != null ) {
       String role = adminRole.role().toString();
       if( "ADMIN".equals(role) ) {
         // admin임을 알 수 있는 조건을 작성한다.
         // ex) 서비스의 role이 ROLE_ADMIN이면 admin이다.
-        if( "ROLE_ADMIN".equals(authUser.getmRole()) == false ){
-          response.sendRedirect(request.getContextPath());
+        if (authUser.getmRole() != null) {
+          if("ROLE_ADMIN".equals(authUser.getmRole().toUpperCase()) == false ){
+            session.invalidate();
+            response.sendRedirect(request.getContextPath() + "/admin/login.do");
+            return false;
+          }
+        } else {
+          session.invalidate();
+          response.sendRedirect(request.getContextPath() + "/admin/login.do");
           return false;
         }
       }
