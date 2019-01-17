@@ -100,7 +100,8 @@ $(document).ready(function() {
 	<div class="main-content-box">
 		<div class="container">
 		    <div class="row">
-        		<h2 class="testtest"><b>게시판</b></h2>
+		    	<h2 class="col-md-12 boardname"></h2>
+        		<h2 class="col-md-2 "><b>게시판</b></h2>
 			</div>
 			
 			<div class="row">
