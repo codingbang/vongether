@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.fileupload.FileItemStream.ItemSkippedException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -323,7 +325,10 @@ public class MemberController {
 		String id = memberVo.getmId();
 		List<VolunteerAppVo> list = memberService.selectOneVList(id);
 		model.addAttribute("list",list);
-		//System.out.println(list.get(0).getAppNo());
+		//start pdf file try
+		
+		//end pdf
+		
 		return "member/myAppList.page";
 	}
 
