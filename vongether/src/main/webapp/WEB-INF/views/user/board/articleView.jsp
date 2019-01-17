@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 .viewTitle {
 	font-size: 25px;
@@ -49,6 +50,10 @@ $(document).ready(function() {
 							rContent: $("#replyWriteText").val(), 
 							bNo: $("#bNo").val()
 						});
+			if('${userInfo.mId}'==null || '${userInfo.mId}' == ""){
+				swal("로그인 하세욧!","너는 로긴하게 될 것이야~","error");
+			}else{
+				swal("댓글을 쓰고싶다고???","바~로~ 처리해쥬징!","success");
 			$.ajax({
 	    		url : "/reply/write.do",
 	    		dataType : "json",
@@ -56,14 +61,11 @@ $(document).ready(function() {
 	    		contentType: "application/json; charset=UTF-8",
 	    		method : "POST",
 	    	    success : function(data2) {
-	    	    	if(data2 == -1){
-	    	    		alert("로그인하세요.");
-	    	    	}else{
-	    	    		getReplyList(data2);
-	    	    		$("#replyWriteText").val("");
-	    	    	}
+    	    		getReplyList(data2);
+    	    		$("#replyWriteText").val("");
 	    	    }
 	    	});
+			}
 		}
 	);
 	
@@ -179,14 +181,27 @@ $(document).ready(function() {
 	//댓글 삭제 이벤트
 	$(document).on("click",".replyRemoveBtn",function(){
 		var rNo = $(this).attr("replyNo");
-		$.ajax({
-		     url : '/reply/delete.do/'+bNo+"/"+rNo,
-		     method : 'DELETE',
-		     contentType : 'application/json;charset=UTF-8',
-		     dataType : 'json',
-		     success : function(data2) {
-		    	 getReplyList(data2);
-		     }
+		swal({
+			  title: "댓글을 삭제하시겠습니까?",
+			  text: "너의 글은 살아남지 못할것이다!",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				$.ajax({
+				     url : '/reply/delete.do/'+bNo+"/"+rNo,
+				     method : 'DELETE',
+				     contentType : 'application/json;charset=UTF-8',
+				     dataType : 'json',
+				     success : function(data2) {
+				    	 getReplyList(data2);
+				     }
+				});
+			  } else {
+			    swal("댓글 : 사..살았다...");
+			  }
 		});
 		return false;
 	});
@@ -210,7 +225,7 @@ $(document).ready(function() {
 					<div class="col-md-12">
 						<div class="col-md-12">
 							<input type="hidden" id="bNo" value="${article.bNo}">
-							<span class="viewTitle">${article.bTitle}&nbsp;&nbsp;&nbsp;</span>
+							<span class="viewTitle">${article.bTitle.replace("<","&lt;")}&nbsp;&nbsp;&nbsp;</span>
 						</div>
 						<div class="col-md-12">
 							<span class="articleViewId">작성자 : [${article.mId}]</span>

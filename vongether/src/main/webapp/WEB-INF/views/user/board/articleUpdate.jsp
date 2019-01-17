@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -13,7 +14,7 @@ $(document).ready(function() {
 
  		$("#writeCancelBtn").click(
 			function(){
-				alert("글작성이 취소되었습니다.");
+				swal("글작성이 취소되었습니다.");
 				$("#commonForm").attr("method", "get").attr(
 						"action", "/view.bit").submit();	
 		}); 
@@ -25,13 +26,13 @@ $(document).ready(function() {
 				var bContent = $("#bContent").val();
 				console.log(bTitle);
 				if(bTitle == ""){
-					alert("제목을 입력하세요");
+					swal("제목을 입력하세요");
 					return;
 				}else if(bContent == ""){
-					alert("내용을 입력하세요");
+					swal("내용을 입력하세요");
 					return;
 				}else{
-					alert("글이 수정되었습니다");
+					swal("글이 수정되었습니다");
 			 		document.updateForm.action = "/board/update.do"; 
 					document.updateForm.submit();
 				}

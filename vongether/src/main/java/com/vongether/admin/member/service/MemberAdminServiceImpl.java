@@ -13,7 +13,7 @@ public class MemberAdminServiceImpl implements MemberAdminService{
   SqlSession sqlSession;
 
   @Override
-  public int loginAdmin(MemberVO memberVO) {
+  public MemberVO loginAdmin(MemberVO memberVO) {
     return sqlSession.getMapper(MemberAdminDAO.class).loginAdmin(memberVO);
   }
 
