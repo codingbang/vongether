@@ -34,14 +34,9 @@ public class BoardController {
 		int totalArticleCount = boardService.totalBoardArticleCount(param);
 		Pagination pagination = new Pagination(totalArticleCount , pageNo, 10);
 		model.addAttribute("pagination", pagination);
-		session.getAttribute("userInfo");
-		if(!(session.getAttribute("userInfo")==null || session.getAttribute("userInfo").equals(""))) {
-			model.addAttribute("session", true);
-			return "board/articleList.page";
-		}else {
-			model.addAttribute("session", false);
-			return "board/articleList.page";
-		}
+		MemberVO memberVO = (MemberVO)session.getAttribute("userInfo");
+		model.addAttribute("userInfo", memberVO);
+		return "board/articleList.page";
 	}
 	@RequestMapping(value ="/listAjax.do" , method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> ajaxListBoardArticle(@RequestParam Map<String, Object> param, @RequestParam int pageNo) {
