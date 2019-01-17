@@ -69,8 +69,6 @@ public class MemberController {
     MemberVO memberVO = memberService.selectOne(param);
     
     if (memberVO != null ) {
-      
-      //rttr.addFlashAttribute("memberVO", memberVO);
       model.addAttribute("memberVO", memberVO);
       session.setAttribute("userInfo", memberVO);
       return "redirect:/";
@@ -97,7 +95,7 @@ public class MemberController {
     return "member/emailConfirm.page";
   }
   
-  //@ResponseBody
+  @ResponseBody
   @RequestMapping(value = "/idCheck")
   public int checkId(@RequestParam("mId") String mId) throws Exception{
     return memberService.checkId(mId);
@@ -117,7 +115,7 @@ public class MemberController {
     int result = memberService.checkPwd(param);
     
     if(result == 1 ) {
-      return "member/edit.page";
+      return "redirect:/member/edit.do";
     }
     return "redirect:/member/editCheck.do";
   }
@@ -135,12 +133,16 @@ public class MemberController {
   @ResponseBody
   @RequestMapping(value = "/edit.do", method= RequestMethod.POST)
   public Map<String, String> edit(RedirectAttributes rttr, @RequestBody MemberVO memberVO, HttpSession session) throws Exception{
-    
-    // 유효성 체크후 실행
-    memberService.update(memberVO);
-    session.setAttribute("userInfo", memberVO);
     Map<String, String> map = new HashMap<String, String>();
-    map.put("isSuccess", "true");
+    // 유효성 체크후 실행
+    Boolean result = memberService.update(memberVO);
+    
+    if(result) {
+      session.setAttribute("userInfo", memberVO);
+      map.put("isSuccess", "true");
+      return map;
+    }
+    map.put("isSuccess", "false");
     return map;
   }
   
@@ -149,16 +151,20 @@ public class MemberController {
     return "member/findId.page";
   }
   
+  // RedirectAttributes 일회성으로 데이터를 넘길 수 있다
   @RequestMapping(value = "/findId.do", method= RequestMethod.POST)
-  public String findId(RedirectAttributes rttr, String mName, String mBirth, HttpSession session, Model model) throws Exception{
+  public String findId(RedirectAttributes rttr, String mName, String mBirth) throws Exception{
     Map<String, Object> param = new HashMap<String, Object>();
     param.put("mName", mName);
     param.put("mBirth", mBirth);
     String result = memberService.findId(param);
-    model.addAttribute("myId", result);
+    //model.addAttribute("myId", result);
+    rttr.addFlashAttribute("mId", result);
    
-    System.out.println(result);
-    return "member/findOKId.page";
+    if(result !=null) {
+      return "redirect:/member/findOKId.do";
+    }
+    return "redirect:member/findId.do";
   }
   
   @RequestMapping(value = "/findOKId.do")
@@ -172,18 +178,19 @@ public class MemberController {
   }
   
   @RequestMapping(value = "/findPwd.do", method= RequestMethod.POST)
-  public String findPwd(String mId, String mName, String mBirth, Model model) throws Exception{
+  public String findPwd(String mId, String mName, String mBirth, Model model, RedirectAttributes rttr) throws Exception{
     Map<String, Object> param = new HashMap<String, Object>();
     param.put("mId", mId);
     param.put("mName", mName);
     param.put("mBirth", mBirth);
 
     // 비밀번호 재생성에 필요한 아이디값 히든으로 전달
-    model.addAttribute("mId", mId);
+    // model.addAttribute("mId", mId);
+    rttr.addFlashAttribute("mId", mId);
     String result = memberService.findPwd(param);
 
     if(result != null) {
-      return "member/newPwd.page";
+      return "redirect:/member/newPwd.do";
     }
     return "redirect:/";
     }
@@ -194,18 +201,18 @@ public class MemberController {
   }
   
   @RequestMapping(value = "/newPwd.do", method= RequestMethod.POST)
-  public String newPwd(String mId, String mPwd, Model model) throws Exception{
+  public String newPwd(String mId, String mPwd) throws Exception{
     Map<String, Object> param = new HashMap<String, Object>();
     param.put("mId", mId);
     param.put("mPwd", mPwd);
     Boolean result = memberService.newPwd(param);
     System.out.println(result);
     
-    if(result != null) {
-      return "member/login.page";
+    if(result) {
+      return "redirect:/member/login.do";
     }
     
-    return "redirect:/";
+    return "redirect:/member/findPwd.do";
   }
   
   @RequestMapping(value = "/signOut.do", method= RequestMethod.GET)
@@ -215,16 +222,18 @@ public class MemberController {
   
   @RequestMapping(value = "/signOut.do", method= RequestMethod.POST)
   public String signOut(RedirectAttributes rttr, String mId, String mPwd, HttpSession session) throws Exception{
-    
     Map<String, Object> param = new HashMap<String, Object>();
     param.put("mId", mId);
     param.put("mPwd", mPwd);
     int result = memberService.checkPwd(param);
     
-    if(result == 1 ) {
-      return "member/edit.page";
+    if(result == 1) {
+      memberService.singOut(param);
+      session.invalidate();
+      return "redirect:/";
     }
-    return "redirect:/member/editCheck.do";
+    
+    return "redirect:/member/view.do";
   }
   
   public static final String ZIPCODE_API_KEY = "3a167b364799b7ff01545215585606";

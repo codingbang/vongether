@@ -56,7 +56,7 @@ public class MemberServiceImpl implements MemberService {
 		return sqlsesssion.getMapper(MemberDAO.class).selectOne(param);
 	}
 
-
+	
 	@Override
 	public void userAuth(String mId) throws Exception {
 		sqlsesssion.getMapper(MemberDAO.class).userAuth(mId);
@@ -75,8 +75,8 @@ public class MemberServiceImpl implements MemberService {
 
   @Transactional
   @Override
-  public void update(MemberVO memberVO) throws Exception {
-    sqlsesssion.getMapper(MemberDAO.class).update(memberVO);
+  public Boolean update(MemberVO memberVO) throws Exception {
+    return sqlsesssion.getMapper(MemberDAO.class).update(memberVO);
   }
 
   @Override

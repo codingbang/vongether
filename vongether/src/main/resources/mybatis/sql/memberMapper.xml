@@ -72,7 +72,7 @@
     </update>
     
     <delete id="singOut">
-        delete m_id from member where mPwd = #{mPwd}    
+        delete from member where m_Pwd = #{mPwd} and m_id = #{mId} 
     </delete>
 
 </mapper>

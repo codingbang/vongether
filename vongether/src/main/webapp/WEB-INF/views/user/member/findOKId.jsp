@@ -24,7 +24,7 @@
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6">
 	                <div class="row">
-	                   <span>가입하셨던 아이디는 <label>${myId}</label> 입니다</span>
+	                   <span>가입하셨던 아이디는 <label>${mId}</label> 입니다</span>
 	                </div>            
 	                <div class="col-lg-1"></div>            
 	                <div class="row">
