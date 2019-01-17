@@ -3,6 +3,7 @@ package com.vongether.member.dao;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
+import com.vongether.board.model.BoardVO;
 import com.vongether.member.model.MemberVO;
 import com.vongether.volunteer.model.VolunteerAppVo;
 
@@ -34,4 +35,5 @@ public interface MemberDAO {
   
   List<VolunteerAppVo> selectOneVList(String param) throws Exception;
   
+  List<BoardVO> myBoardList(String mId) throws Exception;
 }

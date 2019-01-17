@@ -2,6 +2,7 @@ package com.vongether.member.service;
 
 import java.util.List;
 import java.util.Map;
+import com.vongether.board.model.BoardVO;
 import com.vongether.member.model.MemberVO;
 import com.vongether.volunteer.model.VolunteerAppVo;
 
@@ -30,4 +31,6 @@ public interface MemberService {
   Boolean singOut(Map<String, Object> param) throws Exception;
   
   List<VolunteerAppVo> selectOneVList(String param) throws Exception;//마이페이지-봉사참여리스트( param = 아이디 )
+
+  List<BoardVO> myBoardList(String mId) throws Exception;
 }

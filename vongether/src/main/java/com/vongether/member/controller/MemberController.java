@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
+import com.vongether.board.model.BoardVO;
 import com.vongether.member.model.MemberVO;
 import com.vongether.member.model.PostVO;
 import com.vongether.member.service.MemberService;
@@ -326,4 +327,14 @@ public class MemberController {
 		return "member/myAppList.page";
 	}
 
+
+    @RequestMapping(value = "myBoardList.do")
+    public String myBoardList(HttpSession session, Model model) throws Exception{
+      MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
+      String mId =  memberVO.getmId();
+      List<BoardVO> myList = memberService.myBoardList(mId);
+      model.addAttribute("myList", myList);
+      
+      return "member/myBoardList.page";
+    }
 }

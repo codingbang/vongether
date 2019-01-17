@@ -23,6 +23,16 @@
       <result property="appEndtm" column="app_endtm"/>
       <result property="mId" column="m_id"/>
     </resultMap>
+    
+    <resultMap id="boardResultMap" type="com.vongether.board.model.BoardVO">
+      <id property="bNo" column="b_no" />
+      <result property="bTitle" column="b_title"/>
+      <result property="bContent" column="b_content"/>
+      <result property="bHitcount" column="b_hitcount"/>
+      <result property="bRegdate" column="b_regdate"/>
+      <result property="bDelYN" column="b_delYN"/>
+      <result property="mId" column="m_id"/>
+    </resultMap>
 	
 	<select id="selectOneVList" parameterType="String" resultMap="VolunteerAppResultMap">
         select app_no, app_name, app_place, app_begintm, app_endtm
@@ -89,5 +99,12 @@
     <delete id="singOut">
         delete m_id from member where mPwd = #{mPwd}    
     </delete>
+    
+    <select id="myBoardList" parameterType="String" resultMap="boardResultMap">
+        select b.b_no, b.b_title, b.b_hitcount, DATE_FORMAT(b.b_regdate,'%Y-%m-%d')b_regdate
+         from board b join member m 
+         on b.m_id = m.m_id 
+         where m.m_id = #{mId} and b.b_delYN = false
+    </select>
 
 </mapper>
