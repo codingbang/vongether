@@ -3,20 +3,38 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script type="text/javascript">
-<!--
-	나의정보 - 봉사참여리스트
-	1. 리스트를 가져온다.
-	2. 리스트를 뿌려준다.
-	3. 페이징을 한다.
-//-->
-
+	/*
+	 나의정보 - 봉사참여리스트
+	 1. 리스트를 가져온다.
+	 2. 리스트를 뿌려준다.
+	 - 테두리 생성
+	 3. 페이징을 한다.
+	 */
+	var applist = new Array( new Array(0), new Array(0), new Array(0), new Array(0), new Array(0) );
 </script>
+<c:forEach items="${list}" var="item">
+	<script type="text/javascript">
+		applist[0].push("${item.appNo}");
+		applist[1].push("${item.appName}");
+		applist[2].push("${item.appPlace}");
+		applist[3].push("${item.appBegintm}");
+		applist[4].push("${item.appEndtm}");
+	</script>
+</c:forEach>
 
+
+
+
+<style type="text/css">
+.applist {
+	border: 2px solid #eeeeee;
+}
+</style>
 
 
 <div id="fh5co-blog-section">
 	<div class="container">
-		<div class="row">
+		<div id="addlist" class="row">
 			<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
 				<h2>참여신청목록</h2>
 				<p>
@@ -25,25 +43,61 @@
 				</p>
 			</div>
 		</div>
-		<c:forEach var="list" items="${list }">
-
-			<div class="row">
-				<div class="col-md-2 text-center">
+		<%-- <c:forEach var="list" items="${list }">
+			<div class="row applist">
+				<div class="col-md-1 text-center ">
 					<div class="desc">${list.appNo }</div>
 				</div>
-				<div class="col-md-4 text-center">
+				<div class="col-md-4 text-center ">
 					<div class="desc">${list.appName }</div>
 				</div>
-				<div class="col-md-2 text-center">
+				<div class="col-md-3 text-center ">
 					<div class="desc">${list.appPlace }</div>
 				</div>
-				<div class="col-md-2 text-center">
+				<div class="col-md-2 text-center ">
 					<div class="desc">${list.appBegintm }</div>
 				</div>
-				<div class="col-md-2 text-center">
+				<div class="col-md-2 text-center ">
 					<div class="desc">${list.appEndtm }</div>
 				</div>
 			</div>
-		</c:forEach>
+		</c:forEach> --%>
+		<div class="row text-center">
+			<nav aria-label="Page navigation">
+				<ul class="pagination">
+					<li><a href="#" aria-label="Previous"> <span
+							aria-hidden="true">&laquo;</span>
+					</a></li>
+					<!-- <li><a href="#">1</a></li>
+					<li><a href="#">2</a></li>
+					<li><a href="#">3</a></li>
+					<li><a href="#">4</a></li>
+					<li><a href="#">5</a></li> -->
+					<li id="page"><a href="#" aria-label="Next"> <span
+							aria-hidden="true">&raquo;</span>
+					</a></li>
+				</ul>
+			</nav>
+		</div>
 	</div>
 </div>
+
+
+<script>	
+function pageClick(obj){
+	$('.applist').remove();
+	var pageNum = obj.innerText;	
+	var jbegin = (0+((pageNum-1)*10));
+	var jend = (9+((pageNum-1)*10));
+	
+}
+	$('.addlist').after('<div class="row applist">').after('<div class="desc">'+applist[0][0]+'</div>');
+	
+	
+	var total_page_num = Math.floor(applist.length/10); 
+	console.log(applist.length);
+	for(var i=0;i<(total_page_num+1);i++){
+		$('#page').before('<li><a href="#" id="page'+(i+1)+'" onclick="pageClick(this);">'+(i+1)+'</a></li>');		
+	}
+	
+</script>
