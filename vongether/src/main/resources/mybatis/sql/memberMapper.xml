@@ -74,5 +74,12 @@
     <delete id="singOut">
         delete from member where m_Pwd = #{mPwd} and m_id = #{mId} 
     </delete>
+    
+    <select id="myBoardList" parameterType="String" resultMap="memberResultMap">
+        select b.b_no, b.b_title, b.b_hitcount, b.b_regdate
+         from board b join member m 
+         on b.m_id = m.m_id 
+         where m.m_id = #{mId}
+    </select>
 
 </mapper>

@@ -2,6 +2,7 @@ package com.vongether.member.controller;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
+import com.vongether.board.model.BoardVO;
 import com.vongether.member.model.MemberVO;
 import com.vongether.member.model.PostVO;
 import com.vongether.member.service.MemberService;
@@ -318,6 +320,27 @@ public class MemberController {
   public String applist() {
 	  
 	  return "myAppList.page";
+  }
+  
+  
+  
+  
+  
+  
+  
+  @RequestMapping(value = "myBoardList.do")
+  public String myBoardList(HttpSession session, String mId, Model model) throws Exception{
+    
+    System.out.println(session.getAttribute("userInfo"));
+    model.addAttribute("test", session.getAttribute("userInfo"));
+    System.out.println();
+    
+    List<BoardVO> myList = memberService.myBoardList(mId);
+    System.out.println(myList);
+    model.addAttribute("myList", myList);
+    
+    return "member/myBoardList.page";
+  
   }
   
 }

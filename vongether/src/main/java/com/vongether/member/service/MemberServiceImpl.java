@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.vongether.board.model.BoardVO;
 import com.vongether.common.util.MailHandler;
 import com.vongether.common.util.TempKey;
 import com.vongether.member.dao.MemberDAO;
@@ -18,7 +19,7 @@ import com.vongether.volunteer.model.VolunteerAppVo;
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired
-	private SqlSession sqlsesssion;
+	private SqlSession sqlSession;
 
 	// @Autowired
 	@Inject
@@ -29,11 +30,11 @@ public class MemberServiceImpl implements MemberService {
 	public void insert(MemberVO memberVO) throws Exception {
 
 		// 회원가입 DAO
-		sqlsesssion.getMapper(MemberDAO.class).insert(memberVO);
+		sqlSession.getMapper(MemberDAO.class).insert(memberVO);
 		String key = new TempKey().getKey(50, false); // 인증키 생성
 
 		// 키 저장 DAO
-		sqlsesssion.getMapper(MemberDAO.class).createAuthKey(memberVO.getmId(), key);
+		sqlSession.getMapper(MemberDAO.class).createAuthKey(memberVO.getmId(), key);
 		MailHandler sendMail = new MailHandler(mailSender);
 		sendMail.setSubject("[Vongether 서비스 이메일 인증]");
 		sendMail.setText(
@@ -49,32 +50,32 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int checkId(String mId) throws Exception {
-		return sqlsesssion.getMapper(MemberDAO.class).checkId(mId);
+		return sqlSession.getMapper(MemberDAO.class).checkId(mId);
 	}
 
 
 	@Override
 	public MemberVO selectOne(Map<String, Object> param) throws Exception {
-		return sqlsesssion.getMapper(MemberDAO.class).selectOne(param);
+		return sqlSession.getMapper(MemberDAO.class).selectOne(param);
 	}
 
 
 	@Override
 	public void userAuth(String mId) throws Exception {
-		sqlsesssion.getMapper(MemberDAO.class).userAuth(mId);
+		sqlSession.getMapper(MemberDAO.class).userAuth(mId);
 	}
 
 
 	@Override
 	public MemberVO selectOneSearch(String param) throws Exception {
-		return sqlsesssion.getMapper(MemberDAO.class).selectOneSearch(param);
+		return sqlSession.getMapper(MemberDAO.class).selectOneSearch(param);
 	}
 
 
 	@Override
 	public List<VolunteerAppVo> selectOneVList(String param) throws Exception {
 
-		return sqlsesssion.getMapper(MemberDAO.class).selectOneVList(param);
+		return sqlSession.getMapper(MemberDAO.class).selectOneVList(param);
 	}
 
 
@@ -82,37 +83,43 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int checkPwd(Map<String, Object> param) throws Exception {
-		return sqlsesssion.getMapper(MemberDAO.class).checkPwd(param);
+		return sqlSession.getMapper(MemberDAO.class).checkPwd(param);
 	}
 
 	@Transactional
 	@Override
 	public Boolean update(MemberVO memberVO) throws Exception {
-		return sqlsesssion.getMapper(MemberDAO.class).update(memberVO);
+		return sqlSession.getMapper(MemberDAO.class).update(memberVO);
 	}
 
 	@Override
 	public String findId(Map<String, Object> param) throws Exception {
-		return sqlsesssion.getMapper(MemberDAO.class).findId(param);
+		return sqlSession.getMapper(MemberDAO.class).findId(param);
 	}
 
 
 	@Override
 	public String findPwd(Map<String, Object> param) throws Exception {
-		return sqlsesssion.getMapper(MemberDAO.class).findPwd(param);
+		return sqlSession.getMapper(MemberDAO.class).findPwd(param);
 	}
 
 	@Transactional
 	@Override
 	public Boolean newPwd(Map<String, Object> param) throws Exception {
-		return sqlsesssion.getMapper(MemberDAO.class).newPwd(param);
+		return sqlSession.getMapper(MemberDAO.class).newPwd(param);
 	}
 
 	@Transactional
 	@Override
 	public Boolean singOut(Map<String, Object> param) throws Exception {
-		return sqlsesssion.getMapper(MemberDAO.class).singOut(param);
+		return sqlSession.getMapper(MemberDAO.class).singOut(param);
 	}
+
+
+  @Override
+  public List<BoardVO> myBoardList(String mId) throws Exception {
+    return sqlSession.getMapper(MemberDAO.class).myBoardList(mId);
+  }
 
 
 }

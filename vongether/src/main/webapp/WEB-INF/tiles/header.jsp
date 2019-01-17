@@ -24,7 +24,7 @@
 							 <ul class="dropdown-menu">
 		                         <li><a href="/member/view.do">상세정보 </a></li>
 		                         <li><a href="#">참여신청목록</a></li>
-		                         <li><a href="#">작성게시글목록</a></li>
+		                         <li><a href="/member/myBoardList.do">작성게시글목록</a></li>
 		                     </ul>
 							</li>
 				        </c:when>
