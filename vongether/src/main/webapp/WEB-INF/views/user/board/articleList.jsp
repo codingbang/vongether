@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	var login = ${session};
+	var login = '${userInfo.mId}';
 	/* $(".posting").click(
 		function(){
 			$("#bNo").val($(this).attr("b-no"));
@@ -11,10 +12,10 @@ $(document).ready(function() {
 					"action", "/board/view.do").submit();	
 		}); */
 	$(".writeBtn").click(function(){
-		if(login){
-			location.href="/board/write.do";
+		if(login==null||login==""){
+			swal("로그인 하세욧!","너는 로긴하게 될 것이야~","error");
 		}else{
-			alert("로그인 하세욧!");
+			location.href="/board/write.do";
 		}
 	});
 	$("#searchBtn").click(
@@ -54,7 +55,7 @@ $(document).ready(function() {
 		for(var i=0;i<data.length;i++){
 			htmlStr += "<tr>";
 			htmlStr += "  <td>"+data[i].bNo+"</td>";
-			htmlStr += "  <td><a href='/board/view.do?bNo="+data[i].bNo+"'>"+data[i].bTitle+"</a></td>";
+			htmlStr += "  <td><a href='/board/view.do?bNo="+data[i].bNo+"'>"+data[i].bTitle.replace('<','&lt;')+"</a></td>";
 			<%-- htmlStr += "  <td class="posting" b-no="${list.bNo}"><a href="/board/view.do?bNo=${list.bNo}">${list.bTitle}</a></td>"; --%>
 			htmlStr += "  <td><span>"+data[i].mId+"</span></td>";
 			htmlStr += "  <td>"+data[i].bRegdate+"</td>";
@@ -100,8 +101,7 @@ $(document).ready(function() {
 	<div class="main-content-box">
 		<div class="container">
 		    <div class="row">
-		    	<h2 class="col-md-12 boardname"></h2>
-        		<h2 class="col-md-2 "><b>게시판</b></h2>
+        		<h2 class="testtest"><b>게시판</b></h2>
 			</div>
 			
 			<div class="row">
@@ -109,19 +109,32 @@ $(document).ready(function() {
 	        <table class="table table-list-search">
 	             <thead>
 	                 <tr>
-	                     <th>번호</th>
-	                     <th>제목</th>
-	                     <th>작성자</th>
-	                     <th>작성일</th>
-	                     <th>조회수</th>
-	                     <th>댓글</th>
+	                     <th style="width:50px">번호</th>
+	                     <th class="col-md-7">제목</th>
+	                     <th style="width:100px">작성자</th>
+	                     <th style="width:90px">작성일</th>
+	                     <th style="width:70px">조회수</th>
+	                     <th style="width:50px">댓글</th>
 	                 </tr>
+	             </thead>
+	             <tbody id="noticeList">
+	    	         <c:forEach var="Notice" items="${selectNoticeList}">
+						 <tr>
+		                     <td>[공지]</td>
+		                     <td><a href="/board/view.do?bNo=${Notice.bNo}">${Notice.bTitle.replace("<","&lt;")}</a></td>
+		                     <%-- <td class="posting" b-no="${list.bNo}"><a href="/board/view.do?bNo=${list.bNo}">${list.bTitle}</a></td> --%>
+		                     <td>${Notice.mId}</td>
+		                     <td>${Notice.bRegdate}</td>
+		                     <td>${Notice.bHitcount}</td>
+		                     <td>${Notice.rCount}</td>
+		                 </tr>
+				     </c:forEach>
 	             </thead>
 	             <tbody id="boardList">
 	             <c:forEach var="list" items="${selectBoardList}">
 						<tr>
 	                     <td>${list.bNo}</td>
-	                     <td><a href="/board/view.do?bNo=${list.bNo}">${list.bTitle}</a></td>
+	                     <td><a href="/board/view.do?bNo=${list.bNo}">${list.bTitle.replace("<","&lt;")}</a></td>
 	                     <%-- <td class="posting" b-no="${list.bNo}"><a href="/board/view.do?bNo=${list.bNo}">${list.bTitle}</a></td> --%>
 	                     <td>${list.mId}</td>
 	                     <td>${list.bRegdate}</td>

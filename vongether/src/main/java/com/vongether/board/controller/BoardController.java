@@ -28,20 +28,18 @@ public class BoardController {
 	
 	@RequestMapping(value ="/list.do" , method = RequestMethod.GET)
 	public String listBoardArticle(@RequestParam Map<String, Object> param, @RequestParam(defaultValue="1") int pageNo, Model model, HttpSession session) {
+
 		List<BoardVO> listArticle = boardService.selectBoardList(param, pageNo);
 		model.addAttribute("selectBoardList", listArticle);
-
+		
 		int totalArticleCount = boardService.totalBoardArticleCount(param);
 		Pagination pagination = new Pagination(totalArticleCount , pageNo, 10);
 		model.addAttribute("pagination", pagination);
-		session.getAttribute("userInfo");
-		if(!(session.getAttribute("userInfo")==null || session.getAttribute("userInfo").equals(""))) {
-			model.addAttribute("session", true);
-			return "board/articleList.page";
-		}else {
-			model.addAttribute("session", false);
-			return "board/articleList.page";
-		}
+		MemberVO memberVO = (MemberVO)session.getAttribute("userInfo");
+		model.addAttribute("userInfo", memberVO);
+		List<BoardVO> listNotice = boardService.selectNoticeTop3();
+		model.addAttribute("selectNoticeList", listNotice);
+		return "board/articleList.page";
 	}
 	@RequestMapping(value ="/listAjax.do" , method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> ajaxListBoardArticle(@RequestParam Map<String, Object> param, @RequestParam int pageNo) {
@@ -68,6 +66,7 @@ public class BoardController {
 	@RequestMapping(value="/write.do", method=RequestMethod.POST)
 	public String writeBoardArticle(BoardVO boardVO, HttpSession session) {
 	    MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
+	    System.out.println("Content : "+boardVO.getbContent());
 	    if (memberVO != null) {
 	      boardVO.setmId(memberVO.getmId());
 	      boardService.writeBoardArticle(boardVO);

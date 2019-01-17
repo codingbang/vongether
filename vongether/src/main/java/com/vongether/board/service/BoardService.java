@@ -7,6 +7,7 @@ import com.vongether.board.model.BoardVO;
 
 public interface BoardService {
 
+	public List<BoardVO> selectNoticeTop3();
 	public List<BoardVO> selectBoardList(Map<String, Object> param, int pageNo);
 	public BoardVO selectBoardArticle(int bNo);
 	public int writeBoardArticle(BoardVO boardVO);
