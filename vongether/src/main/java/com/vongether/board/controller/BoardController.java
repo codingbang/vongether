@@ -79,6 +79,7 @@ public class BoardController {
 		BoardVO boardVO = boardService.selectBoardArticle(bNo);
 		model.addAttribute("article", boardVO);
 		boardService.increaseHitcount(boardVO.getbNo());
+		model.addAttribute("userInfo",session.getAttribute("userInfo"));
 		return "board/articleView.page";
 	}  
 	@RequestMapping(value="/update.do", method=RequestMethod.GET)
