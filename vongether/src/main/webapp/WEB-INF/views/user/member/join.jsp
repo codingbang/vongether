@@ -382,6 +382,7 @@
 		//가입하기 버튼
 		$("#joinBtn").click(function(e) {
 		  
+		  // 널값 체크
 		  if($("#mId").val() == ""){
 		    alert("아이디 입력을 해주세요");
 		    return;
@@ -417,6 +418,7 @@
 	        return;
 	      }
 		  
+		  // FORM 데이터를 JSON 형식으로 변환하는 플러그인 설정
 	      $.fn.serializeObject = function()
 	      {
 	         var o = {};
