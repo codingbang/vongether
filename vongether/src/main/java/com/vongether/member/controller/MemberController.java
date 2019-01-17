@@ -305,5 +305,10 @@ public class MemberController {
       return (new Gson()).toJson(paramMap);
 
   }
+  @RequestMapping(value = "myAppList", method = RequestMethod.GET)
+  public String applist() {
+	  
+	  return "myAppList.page";
+  }
   
 }

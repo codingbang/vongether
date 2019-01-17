@@ -1,8 +1,10 @@
 package com.vongether.member.dao;
 
+import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import com.vongether.member.model.MemberVO;
+import com.vongether.volunteer.model.VolunteerAppVo;
 
 public interface MemberDAO {
 
@@ -29,5 +31,7 @@ public interface MemberDAO {
   Boolean newPwd(Map<String, Object> param) throws Exception;
   
   Boolean singOut(Map<String, Object> param) throws Exception;
+  
+  List<VolunteerAppVo> selectOneVList(String param) throws Exception;
   
 }

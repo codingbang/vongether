@@ -1,7 +1,9 @@
 package com.vongether.member.service;
 
+import java.util.List;
 import java.util.Map;
 import com.vongether.member.model.MemberVO;
+import com.vongether.volunteer.model.VolunteerAppVo;
 
 public interface MemberService {
   
@@ -26,4 +28,6 @@ public interface MemberService {
   Boolean newPwd(Map<String, Object> param) throws Exception;
   
   Boolean singOut(Map<String, Object> param) throws Exception;
+  
+  List<VolunteerAppVo> selectOneVList(String param) throws Exception;//마이페이지-봉사참여리스트( param = 아이디 )
 }
