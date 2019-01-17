@@ -175,6 +175,7 @@ $(document).ready(function() {
 	//댓글 수정 폼 보이는 이벤트
 	$(document).on("click",".replyModifyBtn",function(){
 		var rNo = $(this).attr("replyNo");
+		$(".replyModifyBtn").css({"pointer-events":"none"},{"cursor":"default"});
 		$("#div_"+rNo).parent().css("display", "");
 		$("#div2_"+rNo).parent().css("display", "none");
 		$("#div_"+rNo).children().eq(0).children().first().focus();
@@ -183,6 +184,7 @@ $(document).ready(function() {
 	
 	//댓글 수정 폼 숨기는 이벤트
 	$(document).on("click",".replyCancelBtn",function(){
+		$(".replyModifyBtn").css({"pointer-events":""},{"cursor":""});
 		var rNo = $(this).parent().parent().attr("id").substring(4);
 		$("#div_"+rNo).parent().css("display", "none");
 		$("#div2_"+rNo).parent().css("display", "");
