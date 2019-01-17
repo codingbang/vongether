@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<
+
 <script type="text/javascript">
 <!--
-나의정보 - 봉사참여리스트
-1. 리스트를 가져온다.
-2. 리스트를 뿌려준다.
-3. 페이징을 한다.
+	나의정보 - 봉사참여리스트
+	1. 리스트를 가져온다.
+	2. 리스트를 뿌려준다.
+	3. 페이징을 한다.
 //-->
 
 </script>
