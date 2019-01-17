@@ -91,11 +91,11 @@ function pageClick(obj){
 	var jend = (9+((pageNum-1)*10));
 	
 }
-	$('.addlist').after('<div class="row applist">').after('<div class="desc">'+applist[0][0]+'</div>');
+	$('#addlist').after('<div class="row applist">').after('<div class="col-md-1 text-center "><div class="desc">'++'</div></div>').after('').after('').after('').after('');
 	
 	
-	var total_page_num = Math.floor(applist.length/10); 
-	console.log(applist.length);
+	var total_page_num = Math.floor(applist[0].length/10); 
+	console.log(applist[0].length);
 	for(var i=0;i<(total_page_num+1);i++){
 		$('#page').before('<li><a href="#" id="page'+(i+1)+'" onclick="pageClick(this);">'+(i+1)+'</a></li>');		
 	}
