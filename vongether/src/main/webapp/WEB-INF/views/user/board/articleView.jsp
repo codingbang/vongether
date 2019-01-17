@@ -37,11 +37,22 @@ $(document).ready(function() {
 	);
 	
 	//게시글 삭제
-	$("#articleRemoveBtn").click(
-		function(){
-			location.href="/board/delete.do?bNo="+bNo;
-		}		
-	);
+	$("#articleRemoveBtn").click(function(){
+		swal({
+			  title: "글을 삭제하시겠습니까?",
+			  text: "너의 글은 살아남지 못할것이다!",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				location.href="/board/delete.do?bNo="+bNo;
+			  } else {
+			    swal("게시글 : 사..살았다...");
+			  }
+			});
+	});
 	
 	//댓글작성
 	$(document).on("click","#replyWriteBtn",
@@ -255,6 +266,7 @@ $(document).ready(function() {
 		<div class="row articleViewReplyBox" >
 			<div class="row col-md-12"><h4><b>Comment:</b></h4></div>
 			<div class="col-md-12">
+				<c:if test="${userInfo.mId!=null}">
 				<div class="row">
 					<div class="col-md-11">
 						<input class="insertReplyBox form-control" id="replyWriteText"></input>
@@ -263,6 +275,7 @@ $(document).ready(function() {
 						<button type="button" class="btn btn-primary" id="replyWriteBtn">작성</button>
 					</div>
 				</div>
+				</c:if>
 				<!-- <div class="col-md-12 articleReplyCountBox" id="articleReplyCountBox"></div> -->
 				<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
 					<div class="row col-md-12" id="replyCount"></div><br>
