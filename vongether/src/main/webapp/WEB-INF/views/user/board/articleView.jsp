@@ -16,9 +16,11 @@
 }
 </style>
 <script type="text/javascript">
-
 $(document).ready(function() {
-	
+	if(${userInfo.mId==null}||!(${article.mId == userInfo.mId})){
+		$("#articleUpdateBtn").css("display","none");
+		$("#articleRemoveBtn").css("display","none");
+	}
 	var bNo = $("#bNo").val();
 	var data = {
 		bNo: bNo
@@ -47,7 +49,6 @@ $(document).ready(function() {
 							rContent: $("#replyWriteText").val(), 
 							bNo: $("#bNo").val()
 						});
-			
 			$.ajax({
 	    		url : "/reply/write.do",
 	    		dataType : "json",
@@ -93,7 +94,6 @@ $(document).ready(function() {
 	//댓글 리스트 HTML 만드는 함수
 	function makeReplyList(data) {
 		var htmlStr = "";
-		
 		for(var i=0;i<data.length;i++){
 			htmlStr += '<div class="row replyRow">';
 			htmlStr += '	<div class="col-md-12">';
@@ -101,12 +101,14 @@ $(document).ready(function() {
 			htmlStr += '			<span class="col-md-7"><b>'+data[i].mId+'</b></span>';
 			htmlStr += '			<span class="col-md-5"><small>'+data[i].rRegdate+'</small></span>';
 			htmlStr += '		</div>';
-			htmlStr += '		<div class="col-md-6">';
+			if(!(${userInfo.mId==null})&&(data[i].mId == '${userInfo.mId}')){
+				htmlStr += '		<div class="col-md-offset-6 col-md-2" id="div2_'+data[i].rNo+'">';
+				htmlStr += '			<a href="#" class="replyModifyBtn" replyNo="'+data[i].rNo+'">수정</a>';
+				htmlStr += '			<a href="#" class="replyRemoveBtn" replyNo="'+data[i].rNo+'">삭제</a>';
+				htmlStr += '		</div>';
+			}
+			htmlStr += '		<div class="col-md-12">';
 			htmlStr += 				data[i].rContent;
-			htmlStr += '		</div>';
-			htmlStr += '		<div class="col-md-2">';
-			htmlStr += '			<a href="#" class="replyModifyBtn" replyNo="'+data[i].rNo+'">수정</a>';
-			htmlStr += '			<a href="#" class="replyRemoveBtn" replyNo="'+data[i].rNo+'">삭제</a>';
 			htmlStr += '		</div>';
 			htmlStr += '	</div>';
 			htmlStr += '	<div class="col-md-12" style="display: none;">';
@@ -161,6 +163,7 @@ $(document).ready(function() {
 	$(document).on("click",".replyModifyBtn",function(){
 		var rNo = $(this).attr("replyNo");
 		$("#div_"+rNo).parent().css("display", "");
+		$("#div2_"+rNo).parent().css("display", "none");
 		$("#div_"+rNo).children().eq(0).children().first().focus();
 		return false;
 	});
@@ -169,6 +172,7 @@ $(document).ready(function() {
 	$(document).on("click",".replyCancelBtn",function(){
 		var rNo = $(this).parent().parent().attr("id").substring(4);
 		$("#div_"+rNo).parent().css("display", "none");
+		$("#div2_"+rNo).parent().css("display", "");
 		return false;
 	});
 	
@@ -210,16 +214,15 @@ $(document).ready(function() {
 			<div class="row">
 				<div class="boardArticleViewBox">
 					<div class="col-md-12">
-						<div class="col-md-4">
-							<input type="hidden" id="bNo" value="${article.bNo }">
+						<div class="col-md-12">
+							<input type="hidden" id="bNo" value="${article.bNo}">
 							<span class="viewTitle">${article.bTitle}&nbsp;&nbsp;&nbsp;</span>
-							<span class="articleViewId">작성자[${article.mId}]</span>
-							
 						</div>
-						<div class="col-md-offset-5 col-md-3">
+						<div class="col-md-12">
+							<span class="articleViewId">작성자 : [${article.mId}]</span>
 							<div class="pull-right">
-								<span class="articleViewRegdate">${article.bRegdate}</span>
-								<span class="articleViewHitcount">조회수[${article.bHitcount}]</span>
+								<span class="articleViewRegdate">작성일 : ${article.bRegdate}  /</span>
+								<span class="articleViewHitcount"> 조회수 : [${article.bHitcount}]</span>
 							</div>
 						</div>
 					</div>

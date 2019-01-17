@@ -58,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
 		return sqlsesssion.getMapper(MemberDAO.class).selectOne(param);
 	}
 
-
+	
 	@Override
 	public void userAuth(String mId) throws Exception {
 		sqlsesssion.getMapper(MemberDAO.class).userAuth(mId);
@@ -70,6 +70,7 @@ public class MemberServiceImpl implements MemberService {
 		return sqlsesssion.getMapper(MemberDAO.class).selectOneSearch(param);
 	}
 
+<<<<<<< HEAD
 	@Override
 	public int checkPwd(Map<String, Object> param) throws Exception {
 		return sqlsesssion.getMapper(MemberDAO.class).checkPwd(param);
@@ -113,5 +114,40 @@ public class MemberServiceImpl implements MemberService {
 
 
 
+=======
+  @Override
+  public int checkPwd(Map<String, Object> param) throws Exception {
+    return sqlsesssion.getMapper(MemberDAO.class).checkPwd(param);
+  }
+
+  @Transactional
+  @Override
+  public Boolean update(MemberVO memberVO) throws Exception {
+    return sqlsesssion.getMapper(MemberDAO.class).update(memberVO);
+  }
+
+  @Override
+  public String findId(Map<String, Object> param) throws Exception {
+    return sqlsesssion.getMapper(MemberDAO.class).findId(param);
+  }
+
+
+  @Override
+  public String findPwd(Map<String, Object> param) throws Exception {
+    return sqlsesssion.getMapper(MemberDAO.class).findPwd(param);
+  }
+
+  @Transactional
+  @Override
+  public Boolean newPwd(Map<String, Object> param) throws Exception {
+    return sqlsesssion.getMapper(MemberDAO.class).newPwd(param);
+  }
+
+  @Transactional
+  @Override
+  public Boolean singOut(Map<String, Object> param) throws Exception {
+    return sqlsesssion.getMapper(MemberDAO.class).singOut(param);
+  }
+>>>>>>> f4843f83848eea253a185a3c17594077e00dfd79
 
 }

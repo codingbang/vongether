@@ -19,7 +19,7 @@ public interface MemberService {
   
   void userAuth(String mId) throws Exception;
   
-  void update(MemberVO memberVO) throws Exception;
+  Boolean update(MemberVO memberVO) throws Exception;
   
   String findId(Map<String, Object> param) throws Exception;
   
