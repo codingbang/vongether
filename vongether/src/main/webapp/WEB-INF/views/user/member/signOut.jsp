@@ -35,7 +35,7 @@
                             <input type="hidden" name="mId" value="${userInfo.mId}">
                             </div>                        
                             <div class="row form-group">
-                                <button class="btn btn-large btn-warning form-control active" type="submit"><span>확인</span></button>
+                                <button class="btn btn-large btn-warning form-control active" type="submit" id="checkBtn"><span>확인</span></button>
                             </div>
                         </fieldset>
                     </form>
@@ -45,5 +45,18 @@
     </div>
 </div>
     
+<script>
 
+  $(document).ready(function() {
+    $("#checkBtn").click(function(e) {
+      if (confirm("정말로 탈퇴하시겠습니까?")) {
+        alert("정상 탈퇴되었습니다");
+      } else {
+        // form 데이터 전송을 막고 취소
+        e.preventDefault();
+      }
+    });
+  });
+  
+</script>
   

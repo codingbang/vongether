@@ -17,7 +17,7 @@
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
-	if(${userInfo.mId==null}||!(${article.mId == userInfo.mId})){
+	if('${userInfo.mId}'==null||!('${article.mId}'=='${userInfo.mId}')){
 		$("#articleUpdateBtn").css("display","none");
 		$("#articleRemoveBtn").css("display","none");
 	}
@@ -36,7 +36,7 @@ $(document).ready(function() {
 	);
 	
 	//게시글 삭제
-	$("#articleUpdateBtn").click(
+	$("#articleRemoveBtn").click(
 		function(){
 			location.href="/board/delete.do?bNo="+bNo;
 		}		
@@ -101,7 +101,7 @@ $(document).ready(function() {
 			htmlStr += '			<span class="col-md-7"><b>'+data[i].mId+'</b></span>';
 			htmlStr += '			<span class="col-md-5"><small>'+data[i].rRegdate+'</small></span>';
 			htmlStr += '		</div>';
-			if(!(${userInfo.mId==null})&&(data[i].mId == '${userInfo.mId}')){
+			if(!('${userInfo.mId}'==null)&&(data[i].mId == '${userInfo.mId}')){
 				htmlStr += '		<div class="col-md-offset-6 col-md-2" id="div2_'+data[i].rNo+'">';
 				htmlStr += '			<a href="#" class="replyModifyBtn" replyNo="'+data[i].rNo+'">수정</a>';
 				htmlStr += '			<a href="#" class="replyRemoveBtn" replyNo="'+data[i].rNo+'">삭제</a>';
@@ -195,16 +195,10 @@ $(document).ready(function() {
 	
 })
 </script>
-
-
-
-
-
 <div class="container">
-	<div class="row" style="padding-top: 30px;">
-		<div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+	<div class="row " style="padding-top: 30px; height: 90px;">
+		<div class="text-center fh5co-heading">
 			<h2>게시판</h2>
-			<p><span>상세 게시글</span></p>
 		</div>
 	</div>
 	

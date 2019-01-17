@@ -56,8 +56,13 @@ public class ReplyController {
 	}
 	@RequestMapping(value="/update.do", method=RequestMethod.PUT, headers={"Content-type=application/json"})
 	public @ResponseBody Map<String,Object> updateReplyArticleForm(@RequestBody Map<String, Object> map) {
-		replyService.updateReply(map);
-		return map;
+		MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
+		if(memberVO.getmId()==null||memberVO.getmId().equals("")) {
+			return map;
+		}else{
+			replyService.updateReply(map);
+			return map;
+		}
 	} 
 	  /*
 	  @RequestMapping(value="memo", method=RequestMethod.PUT, headers= {"Content-type=application/json"} )
@@ -76,9 +81,15 @@ public class ReplyController {
 	@RequestMapping(value="/delete.do/{bNo}/{rNo}", method=RequestMethod.DELETE)
 	public @ResponseBody Map<String,Object> deleteReplyArticle(@PathVariable(value="bNo") int bNo, 
 												@PathVariable(value="rNo") int rNo){
-		replyService.deleteReply(rNo);
+		MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
 		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("bNo", bNo);
-	    return map;
+		if(memberVO.getmId()==null||memberVO.getmId().equals("")) {
+			map.put("bNo", bNo);
+			return map;
+		}else{
+			replyService.deleteReply(rNo);
+			map.put("bNo", bNo);
+			return map;
+		}
 	}
 }
