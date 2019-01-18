@@ -12,11 +12,19 @@ $(document).ready(function() {
 			maxHeight: 400
 	    });
 
- 		$("#writeCancelBtn").click(
-			function(){
-				swal("글작성이 취소되었습니다.");
-				$("#commonForm").attr("method", "get").attr(
-						"action", "/view.bit").submit();	
+ 		$("#writeCancelBtn").click(function(){
+ 			swal({
+ 				  title: "글 수정을 취소하시겠습니까?",
+ 				  text: "게시글 : 날 내버려 둬~!",
+ 				  icon: "warning",
+ 				  buttons: true,
+ 				  dangerMode: true,
+ 				})
+ 				.then((willDelete) => {
+ 				  if (willDelete) {
+					location.href="/board/list.do";	
+ 				  } 
+ 			});
 		}); 
 		
 		
@@ -32,9 +40,18 @@ $(document).ready(function() {
 					swal("내용을 입력하세요");
 					return;
 				}else{
-					swal("글이 수정되었습니다");
-			 		document.updateForm.action = "/board/update.do"; 
-					document.updateForm.submit();
+					swal({
+						  title: "글을 수정하시겠습니까?",
+						  icon: "warning",
+						  buttons: true,
+						  dangerMode: true,
+						})
+						.then((willDelete) => {
+						  if (willDelete) {
+					 		document.updateForm.action = "/board/update.do"; 
+							document.updateForm.submit();
+						  } 
+						});
 				}
 		}); 
 		

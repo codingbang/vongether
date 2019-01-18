@@ -117,6 +117,19 @@ $(document).ready(function() {
 	                     <th style="width:50px">댓글</th>
 	                 </tr>
 	             </thead>
+	             <tbody id="noticeList">
+	    	         <c:forEach var="Notice" items="${selectNoticeList}">
+						 <tr>
+		                     <td>[공지]</td>
+		                     <td><a href="/board/view.do?bNo=${Notice.bNo}">${Notice.bTitle.replace("<","&lt;")}</a></td>
+		                     <%-- <td class="posting" b-no="${list.bNo}"><a href="/board/view.do?bNo=${list.bNo}">${list.bTitle}</a></td> --%>
+		                     <td>${Notice.mId}</td>
+		                     <td>${Notice.bRegdate}</td>
+		                     <td>${Notice.bHitcount}</td>
+		                     <td>${Notice.rCount}</td>
+		                 </tr>
+				     </c:forEach>
+	             </thead>
 	             <tbody id="boardList">
 	             <c:forEach var="list" items="${selectBoardList}">
 						<tr>

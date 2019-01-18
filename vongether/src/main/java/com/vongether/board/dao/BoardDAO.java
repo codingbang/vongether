@@ -6,6 +6,8 @@ import java.util.Map;
 import com.vongether.board.model.BoardVO;
 
 public interface BoardDAO {
+	
+	List<BoardVO> selectNoticeTop3();
 	List<BoardVO> selectBoardList(Map<String, Object> param);
 	BoardVO selectBoardArticle(int bNo);
 	int selectNextArticleNo(BoardVO boardVO);

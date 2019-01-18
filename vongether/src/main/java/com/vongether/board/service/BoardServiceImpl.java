@@ -17,6 +17,10 @@ public class BoardServiceImpl implements BoardService {
 	SqlSession sqlSession;
 	
 	@Override
+	public List<BoardVO> selectNoticeTop3() {
+		return sqlSession.getMapper(BoardDAO.class).selectNoticeTop3();
+	}
+	@Override
 	public List<BoardVO> selectBoardList(Map<String, Object> param, int pageNo) {
 		int pagePerList = ((pageNo-1)*10);
 		param.put("pagePerList", pagePerList);
