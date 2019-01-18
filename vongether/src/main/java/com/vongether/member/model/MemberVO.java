@@ -1,8 +1,8 @@
 package com.vongether.member.model;
 
 import java.sql.Date;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import com.vongether.common.util.Aria;
 
 // 실제 데이터를 담게 될 클래스에 어노테이션으로 유효성 체크
 public class MemberVO {
@@ -20,7 +20,6 @@ public class MemberVO {
   private Date mBirth;
   
   @NotEmpty(message="비밀번호를 입력해주세요")
-  @Length(min=6, max=12, message="ID는 6글자 이상 12자 이하로 입력해주세요")
   private String mPwd;
   
   @NotEmpty(message="우편번호를 선택해주세요")
@@ -79,10 +78,13 @@ public class MemberVO {
 
   public String getmPwd() {
     return mPwd;
+    
   }
 
   public void setmPwd(String mPwd) {
-    this.mPwd = mPwd;
+    String key = "AriaTestKey";
+    Aria aria = new Aria(key);
+    this.mPwd = aria.Encrypt(mPwd);
   }
 
   public int getmPostcode() {

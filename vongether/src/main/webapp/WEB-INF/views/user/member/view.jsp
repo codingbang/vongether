@@ -43,7 +43,7 @@
 								<td class="text-left">${userInfo.mBirth}</td>
 								<th class="text-center">성별</th>
 								<c:choose>
-                                    <c:when test="${userInfo.mGender == m}">
+                                    <c:when test="${userInfo.mGender == 'm'}">
                                         <td class="text-left">남성</td>
                                     </c:when>
 	                                <c:otherwise>
