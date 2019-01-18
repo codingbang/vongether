@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
-
-import org.apache.commons.fileupload.FileItemStream.ItemSkippedException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 import com.vongether.board.model.BoardVO;
+import com.vongether.common.util.Aria;
 import com.vongether.member.model.MemberVO;
 import com.vongether.member.model.PostVO;
 import com.vongether.member.service.MemberService;
@@ -67,22 +66,29 @@ public class MemberController {
 	// 세션에 로그인 유저 정보를 담는다
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login(String mId, String mPwd, HttpSession session, Model model) throws Exception {
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("mId", mId);
-		param.put("mPwd", mPwd);
-		MemberVO memberVO = memberService.selectOne(param);
-
-		if (memberVO != null ) {
-			model.addAttribute("memberVO", memberVO);
-			session.setAttribute("userInfo", memberVO);
-			return "redirect:/";
-		}
+	
+	  // 입력된 패스워드를 Aria 암호화해서 실행 
+	  String key = "AriaTestKey";
+      Aria aria = new Aria(key);
+	  Map<String, Object> param = new HashMap<String, Object>();
+	  param.put("mId", mId);
+	  param.put("mPwd", aria.Encrypt(mPwd));
+	  System.out.println(aria.Encrypt(mPwd));
+	  MemberVO memberVO = memberService.selectOne(param);
+		
+	  if (memberVO != null ) {
+	    model.addAttribute("memberVO", memberVO);
+	    session.setAttribute("userInfo", memberVO);
+	    return "redirect:/";
+	    
+	  }
 		// 실패했을 경우 세션 초기화
-		else {
-			session.invalidate();
-			return "redirect:/member/login.do";
-		}
-
+	  else {
+	    session.invalidate();
+	    return "redirect:/member/login.do";
+	    
+	  }
+	  
 	}
 
 	// 로그아웃 시 세션 초기화
@@ -113,15 +119,20 @@ public class MemberController {
 	@RequestMapping(value = "/editCheck.do", method= RequestMethod.POST)
 	public String editCheck(RedirectAttributes rttr, String mId, String mPwd, HttpSession session) throws Exception{
 
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("mId", mId);
-		param.put("mPwd", mPwd);
-		int result = memberService.checkPwd(param);
-
-		if(result == 1 ) {
-			return "redirect:/member/edit.do";
-		}
-		return "redirect:/member/editCheck.do";
+	  String key = "AriaTestKey";
+      Aria aria = new Aria(key);
+      Map<String, Object> param = new HashMap<String, Object>();
+      param.put("mId", mId);
+      param.put("mPwd", aria.Encrypt(mPwd));
+      int result = memberService.checkPwd(param);
+      
+      if(result == 1 ) {
+        return "redirect:/member/edit.do";
+        
+      }
+      
+      return "redirect:/member/editCheck.do";
+      
 	}
 
 	@RequestMapping(value = "/view.do")
@@ -206,17 +217,21 @@ public class MemberController {
 
 	@RequestMapping(value = "/newPwd.do", method= RequestMethod.POST)
 	public String newPwd(String mId, String mPwd) throws Exception{
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("mId", mId);
-		param.put("mPwd", mPwd);
-		Boolean result = memberService.newPwd(param);
-		System.out.println(result);
+	
+	  String key = "AriaTestKey";
+	  Aria aria = new Aria(key);
+	  Map<String, Object> param = new HashMap<String, Object>();
+	  param.put("mId", mId);
+	  param.put("mPwd", aria.Encrypt(mPwd));
+	  Boolean result = memberService.newPwd(param);
 
-		if(result) {
-			return "redirect:/member/login.do";
-		}
+	  if(result) {
+	    return "redirect:/member/login.do";
+	    
+	  }
 
-		return "redirect:/member/findPwd.do";
+	  return "redirect:/member/findPwd.do";
+	  
 	}
 
 	@RequestMapping(value = "/signOut.do", method= RequestMethod.GET)
@@ -226,18 +241,22 @@ public class MemberController {
 
 	@RequestMapping(value = "/signOut.do", method= RequestMethod.POST)
 	public String signOut(RedirectAttributes rttr, String mId, String mPwd, HttpSession session) throws Exception{
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("mId", mId);
-		param.put("mPwd", mPwd);
-		int result = memberService.checkPwd(param);
+	  String key = "AriaTestKey";
+      Aria aria = new Aria(key);
+	  Map<String, Object> param = new HashMap<String, Object>();
+	  param.put("mId", mId);
+	  param.put("mPwd", aria.Encrypt(mPwd));
+	  int result = memberService.checkPwd(param);
+	  
+	  if(result == 1) {
+	    memberService.singOut(param);
+	    session.invalidate();
+	    return "redirect:/";
+	    
+	  }
 
-		if(result == 1) {
-			memberService.singOut(param);
-			session.invalidate();
-			return "redirect:/";
-		}
-
-		return "redirect:/member/view.do";
+	  return "redirect:/member/view.do";
+	  
 	}
 
 	public static final String ZIPCODE_API_KEY = "3a167b364799b7ff01545215585606";

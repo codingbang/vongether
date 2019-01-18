@@ -169,7 +169,6 @@
 									<button class="btn btn-danger" type="reset">초기화</button>
 									<input id="joinBtn" type="button" class="btn btn-primary" value="가입하기" disabled>
 								    <button class="btn btn-info" onclick="back();">취소</button>
-								<button id="test" >테스트트트</button>
 								</div>
 							</div>
 						</div>
@@ -316,8 +315,8 @@
         $("#mId").val("");
         $("#mId").focus();
       } else{
-        $("#id_check").text("아이디 중복 체크를 해주세요 ");
-        $("#id_check").css("color", "blue");
+        $("#id_check_row").text("아이디 중복 체크를 해주세요 ");
+        $("#id_check_row").css("color", "blue");
       }
      });
 	
