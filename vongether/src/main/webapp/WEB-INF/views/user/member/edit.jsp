@@ -69,7 +69,7 @@
                                         <div class="col-lg-10">
                                             <div class="radio col-lg-12">
 	                                             <c:choose>
-				                                    <c:when test="${userInfo.mGender == m}">
+				                                    <c:when test="${userInfo.mGender == 'm'}">
 				                                        <label><input type="radio" checked disabled>남자</label>
 	                                                    <label><input type="radio" disabled>여자</label>
 				                                    </c:when>
@@ -507,4 +507,11 @@
        history.back();
     }
   
+    // input 태그에서 엔터를 누를경우 의도치 않은 submit 방지
+    $('input[type="text"]').keydown(function(e){
+      if (e.keyCode === 13){
+        e.preventDefault();
+        }
+      });
+    
 </script>

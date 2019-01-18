@@ -27,28 +27,25 @@
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="form-group">
-									<div class="row">
-										<div class="col-lg-2">
-											<label class="control-label"><span class="red">*</span>아이디(email)</label>
-										</div>
-										<div class="col-lg-3">
-											<input type="text" class="form-control" id="mId" name="mId" placeholder="아이디" required="true">
-										</div>
-										<div class="col-lg-1" align="center">@</div>
-										<div class="col-lg-3">
-											<select class="form-control">
-												<option value="@naver.com">naver.com</option>
-												<option value="직접입력">직접입력</option>
-											</select>
-										</div>
-										<div class="col-lg-3">
-											<button id="checkId" class="btn btn-primary">아이디 체크</button>
-										</div>
-									</div>
-									<div class="row">
-										<div id="id_check" align="center"></div>
-									</div>
-								</div>
+							        <dl class="row">
+							            <dt class="col-lg-2">
+							                <span>
+							                    <label class="control-label"><span class="red">*</span>이메일 주소(아이디)</label>
+							                </span>
+							            </dt>
+							
+							            <dd class="col-lg-8">
+							                <span class="input_text email_id">
+							                    <input type="text" class="form-control" id="mId" name="mId" title="이메일 아이디 입력" placeholder="이메일" required="true">
+							                </span>
+							                
+							                <button type="button" class="btn form_gray" id="checkId"><span>중복조회</span></button>
+											<div class="row">
+									            <div id="id_check_row" align="center"></div>
+									        </div>
+							            </dd>
+							        </dl>
+                                </div>
 								
 								<div class="form-group">
 									<div class="row">
@@ -309,19 +306,19 @@
 	      }
 	    });
 	  
-	  // 아이디(이메일) 유효성 체크
-	  $("#mId").change(function() {
-	    var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	    var pass = mId.value.match(regExp);
-	    if (pass === null) {
-	      alert("잘못된 형식입니다. 다시 입력해주세요");
-	      $("#mId").val("");
-	      $("#mId").focus();
-	    } else{
-	      $("#id_check").text("아이디 중복 체크를 해주세요 ");
-	      $("#id_check").css("color", "blue");
-	    }
-	   });
+	// 아이디(이메일) 유효성 체크
+    $("#mId").change(function() {
+      var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      var pass = mId.value.match(regExp);
+      if (pass === null) {
+        alert("잘못된 형식입니다. 다시 입력해주세요");
+        $("#mId").val("");
+        $("#mId").focus();
+      } else{
+        $("#id_check_row").text("아이디 중복 체크를 해주세요 ");
+        $("#id_check_row").css("color", "blue");
+      }
+     });
 	
 	  // 아이디(이메일) 중복 체크
 	  $("#checkId").click(function() {
@@ -331,15 +328,17 @@
         type: 'get',
         success: function(data) {  
           if (data === 1) {
-            $("#id_check").text("사용중인 아이디입니다! ");
-            $("#id_check").css("color", "red");
+            $("#id_check_row").text("사용중인 아이디입니다! ");
+            $("#id_check_row").css("color", "red");
+            $("#joinBtn").attr("disabled", true);
           } else {
             if (mId === "") {
-	            $("#id_check").text("아이디를 제대로 입력해주세요! ");
-	            $("#id_check").css("color", "red");
+	            $("#id_check_row").text("아이디를 제대로 입력해주세요! ");
+	            $("#id_check_row").css("color", "red");
+	            $("#joinBtn").attr("disabled", true);
               } else {
-                $("#id_check").text("입력 가능한 아이디입니다! ");
-                $("#id_check").css("color", "blue");
+                $("#id_check_row").text("입력 가능한 아이디입니다! ");
+                $("#id_check_row").css("color", "blue");
                 $("#joinBtn").attr("disabled", false);
               }
             }
@@ -383,40 +382,42 @@
 		$("#joinBtn").click(function(e) {
 		  
 		  // 널값 체크
-		  if($("#mId").val() == ""){
+		  if( $("#mId").val() == "" ) {
 		    alert("아이디 입력을 해주세요");
 		    return;
 		  }
 		  
-		  if($("#mName").val() == ""){
+		  if( $("#mName").val() == "") {
 	        alert("이름 입력을 해주세요");
 	        return;
 	      }
 		  
-		  if($("#mBirth").val() == ""){
+		  if( $("#mBirth").val() == "") {
 	        alert("생년월일을 입력해주세요");
 	        return;
 	      }
 		  
-		  if($("#mPwd").val() == ""){
+		  if( $("#mPwd").val() == "") {
 	        alert("비밀번호를 입력해주세요");
 	        return;
 	      }
 		  
-		  if($("#mPostcode").val() == ""){
+		  if( $("#mPostcode").val() == "") {
 	        alert("우편번호를 입력해주세요");
 	        return;
 	      }
 		  
-		  if($("#mAddr1").val() == ""){
+		  if( $("#mAddr1").val() == "") {
 	        alert("주소를 입력해주세요");
 	        return;
 	      }
 		  
-		  if($("#mAddr2").val() == ""){
+		  if( $("#mAddr2").val() == "") {
 	        alert("상세주소를 입력해주세요");
 	        return;
 	      }
+		  
+		  
 		  
 		  // FORM 데이터를 JSON 형식으로 변환하는 플러그인 설정
 	      $.fn.serializeObject = function()
@@ -549,5 +550,5 @@
 	function back() {
 	   history.back();
 	}
-  
+	
 </script>
