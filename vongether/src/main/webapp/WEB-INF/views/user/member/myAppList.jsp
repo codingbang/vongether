@@ -10,7 +10,11 @@
 	 - 테두리 생성
 	 3. 페이징을 한다.
 	 */
-	var applist = new Array( new Array(0), new Array(0), new Array(0), new Array(0), new Array(0) );
+	var applist = new Array(new Array(0), new Array(0), new Array(0),
+			new Array(0), new Array(0));
+	var max = 10;
+	var min = 0;
+	var pageNum = 1;//현재 페이지
 </script>
 <c:forEach items="${list}" var="item">
 	<script type="text/javascript">
@@ -26,7 +30,7 @@
 
 
 <style type="text/css">
-.applist {
+.applisthead {
 	border: 2px solid #eeeeee;
 }
 </style>
@@ -65,16 +69,11 @@
 		<div class="row text-center">
 			<nav aria-label="Page navigation">
 				<ul class="pagination">
-					<li><a href="#" aria-label="Previous"> <span
-							aria-hidden="true">&laquo;</span>
+					<li id="pagePreLitag"><a href="#" aria-label="Previous"
+						onclick="pagePreSideClick1(this);" > <span aria-hidden="true">&laquo;</span>
 					</a></li>
-					<!-- <li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li> -->
-					<li id="page"><a href="#" aria-label="Next"> <span
-							aria-hidden="true">&raquo;</span>
+					<li id="page"><a href="#" aria-label="Next"
+						onclick="pageNextSideClick1(this);"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</ul>
 			</nav>
@@ -83,21 +82,218 @@
 </div>
 
 
-<script>	
-function pageClick(obj){
-	$('.applist').remove();
-	var pageNum = obj.innerText;	
-	var jbegin = (0+((pageNum-1)*10));
-	var jend = (9+((pageNum-1)*10));
+<script>
+	function pageClick1(obj) {
+		$('.applisthead').remove();			
+		var pre = '';
+		var now = '';
+		pre = '#pageli'+(pageNum)+'';
+		pageNum = obj.innerText;
+		
+		now = '#pageli'+pageNum+'';
+		$(now).addClass('active');
+		$(pre).removeClass('active');
+		
+		
+		
+		var min = (0 + ((pageNum - 1) * 10));
+		var max = (9 + ((pageNum - 1) * 10)) + 1;
+		if (max >= applist[0].length) {
+			max = applist[0].length;
+		}
+		if(Number(pageNum)>1){
+			$('#pagePreLitag').show();	
+		}else{
+			$('#pagePreLitag').hide();	
+		}
+		
+		if(Number(pageNum) == total_page_num+1){
+			
+			$('#page').hide();
+		}else{
+			$('#page').show();
+			
+		}
+		//console.log(max);
+		//console.log(applist[0].length);
+		for (var i = min; i < max; i++) {
+			$('#addlist')
+					.after(
+							'<div class="row applisthead"><div class="col-md-1 text-center "><div class="desc ">'
+									+ applist[0][i]
+									+ '</div></div><div class="col-md-4 text-center "><div class="desc ">'
+									+ applist[1][i]
+									+ '</div></div><div class="col-md-3 text-center "><div class="desc ">'
+									+ applist[2][i]
+									+ '</div></div><div class="col-md-2 text-center "><div class="desc ">'
+									+ applist[3][i].substr(0, 10)
+									+ '</div></div><div class="col-md-2 text-center "><div class="desc ">'
+									+ applist[4][i].substr(0, 10)
+									+ '</div></div></div>');
+		}
+	}
 	
+	function pageNextSideClick1(obj){
+		$('.applisthead').remove();	
+		//console.log(pageNum);
+			 pre = '#pageli'+pageNum+'';
+			pageNum = Number(pageNum)+1;
+			 now = '#pageli'+pageNum+'';
+			$(now).addClass('active');
+			$(pre).removeClass('active');
+		
+		//console.log(pageNum);
+		var min = (0 + ((pageNum - 1) * 10));
+		var max = (9 + ((pageNum - 1) * 10)) + 1;
+		if (max >= applist[0].length) {
+			max = applist[0].length;
+		}
+		//console.log(max);
+		//console.log(applist[0].length);
+		
+		
+		
+		if(Number(pageNum)>1){
+			$('#pagePreLitag').show();	
+		}else{
+			$('#pagePreLitag').hide();	
+		}
+		
+		if(Number(pageNum) == total_page_num+1){
+			
+			$('#page').hide();
+		}else{
+			$('#page').show();
+			
+		}
+		
+		
+		for (var i = min; i < max; i++) {
+			$('#addlist')
+					.after(
+							'<div class="row applisthead"><div class="col-md-1 text-center "><div class="desc ">'
+									+ applist[0][i]
+									+ '</div></div><div class="col-md-4 text-center "><div class="desc ">'
+									+ applist[1][i]
+									+ '</div></div><div class="col-md-3 text-center "><div class="desc ">'
+									+ applist[2][i]
+									+ '</div></div><div class="col-md-2 text-center "><div class="desc ">'
+									+ applist[3][i].substr(0, 10)
+									+ '</div></div><div class="col-md-2 text-center "><div class="desc ">'
+									+ applist[4][i].substr(0, 10)
+									+ '</div></div></div>');
+		}
+
+	}
+	
+	
+	
+	function pagePreSideClick1(obj){
+		$('.applisthead').remove();	
+		 pre = '#pageli'+pageNum+'';
+		pageNum = pageNum-1;
+		 now = '#pageli'+pageNum+'';
+		$(now).addClass('active');
+		$(pre).removeClass('active');
+	
+	
+	var min = (0 + ((pageNum - 1) * 10));
+	var max = (9 + ((pageNum - 1) * 10)) + 1;
+	if (max >= applist[0].length) {
+		max = applist[0].length;
+	}
+	
+	
+	if(Number(pageNum)>1){
+		$('#pagePreLitag').show();	
+	}else{
+		$('#pagePreLitag').hide();	
+	}
+	
+	if(Number(pageNum) == total_page_num+1){
+		
+		$('#page').hide();
+	}else{
+		$('#page').show();
+		
+	}
+	//console.log(max);
+	//console.log(applist[0].length);
+	for (var i = min; i < max; i++) {
+		$('#addlist')
+				.after(
+						'<div class="row applisthead"><div class="col-md-1 text-center "><div class="desc ">'
+								+ applist[0][i]
+								+ '</div></div><div class="col-md-4 text-center "><div class="desc ">'
+								+ applist[1][i]
+								+ '</div></div><div class="col-md-3 text-center "><div class="desc ">'
+								+ applist[2][i]
+								+ '</div></div><div class="col-md-2 text-center "><div class="desc ">'
+								+ applist[3][i].substr(0, 10)
+								+ '</div></div><div class="col-md-2 text-center "><div class="desc ">'
+								+ applist[4][i].substr(0, 10)
+								+ '</div></div></div>');
+	}
+
 }
-	$('#addlist').after('<div class="row applist">').after('<div class="col-md-1 text-center "><div class="desc">'++'</div></div>').after('').after('').after('').after('');
 	
 	
-	var total_page_num = Math.floor(applist[0].length/10); 
-	console.log(applist[0].length);
-	for(var i=0;i<(total_page_num+1);i++){
-		$('#page').before('<li><a href="#" id="page'+(i+1)+'" onclick="pageClick(this);">'+(i+1)+'</a></li>');		
+	
+	
+	
+	
+	
+	
+	
+	
+	//------------------------------------------------------------------------------------------------------------
+	
+	if (max > applist[0].length) {
+		max = applist[0].length
+	}
+	for (var i = min; i < max; i++) {
+		$('#addlist')
+				.after(
+						'<div class="row applisthead"><div class="col-md-1 text-center "><div class="desc ">'
+								+ applist[0][i]
+								+ '</div></div><div class="col-md-4 text-center "><div class="desc ">'
+								+ applist[1][i]
+								+ '</div></div><div class="col-md-3 text-center "><div class="desc ">'
+								+ applist[2][i]
+								+ '</div></div><div class="col-md-2 text-center "><div class="desc ">'
+								+ applist[3][i].substr(0, 10)
+								+ '</div></div><div class="col-md-2 text-center "><div class="desc ">'
+								+ applist[4][i].substr(0, 10)
+								+ '</div></div></div>');
+	}
+
+	var total_page_num = Math.floor(applist[0].length / 10);
+	//console.log(applist[0].length);
+	for (var i = 0; i < (total_page_num + 1); i++) {
+		$('#page').before(
+				'<li id="pageli'+(i+1)+'"><a href="#" id="page' + (i + 1)
+						+ '" onclick="pageClick1(this);">' + (i + 1)
+						+ '</a></li>');
+	}
+	
+	if(max!=0){
+		$('#pageli1').addClass('active');	
+	}
+	
+	
+	if(Number(pageNum)>1){
+		$('#pagePreLitag').show();	
+	}else{
+		$('#pagePreLitag').hide();	
+	}
+	
+	console.log(Number(pageNum));
+	if(Number(pageNum) == total_page_num+1){
+		
+		$('#page').hide();
+	}else{
+		$('#page').show();
+		
 	}
 	
 </script>
