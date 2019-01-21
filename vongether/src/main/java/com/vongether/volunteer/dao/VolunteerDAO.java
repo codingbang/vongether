@@ -13,7 +13,7 @@ public interface VolunteerDAO {
 	
 	void updateSimple(VolunteerVO volunteerVo)throws Exception;
 	
-	int selectMaxSimple(VolunteerVO volunteerVo)throws Exception;
+	Integer selectMaxSimple(VolunteerVO volunteerVo)throws Exception;
 	
 	void updateStateSimple (VolunteerVO volunteerVo)throws Exception;
 

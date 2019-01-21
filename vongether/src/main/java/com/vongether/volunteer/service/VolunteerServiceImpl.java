@@ -36,7 +36,7 @@ public class VolunteerServiceImpl implements VolunteerService{
 	}
 
 	@Override
-	public int selectMaxSimple(VolunteerVO volunteerVo) throws Exception {
+	public Integer selectMaxSimple(VolunteerVO volunteerVo) throws Exception {
 		return sqlsesssion.getMapper(VolunteerDAO.class).selectMaxSimple(volunteerVo);
 	}
 
