@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,11 +35,11 @@ public class VolunteerController {
 
 	@Autowired
 	private MemberService memberService;
-	
-	
+
+
 	@Autowired
 	private VolunteerService volunteerService;
-	
+
 	@RequestMapping(value="/list.do", method=RequestMethod.GET)
 	public String volunteerList(Model model) {
 		model.addAttribute("result", "0");
@@ -102,20 +103,20 @@ public class VolunteerController {
 
 		return "volunteer/volunteerDetail.page";
 	}
-
+	@Transactional
 	@RequestMapping(value="/appl.do", method=RequestMethod.POST)
 	public String volunteerAppl(@RequestParam String programInfo, HttpSession session, Model model) throws Exception {
 		VolunteerVO vo = new VolunteerVO();
 		Gson gson =  new Gson();
 		vo = gson.fromJson(programInfo, VolunteerVO.class);
 		VolunteerAppVo volunteerAppVo = new VolunteerAppVo();
-		
+
 		MemberVO memberVo = (MemberVO) session.getAttribute("userInfo");
 		String id = memberVo.getmId();		
 		memberVo = memberService.selectOneSearch(id);
-		
+
 		String result = "0";
-		
+
 		if(vo.getAdultPosblAt().equals("N")) {
 			if(IsAdult.gap(memberVo.getmBirth())) {
 				System.out.println("성인 안됨");
@@ -129,31 +130,53 @@ public class VolunteerController {
 			}
 		}
 		if(vo.getProgrmSttusSe()!=2) {
-			System.out.println("모집중");
+			//			System.out.println("모집중");
 			result = "모집중이 아닙니다.";			
+		}
+		
+		if(volunteerService.selectMaxSimple(vo) == 0) {
+			result = "모집완료 상태입니다.";
 		}
 		if(result.equals("0")){
 			result = "1";
+			int selectSimpleResult = volunteerService.selectSimple(vo);
+			
+			if(selectSimpleResult > 0) {
+//				System.out.println("volunteerController :: 이미 존재하는 봉사프로그램");
+				volunteerService.updateSimple(vo);
+			}else {
+//				System.out.println("처음 등록하는 봉사 프로그램");
+				volunteerService.insertOneVolunteerSimpleVo(vo);
+				//System.out.println(insertResult);
+			}
+			int simpleMax = volunteerService.selectMaxSimple(vo);
+			if(simpleMax==0) {
+				volunteerService.updateStateSimple(vo);
+//				System.out.println("참가인원이 가득 참");
+			}
 			String b = Integer.toString(vo.getNoticeBgnde());
 			String e = Integer.toString(vo.getNoticeEndde());
 			b = new StringBuilder(b).insert(4, "-").toString();
 			b = new StringBuilder(b).insert(7, "-").toString();
 			e = new StringBuilder(e).insert(4, "-").toString();
 			e = new StringBuilder(e).insert(7, "-").toString();
-			
-			
+
+
 			volunteerAppVo.setAppBegintm(b);
 			volunteerAppVo.setAppEndtm(e);
 			volunteerAppVo.setAppName(vo.getProgrmSj());
 			volunteerAppVo.setAppNo(vo.getProgrmRegistNo());
 			volunteerAppVo.setAppPlace(vo.getPostAdres());
 			volunteerAppVo.setmId(id);
-			int test = volunteerService.insert(volunteerAppVo);
-			System.out.println("test result::"+test);
+			volunteerService.insert(volunteerAppVo);
+
+
+
+
 		}
-		
+
 		model.addAttribute("result", result);
-		
+
 		return "volunteer/volunteerList.page";
 	}
 

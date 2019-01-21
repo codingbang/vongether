@@ -18,4 +18,24 @@
 		(app_no, app_name, app_place, app_begintm, app_endtm, m_id)
 		values( #{appNo}, #{appName},#{appPlace},STR_TO_DATE(#{appBegintm}, '%Y-%m-%d %H:%i:%s'),STR_TO_DATE(#{appEndtm}, '%Y-%m-%d %H:%i:%s'), #{mId})
 	</insert>
+	
+	<update id="updateSimple">
+		update volunteer set v_appcount = v_appcount + 1 where v_no = #{progrmRegistNo}
+	</update>
+	<update id="updateStateSimple">
+		update volunteer set v_state = '모집완료' where v_no = #{progrmRegistNo}
+	</update>
+	
+	<select id="selectSimple" resultType="int">
+		select count(*) from volunteer where v_no = #{progrmRegistNo}
+	</select>
+	<select id="selectMaxSimple" resultType="int">
+		select (v_apptotal - v_appcount) from volunteer where v_no = #{progrmRegistNo}
+	</select>
+	
+	<insert id="insertSimple">
+		insert into volunteer (v_no,v_appcount,v_apptotal,v_state) values(#{progrmRegistNo},1,#{rcritNmpr},'모집중')
+	</insert>
+	
+	
 </mapper>
