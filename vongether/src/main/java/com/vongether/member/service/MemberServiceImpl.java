@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
 		sendMail.setSubject("[Vongether 서비스 이메일 인증]");
 		sendMail.setText(
 				new StringBuffer().append("<h1>메일인증</h1>")
-				.append("<a href='http://localhost:8088/member/emailConfirm.do?mId=")
+				.append("<a href='http://192.168.0.95:8088/member/emailConfirm.do?mId=")
 				.append(memberVO.getmId()).append("&key=").append(key)
 				.append("' target='_blenk'>이메일 인증 확인</a>").toString());
 		sendMail.setFrom("bongsa019@gmail.com", "봉사관리자");
