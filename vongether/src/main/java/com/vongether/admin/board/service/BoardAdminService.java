@@ -2,6 +2,9 @@ package com.vongether.admin.board.service;
 
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.vongether.board.model.BoardVO;
 
 public interface BoardAdminService {
@@ -24,4 +27,13 @@ public interface BoardAdminService {
   
   public void updateNotice(BoardVO boardVO);
   
+  public List<Map<String, Object>> dayTop3(@RequestBody Map<String, Object> params);
+  
+  public List<Map<String, Object>> weekTop3(@RequestBody Map<String, Object> params);
+  
+  public List<Map<String, Object>> monthTop3(@RequestBody Map<String, Object> params);
+/*  
+  public List<Map<String, Object>> userBoardArticleCount(@RequestBody Map<String, Object> params);
+  
+  public List<Map<String, Object>> userReplyArticleCount(@RequestBody Map<String, Object> params);*/
 }

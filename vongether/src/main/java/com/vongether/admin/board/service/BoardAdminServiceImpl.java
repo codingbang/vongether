@@ -5,6 +5,8 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.vongether.admin.board.dao.BoardAdminDAO;
 import com.vongether.board.model.BoardVO;
 
@@ -59,5 +61,42 @@ public class BoardAdminServiceImpl implements BoardAdminService {
   public void updateNotice(BoardVO boardVO) {
     sqlSession.getMapper(BoardAdminDAO.class).updateNotice(boardVO);
   }
-
+  
+  @Override
+  public List<Map<String, Object>> dayTop3(@RequestBody Map<String, Object> params){
+	  if(((String)params.get("skey1")).equals("reply")) {
+		  return sqlSession.getMapper(BoardAdminDAO.class).dayReplyTop3(params);
+	  }else {
+		  return sqlSession.getMapper(BoardAdminDAO.class).dayBoardTop3(params);
+	  }
+  }
+  
+  @Override
+  public List<Map<String, Object>> weekTop3(@RequestBody Map<String, Object> params){
+	  if(((String)params.get("skey1")).equals("reply")) {
+		  return sqlSession.getMapper(BoardAdminDAO.class).weekReplyTop3(params);
+	  }else {
+		  return sqlSession.getMapper(BoardAdminDAO.class).weekBoardTop3(params);
+	  }
+  }
+  
+  @Override
+  public List<Map<String, Object>> monthTop3(@RequestBody Map<String, Object> params){
+	  if(((String)params.get("skey1")).equals("board")) {
+		  return sqlSession.getMapper(BoardAdminDAO.class).monthReplyTop3(params);
+	  }else {
+		  return sqlSession.getMapper(BoardAdminDAO.class).monthBoardTop3(params);
+	  }
+  }
+  /*@Override
+  public List<Map<String, Object>> userBoardArticleCount(@RequestBody Map<String, Object> params){
+	  System.out.println("monthskey2 :"+params.get("skey2"));
+	  return sqlSession.getMapper(BoardAdminDAO.class).userBoardArticleCount(params);
+  }
+  @Override
+  public List<Map<String, Object>> userReplyArticleCount(@RequestBody Map<String, Object> params){
+	  System.out.println("monthskey2 :"+params.get("skey2"));
+	  return sqlSession.getMapper(BoardAdminDAO.class).userReplyArticleCount(params);
+  }
+*/
 }

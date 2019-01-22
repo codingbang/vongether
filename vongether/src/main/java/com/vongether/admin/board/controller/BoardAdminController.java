@@ -167,6 +167,37 @@ public class BoardAdminController {
     map.put("msg", "삭제 취소가 완료 되었습니다.");
     return map;
   }
-
-
+  
+  @Auth
+  @RequestMapping(value = "/top3.do", method = RequestMethod.POST)
+  public @ResponseBody List<Map<String, Object>> top3(@RequestBody Map<String, Object> params) {
+	
+	String skey1 = (String)params.get("skey1");
+	List<Map<String, Object>> list;
+	
+	if(((String)params.get("skey2")).equals("day")) {
+		list = boardAdminService.dayTop3(params);
+	}else if(((String)params.get("skey2")).equals("week")) {
+		list = boardAdminService.weekTop3(params);
+	}else {
+		list = boardAdminService.monthTop3(params);
+	}
+    return list;    
+  }
+ /* @Auth
+  @RequestMapping(value = "/howMush.do", method = RequestMethod.POST)
+  public @ResponseBody List<Map<String, Object>> howMush(@RequestBody Map<String, Object> params) {
+	  
+	  String skey1 = (String)params.get("skey1");
+	  List<Map<String, Object>> list;
+	  
+	  if(((String)params.get("skey1")).equals("board")) {
+		  //list = ;
+		  boardAdminService.userBoardArticleCount(params);
+	  }else {
+		  //list = ;
+		  boardAdminService.userReplyArticleCount(params);
+	  }
+	  return list;    
+  }*/
 }
