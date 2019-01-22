@@ -182,7 +182,7 @@ public class VolunteerController {
 
 			model.addAttribute("result", result);
 
-		return "volunteer/volunteerList.page";
+		return "redirect:/volunteer/list.do";
 
 	}
 }

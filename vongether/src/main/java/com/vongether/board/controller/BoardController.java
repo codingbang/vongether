@@ -99,4 +99,9 @@ public class BoardController {
 		boardService.deleteBoardArticle(bNo);
 		return "redirect:/board/list.do";
 	} 
+	
+	@RequestMapping(value="/donation.do", method=RequestMethod.GET)
+	public String donationStart() {
+		return "board/donation.page";
+	}
 }

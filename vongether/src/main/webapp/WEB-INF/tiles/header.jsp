@@ -33,6 +33,7 @@
 							<li><a href="/member/join.do">회원가입</a></li>
 				        </c:otherwise>
 				    </c:choose>
+					<li><a href="/board/donation.do">기부</a></li>
 				</ul>
 			</nav>
 		</div>
