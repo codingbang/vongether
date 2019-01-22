@@ -39,7 +39,8 @@ public interface BoardAdminDAO {
 	
 	public List<Map<String, Object>> monthBoardTop3(Map<String, Object> params);
 
-	/*public List<Map<String, Object>> userBoardArticleCount(Map<String, Object> params);
+	public List<Map<String, Object>> monthApplTop3(Map<String, Object> params);
 	
-	public List<Map<String, Object>> userReplyArticleCount(Map<String, Object> params);*/
+	/*public List<Map<String, Object>> yearApplTop3(Map<String, Object> params);*/
+
 }

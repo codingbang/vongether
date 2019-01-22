@@ -30,26 +30,6 @@ $(document).ready(function() {
 		     }
 		});
 	});
-	/* $(document).on("click","#howMushBtn",function(){
-
-		var mId =	$(this).attr("mId");
-		var data = JSON.stringify({
-			mId : mId,
-			skey1 : skey1,
-			skey2 : skey2
-		});
-		$.ajax({
-		     url : '/admin/board/howMush.do',
-		     method : 'POST',
-		     data : data,
-		     contentType : 'application/json;charset=UTF-8',
-		     dataType : 'json',
-		     success : function(datas) {
-		    	 alert(datas);
-		    	 //getTopMember(datas);
-		     }
-		}); 
-	}); */
 	function getTopMember(datas){
 		var htmlStr = "";
 		for(var i=0;i<datas.length;i++){
@@ -72,18 +52,17 @@ $(document).ready(function() {
 	});
    	chart.config.data.labels.push("통계"); //라벨(x축)
 	 function getChart(datas){ 
-		for(var i=0;i<datas.length;i++){
+		for(var i=0;i<datas.length;i++){//데이터 없을시 아이디 삭제
 			if(datas[i].counter==0){
 				datas[i].m_id ="-"
 			}
 		}
 		for (var i = 0; i < datas.length; i++) {
-			chart.data.datasets.pop();
+			chart.data.datasets.pop();//데이터 삭제(팝)
 		}
 		for (var i = 0; i < datas.length; i++) { 
-	    	chart.data.datasets.push({label:datas[i].m_id, data: [datas[i].counter]}); //데이터
+	    	chart.data.datasets.push({label:datas[i].m_id, data: [datas[i].counter]}); //데이터 생성(푸시)
 		} 
-		chart.data.datasets[0].data[2] = 50;
 		chart.update();
 	 }; 
 })
@@ -97,6 +76,7 @@ $(document).ready(function() {
 			<select class="form-control1" name="key1" id="skey1">
 				<option value="board">게시글</option>
 				<option value="reply">댓글</option>
+				<option value="appl">신청</option>
 			</select>
 			<select class="form-control2" name="key2" id="skey2">
 				<option value="day">일간</option>

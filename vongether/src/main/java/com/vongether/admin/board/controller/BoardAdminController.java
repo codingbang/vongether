@@ -184,20 +184,4 @@ public class BoardAdminController {
 	}
     return list;    
   }
- /* @Auth
-  @RequestMapping(value = "/howMush.do", method = RequestMethod.POST)
-  public @ResponseBody List<Map<String, Object>> howMush(@RequestBody Map<String, Object> params) {
-	  
-	  String skey1 = (String)params.get("skey1");
-	  List<Map<String, Object>> list;
-	  
-	  if(((String)params.get("skey1")).equals("board")) {
-		  //list = ;
-		  boardAdminService.userBoardArticleCount(params);
-	  }else {
-		  //list = ;
-		  boardAdminService.userReplyArticleCount(params);
-	  }
-	  return list;    
-  }*/
 }
