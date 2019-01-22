@@ -116,10 +116,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
-  @Override
-  public List<BoardVO> myBoardList(String mId) throws Exception {
-    return sqlSession.getMapper(MemberDAO.class).myBoardList(mId);
-  }
+	@Override
+	public List<BoardVO> myBoardList(String mId) throws Exception {
+		return sqlSession.getMapper(MemberDAO.class).myBoardList(mId);
+	}
+
+
+
 
 
 }

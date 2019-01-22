@@ -30,7 +30,7 @@
 
 
 <style type="text/css">
-.applisthead {
+.applisthead {q
 	border: 2px solid #eeeeee;
 }
 </style>
@@ -47,30 +47,29 @@
 				</p>
 			</div>
 		</div>
-		<%-- <c:forEach var="list" items="${list }">
-			<div class="row applist">
+
+		<!-- <div class="row applist">
 				<div class="col-md-1 text-center ">
-					<div class="desc">${list.appNo }</div>
+					<div class="desc">코드</div>
 				</div>
 				<div class="col-md-4 text-center ">
-					<div class="desc">${list.appName }</div>
+					<div class="desc">봉사 제목</div>
 				</div>
 				<div class="col-md-3 text-center ">
-					<div class="desc">${list.appPlace }</div>
+					<div class="desc">봉사 장소</div>
 				</div>
 				<div class="col-md-2 text-center ">
-					<div class="desc">${list.appBegintm }</div>
+					<div class="desc">봉사 시작 시간</div>
 				</div>
 				<div class="col-md-2 text-center ">
-					<div class="desc">${list.appEndtm }</div>
+					<div class="desc">봉사 마감 시간</div>
 				</div>
-			</div>
-		</c:forEach> --%>
+			</div> -->
 		<div class="row text-center">
 			<nav aria-label="Page navigation">
 				<ul class="pagination">
 					<li id="pagePreLitag"><a href="#" aria-label="Previous"
-						onclick="pagePreSideClick1(this);" > <span aria-hidden="true">&laquo;</span>
+						onclick="pagePreSideClick1(this);"> <span aria-hidden="true">&laquo;</span>
 					</a></li>
 					<li id="page"><a href="#" aria-label="Next"
 						onclick="pageNextSideClick1(this);"> <span aria-hidden="true">&raquo;</span>
@@ -131,6 +130,23 @@
 									+ applist[4][i].substr(0, 10)
 									+ '</div></div></div>');
 		}
+		$('#addlist').after('<div class="row applist">'+
+				'<div class="col-md-1 text-center ">'+
+				'<div class="desc">코드</div>'+
+			'</div>'+
+			'<div class="col-md-4 text-center ">'+
+			'<div class="desc">봉사 제목</div>'+
+		'</div>'+
+		'<div class="col-md-3 text-center ">'+
+			'	<div class="desc">봉사 장소</div>'+
+			'</div>'+
+			'<div class="col-md-2 text-center ">'+
+			'<div class="desc">봉사 시작 시간</div>'+
+			'</div>'+
+			'<div class="col-md-2 text-center ">'+
+			'<div class="desc">봉사 마감 시간</div>'+
+			'</div>'+
+		'</div>');
 	}
 	
 	function pageNextSideClick1(obj){
@@ -183,6 +199,23 @@
 									+ applist[4][i].substr(0, 10)
 									+ '</div></div></div>');
 		}
+		$('#addlist').after('<div class="row applist">'+
+				'<div class="col-md-1 text-center ">'+
+				'<div class="desc">코드</div>'+
+			'</div>'+
+			'<div class="col-md-4 text-center ">'+
+			'<div class="desc">봉사 제목</div>'+
+		'</div>'+
+		'<div class="col-md-3 text-center ">'+
+			'	<div class="desc">봉사 장소</div>'+
+			'</div>'+
+			'<div class="col-md-2 text-center ">'+
+			'<div class="desc">봉사 시작 시간</div>'+
+			'</div>'+
+			'<div class="col-md-2 text-center ">'+
+			'<div class="desc">봉사 마감 시간</div>'+
+			'</div>'+
+		'</div>');
 
 	}
 	
@@ -234,6 +267,23 @@
 								+ applist[4][i].substr(0, 10)
 								+ '</div></div></div>');
 	}
+	$('#addlist').after('<div class="row applist">'+
+			'<div class="col-md-1 text-center ">'+
+			'<div class="desc">코드</div>'+
+		'</div>'+
+		'<div class="col-md-4 text-center ">'+
+		'<div class="desc">봉사 제목</div>'+
+	'</div>'+
+	'<div class="col-md-3 text-center ">'+
+		'	<div class="desc">봉사 장소</div>'+
+		'</div>'+
+		'<div class="col-md-2 text-center ">'+
+		'<div class="desc">봉사 시작 시간</div>'+
+		'</div>'+
+		'<div class="col-md-2 text-center ">'+
+		'<div class="desc">봉사 마감 시간</div>'+
+		'</div>'+
+	'</div>');
 
 }
 	
@@ -266,6 +316,23 @@
 								+ applist[4][i].substr(0, 10)
 								+ '</div></div></div>');
 	}
+	$('#addlist').after('<div class="row applist">'+
+			'<div class="col-md-1 text-center ">'+
+			'<div class="desc">코드</div>'+
+		'</div>'+
+		'<div class="col-md-4 text-center ">'+
+		'<div class="desc">봉사 제목</div>'+
+	'</div>'+
+	'<div class="col-md-3 text-center ">'+
+		'	<div class="desc">봉사 장소</div>'+
+		'</div>'+
+		'<div class="col-md-2 text-center ">'+
+		'<div class="desc">봉사 시작 시간</div>'+
+		'</div>'+
+		'<div class="col-md-2 text-center ">'+
+		'<div class="desc">봉사 마감 시간</div>'+
+		'</div>'+
+	'</div>');
 
 	var total_page_num = Math.floor(applist[0].length / 10);
 	//console.log(applist[0].length);
