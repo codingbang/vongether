@@ -13,6 +13,7 @@
       <result property="mPostcode" column="m_postcode"/>
       <result property="mAddr1" column="m_addr1"/>
       <result property="mAddr2" column="m_addr2"/>
+      <result property="mRole" column="m_role"/>
     </resultMap>
     
     <resultMap id="VolunteerAppResultMap" type="com.vongether.volunteer.model.VolunteerAppVo">
@@ -60,7 +61,7 @@
     </select>
     
     <select id="selectOne" parameterType="map" resultMap="memberResultMap">
-        select m_id, m_name, m_gender, m_birth, m_postcode, m_addr1, m_addr2
+        select m_id, m_name, m_gender, m_birth, m_postcode, m_addr1, m_addr2, m_role
         from member
         where m_id = #{mId} and m_pwd = #{mPwd}
     </select>
