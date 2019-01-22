@@ -31,7 +31,7 @@ window.onload = function() {
 	var result = "${result}";
 	if(result=="1"){
 		swal("정상적으로 신청되었습니다.");
-	}else if(result=="0"){
+	}else if(result==""){
 		//alert("처음");		
 	}else{
 		swal(result);
