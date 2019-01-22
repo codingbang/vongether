@@ -29,7 +29,7 @@
 	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
 	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700" rel="stylesheet">
-	
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="/resources/base/css/animate.css">
 	<!-- Icomoon Icon Fonts-->

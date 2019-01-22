@@ -5,10 +5,53 @@
 .red{
     color: red;
 }
+
+@keyframes heartbeat {
+  0% {font-size: 1em;}
+  20% {font-size: 2.2em;}
+  80% {font-size: 0.9em;}
+  100% {font-size: 1em;}
+}
+
+.heart {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #e74c3c;
+  animation-name: heartbeat;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+  z-index: 99;
+}
 </style>
+
+<script>
+  $(document).ready(function(){
+	
+	   $('#Progress_Loading').hide(); //첫 시작시 로딩바를 숨겨준다.
+	})
+	.ajaxStart(function(){
+		$('#Progress_Loading').show(); //ajax실행시 로딩바를 보여준다.
+	})
+	.ajaxStop(function(){
+		$('#Progress_Loading').hide(); //ajax종료시 로딩바를 숨겨준다.
+	});
+</script>
+
+
+
+
+
+
 <div id="fh5co-page">
 	<div class="container">
+	
 		<div class="row">
+		<div class="heart" id="Progress_Loading">
+  <i class="fa fa-heart fa-2x" aria-hidden="true"></i>
+</div>
 			<div class="col-lg-12">
 				<div class="page-header">
 					<h2 id="container">회원 가입하기</h2>
