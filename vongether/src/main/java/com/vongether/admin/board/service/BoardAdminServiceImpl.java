@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.vongether.admin.board.dao.BoardAdminDAO;
 import com.vongether.board.model.BoardVO;
+import com.vongether.intro.dao.IntroDAO;
 
 @Service
 public class BoardAdminServiceImpl implements BoardAdminService {
@@ -64,36 +65,50 @@ public class BoardAdminServiceImpl implements BoardAdminService {
   
   @Override
   public List<Map<String, Object>> dayTop3(@RequestBody Map<String, Object> params){
-	  if(((String)params.get("skey1")).equals("reply")) {
+	  if(((String)params.get("key1")).equals("reply")) {
 		  return sqlSession.getMapper(BoardAdminDAO.class).dayReplyTop3(params);
-	  }else if(((String)params.get("skey1")).equals("board")) {
+	  }else if(((String)params.get("key1")).equals("board")) {
 		  return sqlSession.getMapper(BoardAdminDAO.class).dayBoardTop3(params);
 	  }else {
-		  return sqlSession.getMapper(BoardAdminDAO.class).monthBoardTop3(params);
+		  return sqlSession.getMapper(BoardAdminDAO.class).monthApplTop3(params);
 	  }
   }
   
   @Override
   public List<Map<String, Object>> weekTop3(@RequestBody Map<String, Object> params){
-	  if(((String)params.get("skey1")).equals("reply")) {
+	  if(((String)params.get("key1")).equals("reply")) {
 		  return sqlSession.getMapper(BoardAdminDAO.class).weekReplyTop3(params);
-	  }else if(((String)params.get("skey1")).equals("board")) {
+	  }else if(((String)params.get("key1")).equals("board")) {
 		  return sqlSession.getMapper(BoardAdminDAO.class).weekBoardTop3(params);
 	  }else {
-		  return sqlSession.getMapper(BoardAdminDAO.class).monthBoardTop3(params);
+		  return sqlSession.getMapper(BoardAdminDAO.class).monthApplTop3(params);
 	  }
   }
   
   @Override
   public List<Map<String, Object>> monthTop3(@RequestBody Map<String, Object> params){
-	  if(((String)params.get("skey1")).equals("reply")) {
+	  if(((String)params.get("key1")).equals("reply")) {
 		  return sqlSession.getMapper(BoardAdminDAO.class).monthReplyTop3(params);
-	  }else if(((String)params.get("skey1")).equals("board")) {
+	  }else if(((String)params.get("key1")).equals("board")) {
 		  return sqlSession.getMapper(BoardAdminDAO.class).monthBoardTop3(params);
-	  }else if(((String)params.get("skey1")).equals("appl")) {
-		  return sqlSession.getMapper(BoardAdminDAO.class).monthApplTop3(params);
 	  }else {
-		  return sqlSession.getMapper(BoardAdminDAO.class).monthBoardTop3(params);
+		  return sqlSession.getMapper(BoardAdminDAO.class).monthApplTop3(params);
 	  }
   }
+  
+  @Override
+  public List<Map<String, Object>> monthAppl(@RequestBody String key){
+	  return sqlSession.getMapper(BoardAdminDAO.class).monthAppl(key);
+  }
+  
+  @Override
+  public int dayVisit() {
+	  return sqlSession.getMapper(BoardAdminDAO.class).dayVisit();
+  }
+  
+  @Override
+  public int monthVisit() {
+	  return sqlSession.getMapper(BoardAdminDAO.class).monthVisit();
+  }
+  
 }

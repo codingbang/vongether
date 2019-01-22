@@ -81,16 +81,17 @@
 		LIMIT 3 offset 0;
 	</select>
 	
-	<!-- 년간 신청 카운트 정보 : 아이디, 년간게시글 카운트 -->
-	<!-- 
-	<select id="yearApplTop3" parameterType="map" resultType="map">
-		select	m.m_id, (select count(va.app_no) 
-						 from volunteer_appl va 
-						 where va.m_id = m.m_id
-						 AND YEAR(va.app_begintm) = YEAR(NOW())) counter
-		from	member m
-		ORDER BY counter desc
-		LIMIT 3 offset 0;
+	<!-- 방문자수 일간 정보 : 카운트 -->
+	<select id="dayVisit" resultType="int">
+		select count(visit_id)
+		from visitor_ct
+		where day(visit_time) = day(now())
 	</select> 
-	 -->
+	
+	<!-- 방문자수 월간 정보 : 카운트 -->
+	<select id="monthVisit" resultType="int">
+		select count(visit_id)
+		from visitor_ct
+		where month(visit_time) = month(now())
+	</select> 
 </mapper>

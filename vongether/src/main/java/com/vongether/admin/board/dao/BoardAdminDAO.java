@@ -41,6 +41,10 @@ public interface BoardAdminDAO {
 
 	public List<Map<String, Object>> monthApplTop3(Map<String, Object> params);
 	
-	/*public List<Map<String, Object>> yearApplTop3(Map<String, Object> params);*/
+	public List<Map<String, Object>> monthAppl(String key);
+	
+	public int dayVisit();
+	
+	public int monthVisit();
 
 }

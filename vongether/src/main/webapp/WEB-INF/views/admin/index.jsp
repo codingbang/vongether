@@ -9,14 +9,35 @@
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
-	
-	$(document).on("click","#searchBtn",function(){
+	getAppl();
+	function getAppl(){
+		$.ajax({
+		     url : '/admin/board/appl.do',
+		     method : 'POST',
+		     data : null,
+		     contentType : 'application/json;charset=UTF-8',
+		     dataType : 'json',
+		     success : function(datas) {
+		    	 console.log(datas);
+		    	 getApplCount(datas);
+		     }
+		});
+	};
+	function getApplCount(datas){
+		console.log(datas.dayCount);
+		var htmlStr = "";
+		htmlStr += '<div class="col-md-4"><h3>오늘의 방문자 수 : '+datas.dayCount+'</h3></div>';
+		htmlStr += '<div class="col-md-4"><h3>이번달 방문자 수 : '+datas.monthCount+'</h3></div>';
+	 	$("#applCart").empty();
+    	$("#applCart").append(htmlStr);
+	};
+	$(document).on("click","#top3SearchBtn",function(){
 
-		var skey1 =	$("#skey1").val();
-		var skey2 =	$("#skey2").val();
+		var key1 =	$("#key1").val();
+		var key2 =	$("#key2").val();
 		var data = JSON.stringify({
-			skey1 : skey1,
-			skey2 : skey2
+			key1 : key1,
+			key2 : key2
 		});
 		$.ajax({
 		     url : '/admin/board/top3.do',
@@ -50,7 +71,7 @@ $(document).ready(function() {
 	    type: 'bar',//형태 : line, bar, pie 
 	    options: {}
 	});
-   	chart.config.data.labels.push("통계"); //라벨(x축)
+   	chart.config.data.labels.push(""); //라벨(x축)
 	 function getChart(datas){ 
 		for(var i=0;i<datas.length;i++){//데이터 없을시 아이디 삭제
 			if(datas[i].counter==0){
@@ -69,27 +90,31 @@ $(document).ready(function() {
 </script>
 <div class="container">
 	<div class="row " style="">
-		<div class="cal-md-12 header-name">
+		<div class="col-md-12 header-name">
 			<h2><b>통계</b></h2>
 		</div>
-		<div class="cal-md-12">
-			<select class="form-control1" name="key1" id="skey1">
-				<option value="board">게시글</option>
-				<option value="reply">댓글</option>
-				<option value="appl">신청</option>
-			</select>
-			<select class="form-control2" name="key2" id="skey2">
-				<option value="day">일간</option>
-				<option value="week">주간</option>
-				<option value="month">월간</option>
-			</select>
-			<button type="button" id="searchBtn" class="btn btn-primary">검색</button>
-		</div>
-		<div id="memberTop"></div>
-		<!--  차트    -->
-		<div>
-			<canvas id="myChart"></canvas> 
-		</div>		
-		<!--  차트   -->
+		<div id="applCart"><!-- 방문자수 차트 -->	</div>
+		<div class="col-md-12">
+			<div class="col-md-4"><!-- Top3 조건 검색 -->
+				<select class="form-control1" name="key1" id="key1">
+					<option value="board">게시글</option>
+					<option value="reply">댓글</option>
+					<option value="appl">봉사</option>
+				</select>
+				<select class="form-control2" name="key2" id="key2">
+					<option value="day">일간</option>
+					<option value="week">주간</option>
+					<option value="month">월간</option>
+				</select>
+				<button type="button" id="top3SearchBtn" class="btn btn-primary">검색</button>
+			</div>
+		
+			<!-- 순위 -->
+			<div class="col-md-12" id="memberTop"></div>
+			
+			<!--  차트    -->
+			<div><canvas id="myChart"></canvas></div>		
+			
+		</div><!-- top3차트 끝 -->
 	</div>
 </div>

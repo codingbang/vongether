@@ -37,7 +37,7 @@ public class BoardAdminController {
     List<BoardVO> articleList = boardAdminService.selectBoardList(params);
     model.addAttribute("articleList", articleList);
     model.addAttribute("pagination", pagination);
-    return "board/articleList.admin";    
+    return "board/articleList.admin";
   }
 
   @Auth
@@ -172,16 +172,25 @@ public class BoardAdminController {
   @RequestMapping(value = "/top3.do", method = RequestMethod.POST)
   public @ResponseBody List<Map<String, Object>> top3(@RequestBody Map<String, Object> params) {
 	
-	String skey1 = (String)params.get("skey1");
+	String key1 = (String)params.get("key1");
 	List<Map<String, Object>> list;
 	
-	if(((String)params.get("skey2")).equals("day")) {
+	if(((String)params.get("key2")).equals("day")) {
 		list = boardAdminService.dayTop3(params);
-	}else if(((String)params.get("skey2")).equals("week")) {
+	}else if(((String)params.get("key2")).equals("week")) {
 		list = boardAdminService.weekTop3(params);
 	}else {
 		list = boardAdminService.monthTop3(params);
 	}
     return list;    
+  }
+  
+  @Auth
+  @RequestMapping(value = "/appl.do", method = RequestMethod.POST)
+  public @ResponseBody Map<String, Object> appl() {
+	  Map map = new HashMap();
+	  map.put("dayCount", boardAdminService.dayVisit());
+	  map.put("monthCount", boardAdminService.monthVisit());
+	  return map;
   }
 }
