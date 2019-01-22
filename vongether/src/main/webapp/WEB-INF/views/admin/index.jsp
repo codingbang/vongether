@@ -62,13 +62,12 @@ $(document).ready(function() {
 				htmlStr += '<div class="col-md-8">'+datas[i].counter+'번</div>';
 			}
 		}
-
 	 	$("#memberTop").empty();
     	$("#memberTop").append(htmlStr);
 	};
 	var ctx = document.getElementById('myChart').getContext('2d');
 	var chart = new Chart(ctx, {
-	    type: 'bar',//형태 : line, bar, pie 
+	    type: 'bar',//형태 : line, bar, pie
 	    options: {}
 	});
    	chart.config.data.labels.push(""); //라벨(x축)
@@ -81,11 +80,27 @@ $(document).ready(function() {
 		for (var i = 0; i < datas.length; i++) {
 			chart.data.datasets.pop();//데이터 삭제(팝)
 		}
+      for (var i = 0; i < datas.length; i++) { 
+	   var label1 = 255 - (i*70);
+	   var label2 = 30 + (i*70);
+	   var label3 = 250 - (i*60);
+	  
+	   chart.data.datasets.push({
+	       label:datas[i].m_id,
+	       data: [datas[i].counter],
+	       backgroundColor: [ 'rgba('+label1+', '+label2+', '+label3+', 0.2)' ],
+               borderColor: [ 'rgba('+label1+', '+label2+', '+label3+', 0.2)' ],
+               borderWidth: 1
+	   }); //데이터
+	  } 
+/* <<<<<<< HEAD
 		for (var i = 0; i < datas.length; i++) { 
 	    	chart.data.datasets.push({label:datas[i].m_id, data: [datas[i].counter]}); //데이터 생성(푸시)
 		} 
-		chart.update();
-	 }; 
+======= */
+      chart.data.datasets[0].data[2] = 50;
+      chart.update();
+    }; 
 })
 </script>
 <div class="container">
