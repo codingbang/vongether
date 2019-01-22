@@ -65,20 +65,23 @@ $(document).ready(function() {
 	 	$("#memberTop").empty();
     	$("#memberTop").append(htmlStr);
 	};
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var chart = new Chart(ctx, {
+	    type: 'bar',//형태 : line, bar, pie 
+	    options: {}
+	});
+   	chart.config.data.labels.push("통계"); //라벨(x축)
 	 function getChart(datas){ 
-		var ctx = document.getElementById('myChart').getContext('2d');
-		var chart = new Chart(ctx, {
-		    type: 'bar',//형태 : line, bar, pie 
-		    options: {}
-		});
-    	chart.config.data.labels.push("통계"); //라벨(x축)
 		for(var i=0;i<datas.length;i++){
 			if(datas[i].counter==0){
 				datas[i].m_id ="-"
 			}
 		}
+		for (var i = 0; i < datas.length; i++) {
+			chart.data.datasets.pop();
+		}
 		for (var i = 0; i < datas.length; i++) { 
-	    	chart.config.data.datasets.push({label:datas[i].m_id, data: [datas[i].counter]}); //데이터
+	    	chart.data.datasets.push({label:datas[i].m_id, data: [datas[i].counter]}); //데이터
 		} 
 		chart.data.datasets[0].data[2] = 50;
 		chart.update();
