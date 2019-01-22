@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 import com.vongether.common.util.IsAdult;
 import com.vongether.common.util.Pagination;
@@ -42,7 +43,7 @@ public class VolunteerController {
 
 	@RequestMapping(value="/list.do", method=RequestMethod.GET)
 	public String volunteerList(Model model) {
-		model.addAttribute("result", "0");
+		//model.addAttribute("result", "0");
 		return "volunteer/volunteerList.page";
 	}
 
@@ -105,7 +106,7 @@ public class VolunteerController {
 	}
 	@Transactional
 	@RequestMapping(value="/appl.do", method=RequestMethod.POST)
-	public String volunteerAppl(@RequestParam String programInfo, HttpSession session, Model model) throws Exception {
+	public String volunteerAppl(@RequestParam String programInfo, HttpSession session, Model model, RedirectAttributes rttr) throws Exception {
 		VolunteerVO vo = new VolunteerVO();
 		Gson gson =  new Gson();
 		vo = gson.fromJson(programInfo, VolunteerVO.class);
@@ -180,9 +181,9 @@ public class VolunteerController {
 
 			}
 
-			model.addAttribute("result", result);
-
-		return "volunteer/volunteerList.page";
+			//model.addAttribute("result", result);
+			rttr.addFlashAttribute("result", result);
+		return "redirect:/volunteer/list.do";
 
 	}
 }

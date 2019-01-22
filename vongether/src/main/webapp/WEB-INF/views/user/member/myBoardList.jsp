@@ -53,8 +53,8 @@
 	                <button type='button' class='btn' disabled pageNo='${pagination.prevPage}'>&lt;</button>
 	            </c:if>
 	            <c:if test="${pagination.curPage!=1}">
-	                <button type='button' class='btn navigation-btn' pageNo='1'>&laquo;</button>"
-	                <button type='button' class='btn navigation-btn' pageNo='${pagination.prevPage}'>&lt;</button>"
+	                <button type='button' class='btn navigation-btn' pageNo='1'>&laquo;</button>
+	                <button type='button' class='btn navigation-btn' pageNo='${pagination.prevPage}'>&lt;</button>
 	            </c:if>
 	            <c:forEach  var="i" begin="${pagination.startPage}" end="${pagination.endPage}">
 	                                    
@@ -77,31 +77,9 @@
 	    <!-- pagination -->
 	  </div>
 	  
-	  
 	  <div class="row" style="padding-top: 20px;">
 	    <div class="col-md-2"></div>
-	    <!-- 검색 조건 -->
-	    <div class="col-md-8">
-	        <div class="col-md-3">
-	            <div class="input-group">
-	                <select class="form-control" name="key" id="skey">
-	                    <option value="">제목+내용</option>
-	                    <option value="content">내용</option>
-	                    <option value="title">제목</option>
-	                    <option value="id">아이디</option>
-	                </select>
-	            </div>
-	        </div>
-	        <div class="col-md-8">
-	            <input type="text" class="form-control" name="word" id="sword" placeholder="검색내용">
-	        </div>
-	        <div class="col-md-1">
-	            <button type="button" id="searchBtn" class="btn btn-primary">검색</button>
-	        </div>
-	    </div>
-	    <div class="col-md-2"></div>
 	  </div>
-	  <!-- search -->
 	  
 	  <div class="col-md-4"></div>
 	 </div><!-- row1 End -->
