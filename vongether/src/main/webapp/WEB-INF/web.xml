@@ -13,7 +13,12 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	<!-- 방문자수 카운팅 -->
+	<listener>
+	   <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
 	
+	 
 	<!-- encodingFilter -->
   <filter>
     <filter-name>encodingFilter</filter-name>

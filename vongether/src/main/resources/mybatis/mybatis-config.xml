@@ -11,6 +11,7 @@
 		<typeAlias alias="ReplyVO" type="com.vongether.board.model.ReplyVO" />
 		<typeAlias alias="MemberVO" type="com.vongether.member.model.MemberVO" />
 		<typeAlias alias="VolunteerVO" type="com.vongether.volunteer.model.VolunteerVO" />
+		<typeAlias alias="VisitCountVO" type="com.vongether.intro.model.VisitCountVO" />
 	</typeAliases>
 
 

@@ -173,7 +173,6 @@ public class MemberController {
 		param.put("mName", mName);
 		param.put("mBirth", mBirth);
 		String result = memberService.findId(param);
-		//model.addAttribute("myId", result);
 		rttr.addFlashAttribute("mId", result);
 
 		if(result !=null) {
@@ -193,14 +192,13 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/findPwd.do", method= RequestMethod.POST)
-	public String findPwd(String mId, String mName, String mBirth, Model model, RedirectAttributes rttr) throws Exception{
+	public String findPwd(String mId, String mName, String mBirth, RedirectAttributes rttr) throws Exception{
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("mId", mId);
 		param.put("mName", mName);
 		param.put("mBirth", mBirth);
 
 		// 비밀번호 재생성에 필요한 아이디값 히든으로 전달
-		// model.addAttribute("mId", mId);
 		rttr.addFlashAttribute("mId", mId);
 		String result = memberService.findPwd(param);
 
@@ -247,8 +245,10 @@ public class MemberController {
 	  param.put("mId", mId);
 	  param.put("mPwd", aria.Encrypt(mPwd));
 	  int result = memberService.checkPwd(param);
+	  System.out.println(result);
 	  
 	  if(result == 1) {
+	    System.out.println("성공시:"+ result);
 	    memberService.singOut(param);
 	    session.invalidate();
 	    return "redirect:/";
