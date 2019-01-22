@@ -30,8 +30,11 @@
 
 
 <style type="text/css">
-.applisthead {q
-	border: 2px solid #eeeeee;
+.applisthead {
+	border-top: 2px solid #99ffbb;
+	color: #009933;
+}
+.applist{
 }
 </style>
 

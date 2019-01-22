@@ -4,7 +4,7 @@
 <mapper namespace="com.vongether.intro.dao.IntroDAO">
 
     <resultMap type="VisitCountVO" id="VisitCountMap">
-        <result column="visit_id" property="visitId"/>   
+        <result column="visit_id" property="visitId"/>    
         <result column="visit_ip" property="visitIp"/>    
         <result column="visit_time" property="visitTime"/>    
     </resultMap>

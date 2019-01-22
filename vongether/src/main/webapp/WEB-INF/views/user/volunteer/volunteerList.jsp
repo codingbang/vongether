@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <style>
 #searchSection{
@@ -29,11 +30,11 @@
 window.onload = function() {
 	var result = "${result}";
 	if(result=="1"){
-		alert("정상적으로 신청되었습니다.");
+		swal("정상적으로 신청되었습니다.");
 	}else if(result=="0"){
 		//alert("처음");		
 	}else{
-		alert(result);
+		swal(result);
 	}
 }
 
