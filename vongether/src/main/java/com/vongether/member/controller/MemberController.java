@@ -73,20 +73,20 @@ public class MemberController {
 	  Map<String, Object> param = new HashMap<String, Object>();
 	  param.put("mId", mId);
 	  param.put("mPwd", aria.Encrypt(mPwd));
-	  System.out.println(aria.Encrypt(mPwd));
 	  MemberVO memberVO = memberService.selectOne(param);
-		
-	  if (memberVO != null ) {
+	  
+	  if (memberVO.getmRole().equals("ROLE_USER") || memberVO.getmRole().equals("ROLE_ADMIN")) {
 	    model.addAttribute("memberVO", memberVO);
 	    session.setAttribute("userInfo", memberVO);
 	    return "redirect:/";
-	    
+	  } else if (memberVO.getmRole().equals("ROLE_GUEST")) {
+	    session.invalidate();
+	    return "member/limitLogin.page";
 	  }
-		// 실패했을 경우 세션 초기화
 	  else {
+	    // 실패했을 경우 세션 초기화
 	    session.invalidate();
 	    return "redirect:/member/login.do";
-	    
 	  }
 	  
 	}
