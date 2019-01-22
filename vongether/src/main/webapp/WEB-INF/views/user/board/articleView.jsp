@@ -225,8 +225,8 @@ $(document).ready(function() {
 </script>
 <div class="container">
 	<div class="row " style="padding-top: 30px; height: 90px;">
-		<div class="text-center fh5co-heading">
-			<h2>게시판</h2>
+		<div class="fh5co-heading">
+			<h2><b>게시판</b></h2>
 		</div>
 	</div>
 	

@@ -2,6 +2,9 @@ package com.vongether.admin.board.dao;
 
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.vongether.board.model.BoardVO;
 
 public interface BoardAdminDAO {
@@ -23,4 +26,20 @@ public interface BoardAdminDAO {
 	public void deleteBoardCancle(int bNo);
 	
 	public void updateNotice(BoardVO boardVO);
+
+	public List<Map<String, Object>> dayReplyTop3(Map<String, Object> params);
+	
+	public List<Map<String, Object>> weekReplyTop3(Map<String, Object> params);
+	
+	public List<Map<String, Object>> monthReplyTop3(Map<String, Object> params);
+	
+	public List<Map<String, Object>> dayBoardTop3(Map<String, Object> params);
+	
+	public List<Map<String, Object>> weekBoardTop3(Map<String, Object> params);
+	
+	public List<Map<String, Object>> monthBoardTop3(Map<String, Object> params);
+
+	/*public List<Map<String, Object>> userBoardArticleCount(Map<String, Object> params);
+	
+	public List<Map<String, Object>> userReplyArticleCount(Map<String, Object> params);*/
 }

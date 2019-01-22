@@ -25,6 +25,17 @@
 		trans(noticeEndde,ne);
 		
 		//document.getElementById("programInfo").value=${json};
+		
+		if(${vo.progrmSttusSe }=='2'){
+			//console.log('1111');
+			$('#programState').after(' : 모집중');
+		}else if(${vo.progrmSttusSe }=='1'){
+			$('#programState').after(' : 모집대기');
+		}else{
+			$('#programState').after(' : 모집완료');
+			
+		}
+		
 
     };
     
@@ -113,8 +124,8 @@
 									${vo.postAdres }</li>
 								<li><i class="icon-check"></i><span
 									style="font-weight: 600;">이메일</span> : ${vo.email }</li>
-								<li><i class="icon-check"></i><span
-									style="font-weight: 600;">모집상태</span> : ${vo.progrmSttusSe }</li>
+								<li><i class="icon-check"></i><span id="programState"
+									style="font-weight: 600;">모집상태</span></li>
 								<li><i class="icon-check"></i><span
 									style="font-weight: 600;">모집인원(총인원)</span> : ${vo.rcritNmpr }</li>
 							</ul>

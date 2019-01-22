@@ -33,4 +33,5 @@ public interface MemberService {
   List<VolunteerAppVo> selectOneVList(String param) throws Exception;//마이페이지-봉사참여리스트( param = 아이디 )
 
   List<BoardVO> myBoardList(String mId) throws Exception;
+  
 }
