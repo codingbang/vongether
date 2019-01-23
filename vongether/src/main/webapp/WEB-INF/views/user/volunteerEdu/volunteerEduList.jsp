@@ -27,16 +27,7 @@
 
 </style>
 <script>
-window.onload = function() {
-	var result = "${result}";
-	if(result=="1"){
-		swal("정상적으로 신청되었습니다.");
-	}else if(result=="0"){
-		//alert("처음");		
-	}else{
-		swal(result);
-	}
-}
+
 
 $(function(){
     $('#progrmBgnde').datepicker({
@@ -159,7 +150,16 @@ $(function(){
     		dataType : "json",
     		method : "GET",
     	    success : function(data) {
-    	    	console.log(data);
+    	    	//console.log(typeof(data));
+    	    	//console.log(JSON.parse(data));
+    	    	var json1 = JSON.parse(data);
+    	    	//console.log(json1[0]);
+    	    	var json2 = json1[0];
+    	    	//console.log(json2.items);
+    	    	var json3 = json2.items[0];
+    	    	//console.log(json3.item[0]);
+    	    	var json4 = json3.item;//사용가능
+    	    	
     	    }
     	});
     }
