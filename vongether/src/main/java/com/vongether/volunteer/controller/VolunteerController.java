@@ -1,4 +1,4 @@
-package com.vongether.volunteer.controller;
+﻿package com.vongether.volunteer.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -175,15 +175,10 @@ public class VolunteerController {
 
 			}
 
-<<<<<<< HEAD
 
 			//model.addAttribute("result", result);
 			rttr.addFlashAttribute("result", result);
 		return "redirect:/volunteer/list.do";
-=======
-			rttr.addFlashAttribute("result", result);
-		    return "redirect:/volunteer/list.do";
->>>>>>> bcb629b8e08deaf8b2b885fa728ace6d50febd14
 
 	}
 }
