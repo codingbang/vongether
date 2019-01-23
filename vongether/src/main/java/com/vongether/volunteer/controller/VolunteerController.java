@@ -181,13 +181,9 @@ public class VolunteerController {
 
 			}
 
-<<<<<<< HEAD
-			model.addAttribute("result", result);
 
-=======
 			//model.addAttribute("result", result);
 			rttr.addFlashAttribute("result", result);
->>>>>>> 4729cc77ed504424d721584bce46603de64e81b3
 		return "redirect:/volunteer/list.do";
 
 	}

@@ -63,27 +63,27 @@
 				<div class="col-md-4 text-center">
 					<div class="blog-inner">
 						<div class="desc">
-							<h3><a href="#">최신 공지사항 제목 1</a></h3>
-							<p>내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90</p>
-							<p><a href="#" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
+							<h3><a href="/board/view.do?bNo=${notice[0].bNo}">${notice[0].bTitle}</a></h3>
+							<p style=" height:95px ;text-overflow: ellipsis;overflow: hidden;">${notice[0].bContent}</p>
+							<p><a href="/board/view.do?bNo=${notice[0].bNo}" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-4 text-center">
 					<div class="blog-inner">
 						<div class="desc">
-							<h3><a href="#">최신 공지사항 제목 2</a></h3>
-							<p>내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90</p>
-							<p><a href="#" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
+							<h3><a href="/board/view.do?bNo=${notice[1].bNo}">${notice[1].bTitle}</a></h3>
+							<p style=" height:95px ;text-overflow: ellipsis;overflow: hidden;">${notice[1].bContent}</p>
+							<p><a href="/board/view.do?bNo=${notice[1].bNo}" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-4 text-center">
 					<div class="blog-inner">
 						<div class="desc">
-							<h3><a href="#">최신 공지사항 제목 3</a></h3>
-							<p>내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90자 까지 표시.내용은 90</p>
-							<p><a href="#" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
+							<h3><a href="/board/view.do?bNo=${notice[2].bNo}">${notice[2].bTitle}</a></h3>
+							<p style=" height:95px ;text-overflow: ellipsis;overflow: hidden;">${notice[2].bContent}</p>
+							<p><a href="/board/view.do?bNo=${notice[2].bNo}" class="btn btn-primary btn-outline with-arrow">Read More<i class="icon-arrow-right"></i></a></p>
 						</div>
 					</div>
 				</div>
