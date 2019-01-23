@@ -98,7 +98,9 @@
     </update>
     
     <delete id="singOut">
-        delete m_id from member where mPwd = #{mPwd}    
+        update member set
+         m_role = "ROLE_SIGNOUT"
+         where m_id =#{mId} and m_pwd = #{mPwd}     
     </delete>
     
     <select id="myBoardList" parameterType="String" resultMap="boardResultMap">

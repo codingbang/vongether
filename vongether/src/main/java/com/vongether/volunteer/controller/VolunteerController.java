@@ -1,14 +1,11 @@
 package com.vongether.volunteer.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -176,15 +173,17 @@ public class VolunteerController {
 				volunteerAppVo.setmId(id);
 				volunteerService.insert(volunteerAppVo);
 
-
-
-
 			}
 
+<<<<<<< HEAD
 
 			//model.addAttribute("result", result);
 			rttr.addFlashAttribute("result", result);
 		return "redirect:/volunteer/list.do";
+=======
+			rttr.addFlashAttribute("result", result);
+		    return "redirect:/volunteer/list.do";
+>>>>>>> bcb629b8e08deaf8b2b885fa728ace6d50febd14
 
 	}
 }
