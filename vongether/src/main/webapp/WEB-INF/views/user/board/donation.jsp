@@ -1,8 +1,8 @@
-
-<!-- saved from url=(0088)https://developers.kakao.com/payment/index#%EC%B9%B4%EC%B9%B4%EC%98%A4%ED%8E%98%EC%9D%B4 -->
-<html><head><title>카카오페이</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style type="text/css">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<title>카카오페이</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<style type='text/css'>
   /* <![CDATA[ */
     @charset "utf-8";
     /* reset */
@@ -151,7 +151,7 @@
         font-size: 0;
         line-height: 0;
         text-indent: -9999px;
-        background: url(/assets/img/docs/ico_pay_320.png) no-repeat 0 0
+       /*  background: url(/assets/img/docs/ico_pay_320.png) no-repeat 0 0 */
     }
 
     .wrap_demo .tit_demo {
@@ -201,8 +201,8 @@
     }
   /* ]]> */
 </style>
-</head><body style=""><div id="kakaoIndex">
-<a href="https://developers.kakao.com/payment/index#kakaoBody">
+<div id="kakaoIndex">
+<a href="#kakaoBody">
 본문 바로가기
 </a>
 </div>
@@ -211,7 +211,7 @@
 <h1 class="tit_kakaopay">
 카카오페이
 </h1>
-<hr class="hide">
+<hr class="hide"/>
 <main id="kakaoContent">
 <article id="mArticle">
 <h2 id="kakaoBody" class="tit_demo">
@@ -219,14 +219,14 @@ Payment Demo
 </h2>
 <p class="txt_demo">
 API를 활용한 카카오페이 결제를 체험해보세요.
-<br>
+<br/>
 (실제 결제는 일어나지 않습니다)
 </p>
 <div class="pay_btn">
-<button type="button" class="btn_pay btn_pay_hover" id="web" onclick="payment(&#39;web&#39;);">
+<button type="button" class="btn_pay btn_pay_hover" id="web" onclick="payment('web');">
 PC 결제
 </button>
-<button type="button" class="btn_pay" id="mobile" onclick="payment(&#39;mobile&#39;);" disabled="disabled" style="cursor: no-drop;">
+<button type="button" class="btn_pay btn_pay_hover" id="mobile" onclick="payment('mobile');">
 모바일 결제
 </button>
 </div>
@@ -237,7 +237,7 @@ PC 결제
 </main>
 </header>
 </div>
-<script type="text/javascript">
+<script type='text/javascript'>
   //<![CDATA[
     $(document).ready(function() {
         if(! /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -272,4 +272,3 @@ PC 결제
     }
   //]]>
 </script>
-</body></html>
