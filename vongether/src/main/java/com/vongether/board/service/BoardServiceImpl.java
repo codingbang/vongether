@@ -18,13 +18,23 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public List<BoardVO> selectNoticeTop3() {
-		return sqlSession.getMapper(BoardDAO.class).selectNoticeTop3();
+		List<BoardVO> list = sqlSession.getMapper(BoardDAO.class).selectNoticeTop3(); 
+		for(int i=0;i<list.size();i++) {//테그삭제, 유효성체크
+			String title = list.get(i).getbTitle().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+			list.get(i).setbTitle(title);
+		}
+		return list;
 	}
 	@Override
 	public List<BoardVO> selectBoardList(Map<String, Object> param, int pageNo) {
 		int pagePerList = ((pageNo-1)*10);
 		param.put("pagePerList", pagePerList);
-		return sqlSession.getMapper(BoardDAO.class).selectBoardList(param);
+		List<BoardVO> list = sqlSession.getMapper(BoardDAO.class).selectBoardList(param);
+		for(int i=0;i<list.size();i++) {//테그삭제, 유효성체크
+			String title = list.get(i).getbTitle().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+			list.get(i).setbTitle(title);
+		}
+		return list; 
 	}
 	@Override
 	public int totalBoardArticleCount(Map<String, Object> param) {
@@ -32,7 +42,10 @@ public class BoardServiceImpl implements BoardService {
 	}
 	@Override
 	public BoardVO selectBoardArticle(int bNo) {
-		return sqlSession.getMapper(BoardDAO.class).selectBoardArticle(bNo);
+		BoardVO board = sqlSession.getMapper(BoardDAO.class).selectBoardArticle(bNo);
+		String title = board.getbTitle().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+		board.setbTitle(title);
+		return board;
 	}
 
 	@Override

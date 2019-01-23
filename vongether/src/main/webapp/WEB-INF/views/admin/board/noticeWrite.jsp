@@ -3,7 +3,6 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 <script src="/resources/admin/js/board/noticeWrite.js"></script>
-
 <div class="panel box-shadow-none content-header">
 	<div class="panel-body">
 		<div class="col-md-12">
