@@ -3,13 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="/resources/admin/js/board/articleList.js"></script>
 
- <div class="panel box-shadow-none content-header">
+<div class="panel box-shadow-none content-header">
                   <div class="panel-body">
                     <div class="col-md-12">
                         <h3 class="animated fadeInLeft">일반 게시글 관리</h3>
-                        <p class="animated fadeInDown">
-                          일반 게시글 목록
-                        </p>
+                        <p class="animated fadeInDown">일반 게시글 목록</p>
                     </div>
                   </div>
               </div>
