@@ -251,15 +251,12 @@ PC 결제
         //var windowReference = window.open('', 'payment_popup', 'width=426,height=510,toolbar=no,location=no');
 
         var request = $.ajax({
-            url: '/payment/'+agent+'/ready',
-            method: 'GET',
-            dataType: 'json'
         });
 
         request.done(function( data ) {
             if(agent === 'web'){
                 //windowReference.location = data.next_redirect_pc_url;
-                location.href = data.next_redirect_pc_url;
+                location.href = 'https://mockup-pg-web.kakao.com/v1/801f6ae9b7d6eac5d316f52d862074c487d52ea01c688bd836212949850286ca/info';
             } else {
                 //windowReference.location = data.next_redirect_mobile_url;
                 location.href = data.next_redirect_mobile_url;
