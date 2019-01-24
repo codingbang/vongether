@@ -18,7 +18,12 @@ public class ReplyServiceImpl implements ReplyService {
 	
 	@Override
 	public List<ReplyVO> selectReplyList(int bNo){
-		return sqlSession.getMapper(ReplyDAO.class).selectReplyList(bNo);
+		List<ReplyVO> list = sqlSession.getMapper(ReplyDAO.class).selectReplyList(bNo); 
+		for(int i=0;i<list.size();i++) {//테그삭제, 유효성체크
+			String content = list.get(i).getrContent().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+			list.get(i).setrContent(content);
+		}
+		return list;
 	}
 	@Override
 	public int totalReplyCount(int bNo) {

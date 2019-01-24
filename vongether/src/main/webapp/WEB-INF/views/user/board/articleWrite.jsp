@@ -16,7 +16,20 @@
 $(document).ready(function() {
 	$('#summernote').summernote({
 		minHeight: 400,
-		maxHeight: 400
+		maxHeight: 400,
+		styleWithSpan: false,
+        toolbar: [
+        		['style', ['style']],
+        	    ['font', ['bold', 'italic', 'underline', 'clear']],
+        	    ['fontname', ['fontname']],
+        	    ['color', ['color']],
+        	    ['para', ['ul', 'ol', 'paragraph']],
+        	    ['height', ['height']],
+        	    ['table', ['table']],
+        	    ['insert', ['link', 'picture', 'hr']],
+        	    ['view', ['fullscreen', 'codeview']],
+        	    ['help', ['help']]
+                ]
     });
 	$("#writeCancelBtn").click(function(){
 		swal({
@@ -56,7 +69,8 @@ $(document).ready(function() {
 				  } 	
 				});
 		}
-	}); 
+	});
+	
 })
 </script>
 <div class="container" style="padding-top: 30px; padding-bottom: 60px;">

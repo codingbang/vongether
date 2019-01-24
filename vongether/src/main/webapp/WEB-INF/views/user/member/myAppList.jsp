@@ -85,8 +85,8 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="/resources/js/pageClick1.js"></script>
-<script type="text/javascript" src="/resources/js/pageNextSideClick.js"></script>
-<script type="text/javascript" src="/resources/js/pagePreSideClick1.js"></script>
-<script type="text/javascript" src="/resources/js/pageStart.js"></script>
+<script type="text/javascript" src="/resources/js/myapplist/pageClick1.js"></script>
+<script type="text/javascript" src="/resources/js/myapplist/pageNextSideClick.js"></script>
+<script type="text/javascript" src="/resources/js/myapplist/pagePreSideClick1.js"></script>
+<script type="text/javascript" src="/resources/js/myapplist/pageStart.js"></script>
 
