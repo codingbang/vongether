@@ -340,6 +340,12 @@
 	      }
 	    });
 	  
+	  $('input[type="password"]').keydown(function(e){
+	    if (e.keyCode === 13){
+		  e.preventDefault();
+		  }
+	    });
+	  
 	// 아이디(이메일) 유효성 체크
     $("#mId").change(function() {
       var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -489,7 +495,7 @@
 	              if(data.isSuccess == 'true') {
 	        	    alert("성공! 메일함을 확인해주세요");
 	                //setTimeout(function() { swal("2"); }, 2000);
-	        	    location.replace = "/member/login.do";
+	        	    location.href = "/member/login.do";
 	              } else{
 	        	    swal ( "오류!" ,  "다시 확인하세요" ,  "error" );
 	              }

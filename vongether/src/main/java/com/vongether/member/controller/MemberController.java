@@ -356,9 +356,6 @@ public class MemberController {
         String id = memberVo.getmId();
         List<VolunteerAppVo> list = memberService.selectOneVList(id);
         model.addAttribute("list",list);
-        //start pdf file try
-        
-        //end pdf
         
         return "member/myAppList.page";
     }
