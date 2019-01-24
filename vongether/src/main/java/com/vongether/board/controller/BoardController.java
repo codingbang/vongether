@@ -66,8 +66,6 @@ public class BoardController {
 	@RequestMapping(value="/write.do", method=RequestMethod.POST)
 	public String writeBoardArticle(BoardVO boardVO, HttpSession session) {
 	    MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
-	    System.out.println("Content : "+boardVO.getbContent());
-	    System.out.println("C.length : "+boardVO.getbContent().length());
 	    if (memberVO != null) {
 	      boardVO.setmId(memberVO.getmId());
 	      boardService.writeBoardArticle(boardVO);
