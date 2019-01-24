@@ -504,7 +504,8 @@
     
     // 뒤로가기
     function back() {
-       history.back();
+       $("#joinForm")[0].reset();
+       history.go(-1);
     }
   
     // input 태그에서 엔터를 누를경우 의도치 않은 submit 방지

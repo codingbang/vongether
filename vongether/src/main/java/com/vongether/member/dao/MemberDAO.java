@@ -19,7 +19,7 @@ public interface MemberDAO {
 
   MemberVO selectOneSearch(String param) throws Exception;
   
-  void createAuthKey(@Param("mId")String mId, @Param("mAuthCode")String mAuthCode) throws Exception;
+  Boolean createAuthKey(@Param("mId")String mId, @Param("mAuthCode")String mAuthCode) throws Exception;
   
   void userAuth(String mId) throws Exception;
   

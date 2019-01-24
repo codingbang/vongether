@@ -18,13 +18,11 @@ $(document).ready(function() {
 		     contentType : 'application/json;charset=UTF-8',
 		     dataType : 'json',
 		     success : function(datas) {
-		    	 console.log(datas);
 		    	 getApplCount(datas);
 		     }
 		});
 	};
 	function getApplCount(datas){
-		console.log(datas.dayCount);
 		var htmlStr = "";
 		htmlStr += '<div class="col-md-4"><h3>오늘의 방문자 수 : '+datas.dayCount+'</h3></div>';
 		htmlStr += '<div class="col-md-4"><h3>이번달 방문자 수 : '+datas.monthCount+'</h3></div>';
@@ -93,15 +91,15 @@ $(document).ready(function() {
                borderWidth: 1
 	   }); //데이터
 	  } 
-/* <<<<<<< HEAD
-		for (var i = 0; i < datas.length; i++) { 
-	    	chart.data.datasets.push({label:datas[i].m_id, data: [datas[i].counter]}); //데이터 생성(푸시)
-		} 
-======= */
       chart.data.datasets[0].data[2] = 50;
       chart.update();
     }; 
+	
+    $(document).on("click","#unvisible",function(){
+    	$("select").css("display","none");
+    });
 })
+
 </script>
 <div class="container">
 	<div class="row " style="">
@@ -112,13 +110,13 @@ $(document).ready(function() {
 		<div class="col-md-12">
 			<div class="col-md-4"><!-- Top3 조건 검색 -->
 				<select class="form-control1" name="key1" id="key1">
-					<option value="board">게시글</option>
-					<option value="reply">댓글</option>
-					<option value="appl">봉사</option>
+					<option id="visible" value="board">게시글</option>
+					<option id="visible" value="reply">댓글</option>
+					<option id="unvisible" value="appl">봉사</option>
 				</select>
 				<select class="form-control2" name="key2" id="key2">
-					<option value="day">일간</option>
-					<option value="week">주간</option>
+					<option id="hidden" value="day">일간</option>
+					<option id="hidden" value="week">주간</option>
 					<option value="month">월간</option>
 				</select>
 				<button type="button" id="top3SearchBtn" class="btn btn-primary">검색</button>
@@ -128,7 +126,7 @@ $(document).ready(function() {
 			<div class="col-md-12" id="memberTop"></div>
 			
 			<!--  차트    -->
-			<div><canvas id="myChart"></canvas></div>		
+			<div class="col-md-10"><canvas id="myChart"></canvas></div>		
 			
 		</div><!-- top3차트 끝 -->
 	</div>
