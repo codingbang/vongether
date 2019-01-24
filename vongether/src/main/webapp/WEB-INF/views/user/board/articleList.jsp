@@ -56,7 +56,7 @@
 			  </div>
       </div>
       <div class="row">
-        <div class="col-md-offset-2 col-md-8" align="center" id="pagination">
+        <div class="col-md-offset-1 col-md-9" align="center" id="pagination">
         	<c:if test="${pagination.curPage==1}">
 	          		<button type='button' class='btn' disabled pageNo='1'>&laquo;</button>
 					<button type='button' class='btn' disabled pageNo='${pagination.prevPage}'>&lt;</button>
@@ -83,7 +83,7 @@
 					<button type='button' class='btn' disabled pageNo='${pagination.endPage}'>&raquo;</button>
           		</c:if> 
         </div>
-        <div class="col-md-1">
+        <div class="col-md-offset-1 col-md-1">
 	        <button type="button" class="btn btn-primary float-right writeBtn">글작성</button>
         </div>
       </div>
