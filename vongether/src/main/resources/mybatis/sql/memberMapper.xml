@@ -44,7 +44,7 @@
 	<insert id="insert">
 		insert into member
 		( m_id, m_name, m_gender, m_birth, m_pwd, m_postcode, m_addr1, m_addr2, m_role )
-		values( #{mId}, #{mName}, #{mGender}, #{mBirth}, #{mPwd}, #{mPostcode}, #{mAddr1}, #{mAddr2}, "ROLE_GUEST")
+		values( #{mId}, #{mName}, #{mGender}, #{mBirth}, #{mPwd}, #{mPostcode}, #{mAddr1}, #{mAddr2}, #{mRole})
 	</insert>
 
     <update id="createAuthKey">

@@ -13,7 +13,7 @@
             <nav role="navigation">
                 <ul class="nav navbar-nav">
                     <li><a class="active" href="/">홈</a></li>
-                    <li><a href="/volunteer/list/edu.do">봉사참여</a></li>
+                    <li><a href="/volunteeredu/list.do">교육봉사목록</a></li>
                     <li><a href="/volunteer/list.do">봉사참여</a></li>
                     <li><a href="/board/list.do">커뮤니티</a></li>
                     <c:choose>

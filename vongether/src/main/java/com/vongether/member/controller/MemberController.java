@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,12 +16,14 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.google.gson.Gson;
 import com.vongether.board.model.BoardVO;
 import com.vongether.common.util.Aria;
@@ -44,18 +49,20 @@ public class MemberController {
     // Map 으로 성공 여부 전달
     @ResponseBody
     @RequestMapping(value = "/join.do", method = RequestMethod.POST)
-    public Map<String, String> join(@RequestBody MemberVO memberVO, RedirectAttributes rttr, HttpSession session) throws Exception {
+    public Map<String, String> join(@Valid@RequestBody MemberVO memberVO, BindingResult br, RedirectAttributes rttr, HttpSession session) throws Exception {
 
-        /// 가입전 유효성 체크
-
-
-        // 유효 체크후 실행
         memberService.insert(memberVO);
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("isSuccess", "true");
-        return map;
-
+        Map<String, String> param = new HashMap<String, String>();
+        
+        // valid의 어긋나는 BindingResult 문제 발생한 경우 
+        if(br.hasErrors()) {
+            param.put("isSuccess", "false");
+            return param;
+        }
+        
+        // 가입 성공한 경우
+        param.put("isSuccess", "true");
+        return param;
     }
 
     @RequestMapping(value = "/login.do", method = RequestMethod.GET)

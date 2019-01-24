@@ -192,17 +192,8 @@
 									</div>
 								</div>
 								
-								<div class="form-group">
-									<div class="row">
-										<div class="col-lg-2">
-											<label class="control-label">사진(프로필)</label>
-										</div>
-										<div class="col-lg-10">
-											<input type="text" class="form-control"  placeholder="임시로 넣은 text Box" readonly>
-										</div>
-									</div>
-								</div>
-
+								<!-- 기본 mRole 값 입력, valid 체크 -->
+								<input type="hidden" name="mRole" value="USER_GUEST">
 							</div>
 						</div>
 						
@@ -496,8 +487,9 @@
 	          data : parameter,
 	          success : function(data) {
 	              if(data.isSuccess == 'true') {
-	        	    swal ( "성공!" ,  "메일함을 확인해주세요" ,  "success" );
-	                location.href = "/member/login.do";
+	        	    alert("성공! 메일함을 확인해주세요");
+	                //setTimeout(function() { swal("2"); }, 2000);
+	        	    location.replace = "/member/login.do";
 	              } else{
 	        	    swal ( "오류!" ,  "다시 확인하세요" ,  "error" );
 	              }
