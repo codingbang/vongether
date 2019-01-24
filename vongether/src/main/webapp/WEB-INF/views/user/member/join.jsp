@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <style>
 .red{
@@ -274,7 +275,6 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-				<button type="button" class="btn btn-primary" >확인</button>
 			</div>
 		</div>
 	</div>
@@ -354,7 +354,7 @@
       var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
       var pass = mId.value.match(regExp);
       if (pass === null) {
-        alert("잘못된 형식입니다. 다시 입력해주세요");
+        swal ( "오류!" ,  "다시 입력해주세요!" ,  "error" );
         $("#mId").val("");
         $("#mId").focus();
       } else{
@@ -396,7 +396,7 @@
 	    var regExp = /^(?=.*[a-zA-Z0-9])(?=.*[!@#$%^*+=-]).{6,12}$/;
 	    var pass = pwd1.value.match(regExp);
 	    if (pass === null) {
-	      alert("유효한 형식으로 입력해주세요");
+		  swal ( "오류!" ,  "유효한 형식으로 입력해주세요" ,  "error" );
 	      $("#pwd1").val("");
 	      $("#pwd1").focus();
 	    }
@@ -406,7 +406,7 @@
 	  $("#pwd2").change(function(){
 	    if($('#pwd1').val() != $('#pwd2').val()){
 	        $("#pwd2").val("");
-	        alert("값이 일치하지 않습니다");
+	        swal ( "오류!" ,  "값이 일치하지 않습니다" ,  "error" );
 	    }
 	  });
 	    
@@ -415,7 +415,7 @@
 	    var regExp = /^[가-힣]{2,4}$/;
 	    var pass = mName.value.match(regExp);
 	    if (pass == null) {
-	      alert("한글이름은 두글자 이상입니다. 제대로 입력해주세요");
+	      swal ( "오류!" ,  "한글 이름은 두글자 이상입니다" ,  "error" );
 	      $("#mName").val("");
 	      $("#mName").focus();
 	    }
@@ -426,40 +426,46 @@
 		  
 		  // 널값 체크
 		  if( $("#mId").val() == "" ) {
-		    alert("아이디 입력을 해주세요");
+		    swal ( "오류!" ,  "아이디 입력을 해주세요" ,  "error" );
+		    $("#mId").focus();
 		    return;
 		  }
 		  
 		  if( $("#mName").val() == "") {
-	        alert("이름 입력을 해주세요");
+		    swal ( "오류!" ,  "이름을 입력해주세요" ,  "error" );
+		    $("#mName").focus();
 	        return;
 	      }
 		  
 		  if( $("#mBirth").val() == "") {
-	        alert("생년월일을 입력해주세요");
-	        return;
+		    swal ( "오류!" ,  "생년월일을 입력해주세요" ,  "error" );
+		    $("#mBirth").focus();
+		    return;
 	      }
 		  
 		  if( $("#mPwd").val() == "") {
-	        alert("비밀번호를 입력해주세요");
-	        return;
+		    swal ( "오류!" ,  "비밀번호를 입력해주세요" ,  "error" );
+		    $("#mPwd").focus();
+		    return;
 	      }
 		  
 		  if( $("#mPostcode").val() == "") {
-	        alert("우편번호를 입력해주세요");
-	        return;
+		    swal ( "오류!" ,  "우편번호를 입력해주세요" ,  "error" );
+		    $("#mPostcode").focus();
+		    return;
 	      }
 		  
 		  if( $("#mAddr1").val() == "") {
-	        alert("주소를 입력해주세요");
+		    $("#mAddr1").focus();
+		    swal ( "오류!" ,  "주소를 입력해주세요" ,  "error" );
 	        return;
 	      }
 		  
 		  if( $("#mAddr2").val() == "") {
-	        alert("상세주소를 입력해주세요");
+		    $("#mAddr1").focus();
+		    swal ( "오류!" ,  "주소를 입력해주세요" ,  "error" );
 	        return;
 	      }
-		  
 		  
 		  
 		  // FORM 데이터를 JSON 형식으로 변환하는 플러그인 설정
@@ -479,7 +485,6 @@
 	         });
 	         return o;
 	      };
-	      
 	      // json 문자열로 form 내부의 값들을 추출
 	      var parameter = JSON.stringify($("#joinForm").serializeObject());
 	      
@@ -491,10 +496,10 @@
 	          data : parameter,
 	          success : function(data) {
 	              if(data.isSuccess == 'true') {
-	                alert("가입성공! 메일함을 확인해주세요!")
+	        	    swal ( "성공!" ,  "메일함을 확인해주세요" ,  "success" );
 	                location.href = "/member/login.do";
 	              } else{
-	                alert("가입 실패");
+	        	    swal ( "오류!" ,  "다시 확인하세요" ,  "error" );
 	              }
 	          }
 	      });
@@ -589,9 +594,12 @@
 	  });
 	}
 	
+	
+	
 	// 뒤로가기
 	function back() {
-	   history.back();
+	   $("#joinForm")[0].reset();
+	   history.go(-1);
 	}
 	
 </script>

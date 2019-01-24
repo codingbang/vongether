@@ -175,8 +175,10 @@ public class VolunteerController {
 
 			}
 
+
+			//model.addAttribute("result", result);
 			rttr.addFlashAttribute("result", result);
-		    return "redirect:/volunteer/list.do";
+		return "redirect:/volunteer/list.do";
 
 	}
 }

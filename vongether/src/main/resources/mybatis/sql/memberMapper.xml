@@ -97,17 +97,18 @@
         update member set m_pwd = #{mPwd} where m_id = #{mId}
     </update>
     
-    <delete id="singOut">
+    <update id="singOut">
         update member set
          m_role = "ROLE_SIGNOUT"
          where m_id =#{mId} and m_pwd = #{mPwd}     
-    </delete>
+    </update>
     
     <select id="myBoardList" parameterType="String" resultMap="boardResultMap">
         select b.b_no, b.b_title, b.b_hitcount, DATE_FORMAT(b.b_regdate,'%Y-%m-%d')b_regdate
          from board b join member m 
          on b.m_id = m.m_id 
          where m.m_id = #{mId} and b.b_delYN = false
+         order by b.b_regdate desc 
     </select>
 
 </mapper>
