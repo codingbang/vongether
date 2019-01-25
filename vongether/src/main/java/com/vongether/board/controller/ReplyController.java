@@ -34,6 +34,12 @@ public class ReplyController {
 		int totalReplyCount = replyService.totalReplyCount(bNo);
 		map.put("totalReplyCount", totalReplyCount);
 		List<ReplyVO> listReply = replyService.selectReplyList(bNo);
+		/*for(int i=0;i<listReply.size();i++) {
+		  String content = listReply.get(i).getrContent().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+		  System.out.println(listReply.get(i).getrContent().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
+		  System.out.println(content.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
+		  listReply.get(i).setrContent(content);
+		}*/
 		map.put("selectReplyList", listReply);
 		return map;
 	}
@@ -70,11 +76,11 @@ public class ReplyController {
 		MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
 		Map<String,Object> map = new HashMap<String, Object>();
 		if(memberVO.getmId()==null||memberVO.getmId().equals("")) {
-			map.put("bNo", bNo);
+			map.put("success", "N");
 			return map;
 		}else{
 			replyService.deleteReply(rNo);
-			map.put("bNo", bNo);
+			map.put("success", "Y");
 			return map;
 		}
 	}

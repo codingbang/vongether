@@ -6,13 +6,6 @@
 <link href="/resources/user/css/boardView.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 $(document).ready(function() {
-	if('${userInfo.mId}'==null){
-		$("#articleUpdateBtn").css("display","none");
-		$("#articleRemoveBtn").css("display","none");
-	}else if(!${article.mId == userInfo.mId}){
-		$("#articleUpdateBtn").css("display","none");
-		$("#articleRemoveBtn").css("display","none");
-	}
 	var bNo = $("#bNo").val();
 	var data = {
 		bNo: bNo
@@ -57,7 +50,6 @@ $(document).ready(function() {
 			}else if($("#replyWriteText").val().trim() == ""){
 				swal("내용을 입력하세요!","내용이 없도다~","error");
 			}else{
-				alert($("#replyWriteText").val().trim());
 				swal("댓글을 쓰고싶다고???","바~로~ 처리해쥬징!","success");
 			$.ajax({
 	    		url : "/reply/write.do",
@@ -203,7 +195,12 @@ $(document).ready(function() {
 				     contentType : 'application/json;charset=UTF-8',
 				     dataType : 'json',
 				     success : function(data2) {
-				    	 getReplyList(data2);
+				    	 if(data2.success == "Y"){
+				    		 swal("성공적으로 처리되었습니다.");
+					    	 getReplyList(data);
+				    	 }else{
+				    		 swal("으딜 감히 로그인 부터 하라그 로크만.");
+				    	 }
 				     }
 				});
 			  } else {
@@ -246,8 +243,10 @@ $(document).ready(function() {
 					</div>
 					<div class="col-md-12">
 						<div class="pull-right">
+						<c:if test='${userInfo.mId !=null && article.mId == userInfo.mId}'>
 							<button id="articleUpdateBtn" type="button" class="btn btn-info">수정</button>
 							<button id="articleRemoveBtn" type="button" class="btn btn-danger">삭제</button>
+						</c:if>
 						</div>
 					</div>
 				</div>
