@@ -103,16 +103,25 @@ $(document).ready(function() {
 			<div class="row">
 			  <div class="col-md-12">
 	        <table class="table table-list-search">
-	             <thead>
-	                 <tr>
-	                     <th style="width:50px">번호</th>
-	                     <th class="col-md-7">제목</th>
-	                     <th style="width:100px">작성자</th>
-	                     <th style="width:90px">작성일</th>
-	                     <th style="width:70px">조회수</th>
-	                     <th style="width:50px">댓글</th>
-	                 </tr>
-	             </thead>
+	             <colgroup>
+                  <col width="5%">
+                  <col width="*">
+                  <col width="10%">
+                  <col width="10%">
+                  <col width="5%">
+                  <col width="5%">
+                </colgroup>
+           
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일</th>
+                        <th>조회</th>
+                        <th>댓글</th>
+                    </tr>
+                </thead>
 	             <tbody id="noticeList">
 	    	         <c:forEach var="Notice" items="${selectNoticeList}">
 						 <tr>
@@ -161,13 +170,13 @@ $(document).ready(function() {
 	          			<button type='button' class='btn btn-default navigation-btn' pageNo='${i}'>${i}</button>
           			</c:if>
           		</c:forEach>
-          		<c:if test="${pagination.curPage!=pagination.endPage}">
+          		<c:if test="${pagination.curPage!=pagination.totalPage}">
         	  		<button type='button' class='btn navigation-btn' pageNo='${pagination.nextPage}'>&gt;</button>
-					<button type='button' class='btn navigation-btn' pageNo='${pagination.endPage}'>&raquo;</button>
+					<button type='button' class='btn navigation-btn' pageNo='${pagination.totalPage}'>&raquo;</button>
           		</c:if>
-          		<c:if test="${pagination.curPage==pagination.endPage}">
+          		<c:if test="${pagination.curPage==pagination.totalPage}">
           			<button type='button' class='btn' disabled pageNo='${pagination.nextPage}'>&gt;</button>
-					<button type='button' class='btn' disabled pageNo='${pagination.endPage}'>&raquo;</button>
+					<button type='button' class='btn' disabled pageNo='${pagination.totalPage}'>&raquo;</button>
           		</c:if> 
         </div>
         <div class="col-md-offset-1 col-md-1">

@@ -64,16 +64,6 @@ where vongether.volunteer.v_no=
   from vongether.volunteer_appl
    where volunteer_appl.app_endtm < current_date);
 
-CREATE EVENT vdel_1hour
-ON SCHEDULE EVERY 1 HOUR
-STARTS '2019-01-22 00:00:00.000'
-ON COMPLETION NOT PRESERVE
-ENABLE
-DO DELETE FROM vongether.volunteer
- where vongether.volunteer.v_no=
-  any(select volunteer_appl.app_no
-   from vongether.volunteer_appl
-    where volunteer_appl.app_endtm < current_date);
 
 ALTER TABLE `board` ADD CONSTRAINT `PK_BOARD` PRIMARY KEY (
 	`b_no`
@@ -104,4 +94,18 @@ ALTER TABLE `reply` MODIFY `r_no` integer AUTO_INCREMENT;
 ALTER TABLE `visitor_ct` MODIFY `visit_id` integer AUTO_INCREMENT;
 
 INSERT INTO MEMBER (m_id, m_name, m_gender, m_birth, m_pwd, m_postcode, m_addr1, m_addr2, m_role)
-		values('test@test.com','테스트','M','2000-01-01', '1111', '12345', '기이본 주소', '상세에 주소', 'ROLE_USER');
+		values('test@test.com','테스트','M','2000-01-01', '12B49F93003FD2AC72756077D7DBBAF7', '12345', '기이본 주소', '상세에 주소', 'ROLE_USER');
+	
+	/*
+
+CREATE EVENT vdel_1hour
+ON SCHEDULE EVERY 1 HOUR
+STARTS '2019-01-22 00:00:00.000'
+ON COMPLETION NOT PRESERVE
+ENABLE
+DO DELETE FROM vongether.volunteer
+ where vongether.volunteer.v_no=
+  any(select volunteer_appl.app_no
+   from vongether.volunteer_appl
+    where volunteer_appl.app_endtm < current_date);
+*/

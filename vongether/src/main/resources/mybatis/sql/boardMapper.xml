@@ -21,7 +21,7 @@
 					from reply r
 					GROUP BY b_no) r
 		ON b.b_no = r.b_no
-		WHERE b_delYN = false
+		WHERE b_delYN = 0
 		AND b_noticeYN = true
 		ORDER BY b.b_no desc
 		LIMIT 3 OFFSET 0;
@@ -29,7 +29,7 @@
 	<select id="totalBoardArticleCount" parameterType="map" resultType="int">
 		SELECT COUNT(b.b_no)
 		FROM board b
-		WHERE b_delYN = false
+		WHERE b_delYN = 0
 		<if test="word != null and word != ''">
 	        <choose>
             <when test="key == 'id'">
@@ -59,7 +59,7 @@
 					from reply r
 					GROUP BY b_no) r
 		ON b.b_no = r.b_no
-		WHERE b_delYN = false
+		WHERE b_delYN = 0
 		<if test="word != null and word != ''">
 	        <choose>
             <when test="key == 'id'">
