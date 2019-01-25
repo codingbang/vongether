@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<body>
-
 <div class="my-container">
   <!-- main-content-box -->
 	<div class="main-content-box">
@@ -47,7 +45,7 @@
 	  
 	  
 	  <div class="row">
-	    <div class="col-md-offset-2 col-md-8" align="center" id="pagination">
+	    <div class="col-md-offset-1 col-md-9" align="center" id="pagination">
 	        <c:if test="${pagination.curPage==1}">
 	                <button type='button' class='btn' disabled pageNo='1'>&laquo;</button>
 	                <button type='button' class='btn' disabled pageNo='${pagination.prevPage}'>&lt;</button>
@@ -87,5 +85,3 @@
 	</div><!-- main-content-box End -->
 
 </div>
-
-</body>

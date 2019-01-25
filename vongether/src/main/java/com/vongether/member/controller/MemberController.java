@@ -27,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 import com.vongether.board.model.BoardVO;
 import com.vongether.common.util.Aria;
+import com.vongether.common.util.Pagination;
 import com.vongether.member.model.MemberVO;
 import com.vongether.member.model.PostVO;
 import com.vongether.member.service.MemberService;
@@ -361,10 +362,12 @@ public class MemberController {
     }
 
 
-    @RequestMapping(value = "myBoardList.do")
-    public String myBoardList(HttpSession session, Model model) throws Exception{
+    @RequestMapping(value = "/myBoardList.do")
+    public String myBoardList(HttpSession session, Model model, @RequestParam(defaultValue="1") int pageNo) throws Exception{
       MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
       String mId =  memberVO.getmId();
+      Pagination pagination = new Pagination(100 , pageNo, 10);
+      model.addAttribute("pagination", pagination);
       List<BoardVO> myList = memberService.myBoardList(mId);
       model.addAttribute("myList", myList);
       
