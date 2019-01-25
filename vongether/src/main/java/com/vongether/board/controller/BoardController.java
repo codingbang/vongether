@@ -46,9 +46,9 @@ public class BoardController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<BoardVO> listAjaxArticle = boardService.selectBoardList(param, pageNo);
 		map.put("listAjaxArticle", listAjaxArticle);
-		System.out.println("key : "+param.get("key"));
+		/*System.out.println("key : "+param.get("key"));
 		System.out.println("word : "+param.get("word"));
-		System.out.println("pageNo : "+param.get("pageNo"));
+		System.out.println("pageNo : "+param.get("pageNo"));*/
 		int totalArticleCount = boardService.totalBoardArticleCount(param);
 		Pagination pagination = new Pagination(totalArticleCount , pageNo, 10);
 		map.put("pagination", pagination);

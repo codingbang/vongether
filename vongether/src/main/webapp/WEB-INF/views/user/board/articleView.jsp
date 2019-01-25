@@ -54,7 +54,10 @@ $(document).ready(function() {
 						});
 			if('${userInfo.mId}'==null || '${userInfo.mId}' == ""){
 				swal("로그인 하세욧!","너는 로긴하게 될 것이야~","error");
+			}else if($("#replyWriteText").val().trim() == ""){
+				swal("내용을 입력하세요!","내용이 없도다~","error");
 			}else{
+				alert($("#replyWriteText").val().trim());
 				swal("댓글을 쓰고싶다고???","바~로~ 처리해쥬징!","success");
 			$.ajax({
 	    		url : "/reply/write.do",
@@ -210,7 +213,7 @@ $(document).ready(function() {
 		return false;
 	});
 	
-})
+});
 </script>
 <div class="container">
 	<div class="row " style="padding-top: 30px; height: 90px;">

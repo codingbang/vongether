@@ -95,6 +95,7 @@ $(document).ready(function() {
   <!-- main-content-box -->
 	<div class="main-content-box">
 		<div class="container">
+		
 				<div class="col-md-12" ><br></div>
 		    <div class="row" >
         		<h2 style="font-size:34px; font-weight: bold;">게시판</h2>

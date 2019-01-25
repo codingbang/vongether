@@ -35,7 +35,7 @@ $(document).ready(function() {
 	$("#writeOKBtn").click(function(){
 		$("#bContent").val($('#summernote').summernote('code'));
 		$("#bTitle").val($('#writeTitleBox').val());
-		if(document.writeForm.writeTitleBox.value == ""){
+		if(document.writeForm.writeTitleBox.value.trim() == ""){
 			swal("제목을 입력하세요","게시글 : 쥬인님 저에게 이름을 쥬세여~!","error");
 			return;
 		}else{
