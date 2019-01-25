@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	if('${userInfo.mId}'==null||!('${article.mId}'=='${userInfo.mId}')){
+	if('${userInfo.mId}'==null||!'${article.mId == userInfo.mId}'){
 		$("#articleUpdateBtn").css("display","none");
 		$("#articleRemoveBtn").css("display","none");
 	}
