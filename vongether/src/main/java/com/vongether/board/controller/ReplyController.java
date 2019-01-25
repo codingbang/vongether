@@ -20,6 +20,7 @@ import com.vongether.board.service.ReplyService;
 import com.vongether.member.model.MemberVO;
 
 @Controller
+@RequestMapping("/reply")
 public class ReplyController {
 	
 	@Autowired
@@ -27,7 +28,7 @@ public class ReplyController {
 	@Autowired
 	HttpSession session;
 	
-	@RequestMapping(value ="/reply.do" , method = RequestMethod.GET)
+	@RequestMapping(value ="/list.do" , method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> listReplyArticle(@RequestParam int bNo) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int totalReplyCount = replyService.totalReplyCount(bNo);
