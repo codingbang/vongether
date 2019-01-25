@@ -6,6 +6,9 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	var login = '${userInfo.mId}';
+	var key = $('#skey').val();
+	var word = $('#sword').val();
+	var pageNo = 1;
 	$(".writeBtn").click(function(){
 		if(login==null||login==""){
 			swal("로그인 하세욧!","너는 로긴하게 될 것이야~","error");
@@ -15,19 +18,39 @@ $(document).ready(function() {
 	});
 	$("#searchBtn").click(
 		function() {
-			$('#key').val($('#skey').val());
+			key = $('#skey').val();
+			word = $('#sword').val();
+			var data2 = {
+					key : key,
+					word : word,
+					pageNo : pageNo
+			}
+			$.ajax({
+				url : "/board/listAjax.do",
+	    		dataType : "json",
+	    		data : data2,
+	    		contentType: "application/json; charset=UTF-8",
+	    		method : "GET",
+	    	    success : function(data) {
+	    	    	makeVolunteerList(data.listAjaxArticle);
+	    	    	makePageList(data.pagination);
+	    	    }
+			});
+			/* $('#key').val($('#skey').val());
 			$('#word').val($('#sword').val());
-			alert("word : "+$('#word').val());
 			$("#searchForm").attr("method", "get").attr(
-					"action", "/board/list.do").submit();
+					"action", "/board/list.do").submit(); */
 		}
 	); 
 	
 	$(document).on("click",".navigation-btn",
 		function(){
 			$('#pageNo').val($(this).attr("pageNo"));
+			pageNo = $('#pageNo').val();
 			var data = {
-				pageNo: $('#pageNo').val()
+				key : key,
+				word :word,
+				pageNo: pageNo
 			};
 			getAjaxList(data);
 		}
