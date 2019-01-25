@@ -19,10 +19,6 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardVO> selectNoticeTop3() {
 		List<BoardVO> list = sqlSession.getMapper(BoardDAO.class).selectNoticeTop3(); 
-		for(int i=0;i<list.size();i++) {//테그삭제, 유효성체크
-			String title = list.get(i).getbTitle().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
-			list.get(i).setbTitle(title);
-		}
 		return list;
 	}
 	@Override
@@ -30,10 +26,7 @@ public class BoardServiceImpl implements BoardService {
 		int pagePerList = ((pageNo-1)*10);
 		param.put("pagePerList", pagePerList);
 		List<BoardVO> list = sqlSession.getMapper(BoardDAO.class).selectBoardList(param);
-		for(int i=0;i<list.size();i++) {//테그삭제, 유효성체크
-			String title = list.get(i).getbTitle().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
-			list.get(i).setbTitle(title);
-		}
+		
 		return list; 
 	}
 	@Override
