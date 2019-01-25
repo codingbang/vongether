@@ -11,6 +11,7 @@ $(document).ready(function() {
 		function() {
 			$('#key').val($('#skey').val());
 			$('#word').val($('#sword').val());
+			alert("word : "+$('#word').val());
 			$("#searchForm").attr("method", "get").attr(
 					"action", "/board/list.do").submit();
 		}
@@ -70,7 +71,7 @@ $(document).ready(function() {
 				htmlStr += "<button type='button' class='btn btn-default navigation-btn' pageNo='"+i+"'>"+i+"</button>";
 			}
 		}
-		if(data.curPage!=data.endPage){
+		if(data.curPage!=data.totalPage && data.pagination.totalPage > 0){
 			htmlStr += "<button type='button' class='btn navigation-btn' pageNo='"+data.nextPage+"'>&gt;</button>";
 			htmlStr += "<button type='button' class='btn navigation-btn' pageNo='"+data.endPage+"'>&raquo;</button>";
 		}else{
