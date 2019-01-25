@@ -1,17 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<link href="/resources/css/member/customHeader.css" rel="stylesheet" type="text/css" />
 
-<style>
-.info-header{
-    position: relative;
-    top: 50%;
-    margin-top: 130px;
-}
-
-</style>
 <div id="fh5co-page">
     <div class="container">
         <div class="row">
-            <div class="info-header col-lg-12">
+            <div class="custom-header col-lg-12">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6">
                     <h2>개인 정보 수정</h2>
@@ -46,5 +39,3 @@
     </div>
 </div>
     
-
-  

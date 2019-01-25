@@ -1,17 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<style>
-.login-header{
-	position: relative;
-	top: 50%;
-	margin-top: 130px;
-}
-</style>
+<link href="/resources/css/member/customHeader.css" rel="stylesheet" type="text/css" />
 
 <div id="fh5co-page">
 	<div class="container">
 		<div class="row">
-			<div class="login-header col-lg-12">
+			<div class="custom-header col-lg-12">
 				<div class="col-lg-3"></div>
 				<div class="col-lg-6">
 					<h2>로그인</h2>
