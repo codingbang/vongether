@@ -34,12 +34,11 @@ public class ReplyController {
 		int totalReplyCount = replyService.totalReplyCount(bNo);
 		map.put("totalReplyCount", totalReplyCount);
 		List<ReplyVO> listReply = replyService.selectReplyList(bNo);
-		/*for(int i=0;i<listReply.size();i++) {
-		  String content = listReply.get(i).getrContent().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
-		  System.out.println(listReply.get(i).getrContent().replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
-		  System.out.println(content.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", ""));
+		for(int i=0;i<listReply.size();i++) {
+		  String content = listReply.get(i).getrContent().replace("<", "&lt");
+		  System.out.println(content);
 		  listReply.get(i).setrContent(content);
-		}*/
+		}
 		map.put("selectReplyList", listReply);
 		return map;
 	}
