@@ -52,7 +52,7 @@ $(document).ready(function() {
 			}else{
 				swal("댓글을 쓰고싶다고???","바~로~ 처리해쥬징!","success");
 			$.ajax({
-	    		url : "/reply/write.do",
+	    		url : "/reply.do",
 	    		dataType : "json",
 	    		data : data2,
 	    		contentType: "application/json; charset=UTF-8",
@@ -69,7 +69,7 @@ $(document).ready(function() {
 	//댓글 가져오는 함수
 	function getReplyList(data){
 		$.ajax({
-    		url : "/reply/list.do",
+    		url : "/reply.do",
     		dataType : "json",
     		data : data,
     		contentType: "application/json; charset=UTF-8",
@@ -144,7 +144,7 @@ $(document).ready(function() {
 				rContent : rContent
 			});
 			$.ajax({
-				url : "/reply/update.do",
+				url : "/reply.do",
 	    		dataType : "json",
 	    		data : data2,
 	    		contentType: "application/json; charset=UTF-8",
@@ -190,7 +190,7 @@ $(document).ready(function() {
 			.then((willDelete) => {
 			  if (willDelete) {
 				$.ajax({
-				     url : '/reply/delete.do/'+bNo+"/"+rNo,
+				     url : '/reply.do/'+bNo+"/"+rNo,
 				     method : 'DELETE',
 				     contentType : 'application/json;charset=UTF-8',
 				     dataType : 'json',

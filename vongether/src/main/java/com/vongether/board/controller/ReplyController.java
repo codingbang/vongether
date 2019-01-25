@@ -20,7 +20,6 @@ import com.vongether.board.service.ReplyService;
 import com.vongether.member.model.MemberVO;
 
 @Controller
-@RequestMapping("/reply")
 public class ReplyController {
 	
 	@Autowired
@@ -28,22 +27,21 @@ public class ReplyController {
 	@Autowired
 	HttpSession session;
 	
-	@RequestMapping(value ="/list.do" , method = RequestMethod.GET)
+	@RequestMapping(value ="/reply.do" , method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> listReplyArticle(@RequestParam int bNo) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int totalReplyCount = replyService.totalReplyCount(bNo);
 		map.put("totalReplyCount", totalReplyCount);
 		List<ReplyVO> listReply = replyService.selectReplyList(bNo);
-		for(int i=0;i<listReply.size();i++) {
+		for(int i=0;i<listReply.size();i++) {//테그 효과 제거 
 		  String content = listReply.get(i).getrContent().replace("<", "&lt");
-		  System.out.println(content);
 		  listReply.get(i).setrContent(content);
 		}
 		map.put("selectReplyList", listReply);
 		return map;
 	}
 	
-	@RequestMapping(value="/write.do", method=RequestMethod.POST)
+	@RequestMapping(value="/reply.do", method=RequestMethod.POST)
 	public @ResponseBody Map<String,Object> writeReplyArticle(@RequestBody Map<String, Object> param) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
@@ -59,7 +57,7 @@ public class ReplyController {
 			return map;
 		}
 	}
-	@RequestMapping(value="/update.do", method=RequestMethod.PUT, headers={"Content-type=application/json"})
+	@RequestMapping(value="/reply.do", method=RequestMethod.PUT, headers={"Content-type=application/json"})
 	public @ResponseBody Map<String,Object> updateReplyArticleForm(@RequestBody Map<String, Object> map) {
 		MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
 		if(memberVO.getmId()==null||memberVO.getmId().equals("")) {
@@ -69,7 +67,7 @@ public class ReplyController {
 			return map;
 		}
 	} 
-	@RequestMapping(value="/delete.do/{bNo}/{rNo}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/reply.do/{bNo}/{rNo}", method=RequestMethod.DELETE)
 	public @ResponseBody Map<String,Object> deleteReplyArticle(@PathVariable(value="bNo") int bNo, 
 												@PathVariable(value="rNo") int rNo){
 		MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
