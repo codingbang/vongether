@@ -37,7 +37,7 @@ public class ReplyController {
 		return map;
 	}
 	
-	@RequestMapping(value="/reply.do", method=RequestMethod.POST)
+	@RequestMapping(value="/write.do", method=RequestMethod.POST)
 	public @ResponseBody Map<String,Object> writeReplyArticle(@RequestBody Map<String, Object> param) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
