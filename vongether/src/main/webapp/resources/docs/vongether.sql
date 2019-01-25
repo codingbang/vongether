@@ -10,15 +10,6 @@
 	`m_id`	VARCHAR(255)	NOT null DEFAULT 'ROLE_USER'
 );
 
-CREATE TABLE `file` (
-	`f_no`	INTEGER	NOT null,
-	`f_orgname`	VARCHAR(255)	NOT NULL,
-	`f_sysname`	VARCHAR(255)	NOT NULL,
-	`f_size`	BIGINT	NOT NULL,
-	`b_no`	INTEGER NULL,
-	`m_id`	VARCHAR(255)	NOT NULL
-);
-
 CREATE TABLE `reply` (
 	`r_no`	INTEGER	NOT null,
 	`r_content`	VARCHAR(255)	NOT NULL,
@@ -43,31 +34,49 @@ CREATE TABLE `volunteer_appl` (
 	`m_id`	VARCHAR(255)	NOT NULL
 );
 
-CREATE TABLE `black_list` (
-	`bl_no`	INTEGER	NOT NULL,
-	`bl_content`	VARCHAR(255)	NULL,
-	`bl_regdate`	DATETIME	NULL	DEFAULT NOW(),
-	`m_id`	VARCHAR(255)	NOT NULL
-);
-
 CREATE TABLE `member` (
 	`m_id`	VARCHAR(255)	NOT NULL,
 	`m_name`	VARCHAR(255)	NOT NULL,
 	`m_gender`	VARCHAR(5)	NOT NULL,
 	`m_birth`	DATETIME	NOT NULL,
 	`m_pwd`	VARCHAR(255)	NOT NULL,
-	`m_postcode`	INTEGER	NOT NULL,
+	`m_postcode`	INT(11)	NOT NULL,
 	`m_addr1`	VARCHAR(255)	NOT NULL,
 	`m_addr2`	VARCHAR(255)	NULL,
-	`m_role`	VARCHAR(255)	NOT NULL
+	`m_role`	VARCHAR(255)	NOT NULL,
+	`m_authCode`   VARCHAR(100)    NULL
 );
+
+CREATE TABLE `visitor_ct` (
+    `visit_id` INT(11) NOT NULL,
+    `visit_ip` VARCHAR(100) NOT NULL,
+    `visit_time` DATETIME NOT NULL
+);
+
+CREATE EVENT vdel
+ON SCHEDULE EVERY 24 HOUR
+STARTS '2019-01-22 00:00:00.000'
+ON COMPLETION NOT PRESERVE
+ENABLE
+DO DELETE FROM vongether.volunteer
+where vongether.volunteer.v_no=
+ any(select volunteer_appl.app_no
+  from vongether.volunteer_appl
+   where volunteer_appl.app_endtm < current_date);
+
+CREATE EVENT vdel_1hour
+ON SCHEDULE EVERY 1 HOUR
+STARTS '2019-01-22 00:00:00.000'
+ON COMPLETION NOT PRESERVE
+ENABLE
+DO DELETE FROM vongether.volunteer
+ where vongether.volunteer.v_no=
+  any(select volunteer_appl.app_no
+   from vongether.volunteer_appl
+    where volunteer_appl.app_endtm < current_date);
 
 ALTER TABLE `board` ADD CONSTRAINT `PK_BOARD` PRIMARY KEY (
 	`b_no`
-);
-
-ALTER TABLE `file` ADD CONSTRAINT `PK_FILE` PRIMARY KEY (
-	`f_no`
 );
 
 ALTER TABLE `reply` ADD CONSTRAINT `PK_REPLY` PRIMARY KEY (
@@ -82,18 +91,17 @@ ALTER TABLE `volunteer_appl` ADD CONSTRAINT `PK_VOLUNTEER_APPL` PRIMARY KEY (
 	`app_no`
 );
 
-ALTER TABLE `black_list` ADD CONSTRAINT `PK_BLACK_LIST` PRIMARY KEY (
-	`bl_no`
-);
-
 ALTER TABLE `member` ADD CONSTRAINT `PK_MEMBER` PRIMARY KEY (
 	`m_id`
 );
 
+ALTER TABLE `visitor_ct` ADD CONSTRAINT `PK_VISITOR_CT` PRIMARY KEY (
+    `visit_id`
+);
+
 ALTER TABLE `board` MODIFY `b_no` integer AUTO_INCREMENT;
-ALTER TABLE `file` MODIFY `f_no` integer AUTO_INCREMENT;
 ALTER TABLE `reply` MODIFY `r_no` integer AUTO_INCREMENT;
-ALTER TABLE `black_list` MODIFY `bl_no` integer AUTO_INCREMENT;
+ALTER TABLE `visitor_ct` MODIFY `visit_id` integer AUTO_INCREMENT;
 
 INSERT INTO MEMBER (m_id, m_name, m_gender, m_birth, m_pwd, m_postcode, m_addr1, m_addr2, m_role)
 		values('test@test.com','테스트','M','2000-01-01', '1111', '12345', '기이본 주소', '상세에 주소', 'ROLE_USER');

@@ -39,6 +39,9 @@ $(document).ready(function() {
 			swal("제목을 입력하세요","게시글 : 쥬인님 저에게 이름을 쥬세여~!","error");
 			return;
 		}else{
+			$("#writeForm").attr("method", "post").attr(
+					"action", "/board/write.do").submit();
+			/*
 			swal({
 				  title: "글을 등록하시겠습니까?",
 				  icon: "warning",
@@ -53,6 +56,7 @@ $(document).ready(function() {
 							"action", "/board/write.do").submit();
 				  } 	
 				});
+					 */
 		}
 	});
 	

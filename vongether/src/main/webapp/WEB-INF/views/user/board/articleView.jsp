@@ -4,9 +4,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/resources/js/board/pageBoardView.js"></script>
 <link href="/resources/user/css/boardView.css" rel="stylesheet" type="text/css">
-<script type="text/javascript">
 
-</script>
 <div class="container">
 	<div class="row " style="padding-top: 30px; height: 90px;">
 		<div class="fh5co-heading">
