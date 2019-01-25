@@ -20,7 +20,6 @@ import com.vongether.board.service.ReplyService;
 import com.vongether.member.model.MemberVO;
 
 @Controller
-@RequestMapping("/reply")
 public class ReplyController {
 	
 	@Autowired
@@ -28,7 +27,7 @@ public class ReplyController {
 	@Autowired
 	HttpSession session;
 	
-	@RequestMapping(value ="/list.do" , method = RequestMethod.GET)
+	@RequestMapping(value ="/reply.do" , method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> listReplyArticle(@RequestParam int bNo) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int totalReplyCount = replyService.totalReplyCount(bNo);
@@ -38,7 +37,7 @@ public class ReplyController {
 		return map;
 	}
 	
-	@RequestMapping(value="/write.do", method=RequestMethod.POST)
+	@RequestMapping(value="/reply.do", method=RequestMethod.POST)
 	public @ResponseBody Map<String,Object> writeReplyArticle(@RequestBody Map<String, Object> param) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		MemberVO memberVO = (MemberVO) session.getAttribute("userInfo");
@@ -64,20 +63,6 @@ public class ReplyController {
 			return map;
 		}
 	} 
-	  /*
-	  @RequestMapping(value="memo", method=RequestMethod.PUT, headers= {"Content-type=application/json"} )
-	  public @ResponseBody String modify(@RequestBody MemoDto memoDto, HttpSession session) {
-	    MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
-	    if (memberDto != null) {
-	      memoDto.setMcode(memberDto.getM_code());
-	      memoDto.setId(memberDto.getM_id());
-	      memoDto.setName(memberDto.getM_name());
-	      int cnt = memoService.modifyMemo(memoDto);
-	    }
-	    String memolist = memoService.listMemo(memoDto.getSeq());
-	    return memolist;
-	  }
-	  */
 	@RequestMapping(value="/delete.do/{bNo}/{rNo}", method=RequestMethod.DELETE)
 	public @ResponseBody Map<String,Object> deleteReplyArticle(@PathVariable(value="bNo") int bNo, 
 												@PathVariable(value="rNo") int rNo){
