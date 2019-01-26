@@ -23,7 +23,7 @@ $(document).ready(function() {
 			var data2 = {
 					key : key,
 					word : word,
-					pageNo : pageNo
+					pageNo : 1
 			}
 			$.ajax({
 				url : "/board/listAjax.do",

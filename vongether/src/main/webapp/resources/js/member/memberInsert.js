@@ -266,36 +266,36 @@ function makePostList(data) {
 	strHtml += '    <ul class="pagination">';
 
 	if (startPage > 1) {
-	    strHtml += '      <li><a class="mvpage" move-page-no="' + 1
+	    strHtml += '      <li><a class="btn-sm mvpage" move-page-no="' + 1
 		    + '"><span>&laquo;</span></a></li>';
 	}
 
 	if (currentPage > 1) {
-	    strHtml += '      <li><a class="mvpage" move-page-no="'
+	    strHtml += '      <li><a class="btn-sm mvpage" move-page-no="'
 		    + (currentPage - 1) + '"><span>&lsaquo;</span></a></li>';
 	}
 
 	for (var j = startPage; j <= endPage; j++) {
 
 	    if (j == currentPage) {
-		strHtml += '        <li class="active"><a class="mvpage" move-page-no="'
+		strHtml += '        <li class="active"><a class="btn-sm mvpage" move-page-no="'
 			+ j
 			+ '">'
 			+ j
 			+ '<span class="sr-only"></span></a></li>';
 	    } else {
-		strHtml += '        <li><a class="mvpage" move-page-no="' + j
+		strHtml += '        <li><a class="btn-sm mvpage" move-page-no="' + j
 			+ '">' + j + '<span class="sr-only"></span></a></li>';
 	    }
 	}
 
 	if (currentPage < totalPage) {
-	    strHtml += '      <li><a class="mvpage" move-page-no="'
+	    strHtml += '      <li><a class="btn-sm mvpage" move-page-no="'
 		    + (currentPage + 1) + '"><span>&rsaquo;</span></a></li>';
 	}
 
 	if (endPage < totalPage) {
-	    strHtml += '      <li><a class="mvpage" move-page-no="'
+	    strHtml += '      <li><a class="btn-sm mvpage" move-page-no="'
 		    + (totalPage) + '"><span>&raquo;</span></a></li>';
 	}
 
