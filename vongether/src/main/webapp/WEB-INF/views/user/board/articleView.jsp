@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<!-- <script src="/resources/js/board/pageBoardView.js"></script> -->
+<script src="/resources/js/board/pageBoardView.js"></script>
 <link href="/resources/user/css/boardView.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
 $(document).ready(function() {

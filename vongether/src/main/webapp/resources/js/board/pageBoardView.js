@@ -1,8 +1,4 @@
 $(document).ready(function() {
-	if('${userInfo.mId}'==null||!'${article.mId == userInfo.mId}'){
-		$("#articleUpdateBtn").css("display","none");
-		$("#articleRemoveBtn").css("display","none");
-	}
 	var bNo = $("#bNo").val();
 	var data = {
 		bNo: bNo
@@ -44,10 +40,12 @@ $(document).ready(function() {
 						});
 			if('${userInfo.mId}'==null || '${userInfo.mId}' == ""){
 				swal("로그인 하세욧!","너는 로긴하게 될 것이야~","error");
+			}else if($("#replyWriteText").val().trim() == ""){
+				swal("내용을 입력하세요!","내용이 없도다~","error");
 			}else{
 				swal("댓글을 쓰고싶다고???","바~로~ 처리해쥬징!","success");
 			$.ajax({
-	    		url : "/reply/write.do",
+	    		url : "/reply.do",
 	    		dataType : "json",
 	    		data : data2,
 	    		contentType: "application/json; charset=UTF-8",
@@ -64,7 +62,7 @@ $(document).ready(function() {
 	//댓글 가져오는 함수
 	function getReplyList(data){
 		$.ajax({
-    		url : "/reply/list.do",
+    		url : "/reply.do",
     		dataType : "json",
     		data : data,
     		contentType: "application/json; charset=UTF-8",
@@ -139,7 +137,7 @@ $(document).ready(function() {
 				rContent : rContent
 			});
 			$.ajax({
-				url : "/reply/update.do",
+				url : "/reply.do",
 	    		dataType : "json",
 	    		data : data2,
 	    		contentType: "application/json; charset=UTF-8",
@@ -185,12 +183,17 @@ $(document).ready(function() {
 			.then((willDelete) => {
 			  if (willDelete) {
 				$.ajax({
-				     url : '/reply/delete.do/'+bNo+"/"+rNo,
+				     url : '/reply.do/'+bNo+"/"+rNo,
 				     method : 'DELETE',
 				     contentType : 'application/json;charset=UTF-8',
 				     dataType : 'json',
 				     success : function(data2) {
-				    	 getReplyList(data2);
+				    	 if(data2.success == "Y"){
+				    		 swal("성공적으로 처리되었습니다.");
+					    	 getReplyList(data);
+				    	 }else{
+				    		 swal("으딜 감히 로그인 부터 하라그 로크만.");
+				    	 }
 				     }
 				});
 			  } else {
@@ -200,4 +203,4 @@ $(document).ready(function() {
 		return false;
 	});
 	
-})
+});
