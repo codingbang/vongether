@@ -179,7 +179,7 @@
 
 <!-- modal popup -->
 <div id="myModal" class="modal" tabindex="-1" role="dialog" data-backdrop="">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -196,7 +196,7 @@
 								<div>
 									<div class="col-lg-10">
 										<input type="text" class="form-control" id="query" name="query"
-											style="width: 472px;" required="true"> <input type="hidden" id="currentPage"
+											style="width: 700px;" required="true"> <input type="hidden" id="currentPage"
 											name="currentPage" value="" >
 									</div>
 									<div class="col-lg-2">
@@ -210,6 +210,10 @@
 
 				<div>
 					<table class="table">
+					      <colgroup>
+                  <col width="10%">
+                  <col width="*">
+                </colgroup>
 						<thead>
 							<tr>
 								<th>우편번호</th>
